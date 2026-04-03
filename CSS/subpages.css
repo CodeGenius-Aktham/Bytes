@@ -1,0 +1,977 @@
+ :root {
+     --bg-black: #101820;
+     --text-silver: #f5f5f7;
+     --brand-green: #19510A;
+     --brand-gray: #a1a1a1;
+     --apple-gray: #f5f5f7;
+     --font-main: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+     --laptop-color: #303030;
+ }
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ html {
+     scroll-behavior: smooth;
+ }
+
+ /* --- BUSCA ESTE BLOQUE Y ACTUALÍZALO --- */
+ body,
+ html {
+     width: 100%;
+     /* Eliminamos height: 100% y cambiamos overflow */
+     min-height: 100vh;
+     background-color: var(--bg-black);
+     font-family: var(--font-main);
+     color: var(--text-silver);
+     overflow-x: hidden;
+     /* Evita scroll horizontal */
+     overflow-y: auto;
+     /* PERMITE el scroll vertical */
+ }
+
+ /* --- 2. LAYOUT PRINCIPAL --- */
+ .hero-launch {
+     width: 100%;
+     min-height: 100vh;
+     /* Asegura que ocupe al menos toda la pantalla */
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     padding-top: 44px;
+ }
+
+ /* --- 3. NAVBAR APPLE ESTILO GLASSMORPHISM --- */
+ /* --- BARRA DE NAVEGACIÓN APPLE / BYTES (FIDELIDAD TOTAL) --- */
+ .apple-navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 44px;
+     /* Altura exacta del estándar de Apple */
+     background: rgba(16, 24, 32, 0.8);
+     /* Tu --bg-deep con opacidad */
+     backdrop-filter: saturate(180%) blur(20px);
+     -webkit-backdrop-filter: saturate(180%) blur(20px);
+     z-index: 9999;
+     border-bottom: 1px solid rgba(215, 215, 214, 0.08);
+ }
+
+ .navbar-content {
+     max-width: 1024px;
+     /* Ancho de contención de Apple Desktop */
+     height: 100%;
+     margin: 0 auto;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 22px;
+     position: relative;
+ }
+
+ /* Ajuste del Logo */
+ .nav-logo {
+     display: flex;
+     align-items: center;
+     z-index: 10;
+     transition: opacity 0.3s ease;
+ }
+
+ .nav-logo img {
+     height: 16px;
+     /* Reducción a 16px para mayor elegancia */
+     width: auto;
+     opacity: 0.8;
+ }
+
+ .nav-logo:hover {
+     opacity: 1;
+ }
+
+ /* Lista de enlaces: El corazón del diseño Apple */
+ .nav-list {
+     list-style: none;
+     display: flex;
+     gap: 34px;
+     /* Espaciado exacto entre ítems */
+     margin: 0;
+     padding: 0;
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     /* Centrado absoluto respecto a la pantalla */
+ }
+
+ .nav-list a {
+     text-decoration: none;
+     color: #f5f5f7;
+     /* --apple-gray directo */
+     font-size: 12px;
+     font-weight: 400;
+     letter-spacing: -0.01em;
+     /* Tracking negativo típico de SF Pro */
+     opacity: 0.8;
+     transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+ }
+
+ .nav-list a:hover {
+     opacity: 1;
+ }
+
+ /* Icono de búsqueda / Bolsa (Opcional, pero completa el look) */
+ .nav-actions {
+     display: flex;
+     gap: 25px;
+     align-items: center;
+     z-index: 10;
+ }
+
+ .nav-actions svg {
+     height: 16px;
+     fill: #f5f5f7;
+     opacity: 0.8;
+     cursor: pointer;
+     transition: opacity 0.3s;
+ }
+
+ .nav-actions svg:hover {
+     opacity: 1;
+ }
+
+ /* --- RESPONSIVE NAVBAR OPTIMIZADA POR ABEL GHANAM --- */
+/* --- RESPONSIVE OPTIMIZADO PARA BYTES --- */
+
+/* Estilo del botón de menú (2 líneas minimalistas) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.menu-toggle .bar {
+    width: 20px;
+    height: 1.5px;
+    background-color: #f5f5f7;
+    transition: 0.3s;
+}
+
+@media (max-width: 800px) {
+    .menu-toggle {
+        display: flex; /* Mostramos el botón */
+    }
+
+    .nav-list {
+        display: none; /* Escondemos la lista horizontal */
+        flex-direction: column;
+        position: fixed;
+        top: 44px; /* Justo debajo de la barra */
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #101820; /* Tu color profundo */
+        padding: 40px 22px;
+        gap: 25px;
+        transform: none;
+        transition: all 0.4s ease;
+    }
+
+    /* Clase activa que pondremos con JS */
+    .nav-list.active {
+        display: flex;
+        animation: fadeInMenu 0.4s ease forwards;
+    }
+
+    .nav-list a {
+        font-size: 24px; /* Tamaño grande y legible tipo iPhone */
+        font-weight: 500;
+        opacity: 1;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid rgba(215, 215, 214, 0.1);
+        padding-bottom: 15px;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInMenu {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+
+
+ /* --- 4. TEXTO DE FONDO (BYTES WEB) --- */
+ .background-text {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     font-size: clamp(6rem, 25vw, 15rem);
+     font-weight: 900;
+     text-transform: uppercase;
+     letter-spacing: -0.05em;
+     color: #D7D7D6;
+     opacity: 0.05;
+     /* Ajustado para que no compita con la laptop */
+     white-space: nowrap;
+     z-index: 1;
+     -webkit-user-select: none;
+     user-select: none;
+     animation: textFocus 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+ }
+
+ @keyframes textFocus {
+     0% {
+         filter: blur(20px);
+         opacity: 0;
+         transform: translate(-50%, -45%) scale(0.9);
+     }
+
+     100% {
+         filter: blur(0);
+         opacity: 0.05;
+         transform: translate(-50%, -50%) scale(1);
+     }
+ }
+
+ /* --- 5. LA LAPTOP (SIMETRÍA APPLE) --- */
+ .laptop-container {
+     position: relative;
+     z-index: 10;
+     width: 100%;
+     max-width: 580px;
+     /* Reducido de 700px para mayor elegancia */
+     perspective: 1200px;
+     margin-top: 40px;
+     /* Empuja la laptop hacia abajo */
+     animation: laptopReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+     transition: transform 0.1s ease-out;
+     /* Suaviza el seguimiento del mouse */
+ }
+
+ /* Pantalla */
+ .laptop-screen {
+     background: #111;
+     border: 12px solid var(--laptop-color);
+     border-bottom: 18px solid var(--laptop-color);
+     border-radius: 12px 12px 2px 2px;
+     aspect-ratio: 16/10;
+     position: relative;
+     overflow: hidden;
+     box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+ }
+
+ /* Contenido de la pantalla */
+ .screen-content {
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(135deg, #101820 0%, #19510A 100%);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+ }
+
+ .screen-logo {
+     width: 60px;
+     height: 60px;
+     opacity: 0.8;
+     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+ }
+
+ /* Base de la laptop */
+ .laptop-base {
+     width: 110%;
+     height: 12px;
+     background: linear-gradient(to bottom, #404040, #151515);
+     margin-left: -5%;
+     border-radius: 0 0 10px 10px;
+     position: relative;
+ }
+
+ /* --- 6. TIPOGRAFÍA DE PRODUCTO --- */
+ .product-info {
+     text-align: center;
+     margin-top: 30px;
+     /* Espacio entre la laptop y el texto inferior */
+     z-index: 20;
+     position: relative;
+ }
+
+ .product-title {
+     font-size: clamp(1.8rem, 4vw, 2.8rem);
+     /* Un poco más contenido */
+     font-weight: 600;
+     letter-spacing: -0.02em;
+     margin-bottom: 8px;
+     background: linear-gradient(to bottom, #fff, #a1a1a1);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
+
+ .product-tagline {
+     font-size: 1.2rem;
+     font-weight: 400;
+     color: #86868b;
+     margin-bottom: 30px;
+ }
+
+ .btn-buy {
+     background: #0071e3;
+     color: white;
+     padding: 12px 24px;
+     border-radius: 980px;
+     text-decoration: none;
+     font-size: 17px;
+     font-weight: 400;
+     transition: all 0.3s;
+ }
+
+ .btn-buy:hover {
+     background: #0077ed;
+     transform: scale(1.05);
+ }
+
+ /* --- 7. ANIMACIONES --- */
+ @keyframes laptopReveal {
+     0% {
+         transform: translateY(100px) rotateX(20deg);
+         opacity: 0;
+     }
+
+     100% {
+         transform: translateY(0) rotateX(0deg);
+         opacity: 1;
+     }
+ }
+
+ /* Destello en la pantalla */
+ .screen-glare {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+     pointer-events: none;
+ }
+
+ /* --- 8. RESPONSIVE --- */
+ @media (max-width: 768px) {
+     .laptop-container {
+         max-width: 85%;
+     }
+
+     .background-text {
+         font-size: 5rem;
+     }
+
+     .nav-list {
+         display: none;
+     }
+
+     /* Ocultar enlaces en móvil para mantener estética */
+ }
+
+ /* --- SECCIÓN PROCESO: THE ARCHITECT --- */
+ .process-section {
+     width: 100%;
+     padding: 160px 0;
+     background-color: #D7D7D6;
+     overflow: hidden;
+     position: relative;
+ }
+
+ .process-grid {
+     max-width: 1400px;
+     margin: 0 auto;
+     display: flex;
+     flex-direction: column;
+     gap: 150px;
+     /* Espacio masivo para que cada paso respire */
+     padding: 0 5%;
+ }
+
+ .step-block {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 100px;
+     position: relative;
+ }
+
+ /* Alternar orden: Foto izquierda/Texto derecha y viceversa */
+ .step-block:nth-child(even) {
+     flex-direction: row-reverse;
+ }
+
+ .step-info {
+     flex: 1;
+     max-width: 500px;
+ }
+
+ .step-tag {
+     font-size: 14px;
+     font-weight: 700;
+     color: var(--brand-green);
+     text-transform: uppercase;
+     letter-spacing: 4px;
+     margin-bottom: 20px;
+     display: block;
+ }
+
+ .step-info h3 {
+     font-size: clamp(2.5rem, 5vw, 4rem);
+     line-height: 1.1;
+     color: #101820;
+     margin-bottom: 30px;
+     letter-spacing: -2px;
+ }
+
+ .step-info p {
+     font-size: 1.2rem;
+     line-height: 1.7;
+     color: #4a4a4a;
+     font-weight: 400;
+ }
+
+ /* El elemento visual: "The Tech Module" */
+ .step-visual-module {
+     flex: 1.2;
+     height: 500px;
+     background: rgba(255, 255, 255, 0.4);
+     backdrop-filter: blur(20px);
+     border-radius: 40px;
+     border: 1px solid rgba(255, 255, 255, 0.6);
+     position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.03);
+     overflow: hidden;
+ }
+
+ /* Decoración interna del módulo */
+ .module-inner {
+     width: 80%;
+     height: 80%;
+     border: 1px dashed rgba(25, 81, 10, 0.2);
+     border-radius: 20px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+ }
+
+ .module-inner span {
+     font-family: monospace;
+     font-size: 12px;
+     color: var(--brand-green);
+     position: absolute;
+     top: 10px;
+     left: 10px;
+     opacity: 0.5;
+ }
+
+ /* Animación de entrada al hacer scroll */
+ .reveal {
+     opacity: 0;
+     transform: translateY(50px);
+     transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+ }
+
+ .reveal.active {
+     opacity: 1;
+     transform: translateY(0);
+ }
+
+ @media (max-width: 968px) {
+
+     .step-block,
+     .step-block:nth-child(even) {
+         flex-direction: column;
+         text-align: center;
+     }
+
+     .step-visual-module {
+         width: 100%;
+         height: 350px;
+     }
+ }
+
+ /* --- SECCIÓN: PLANES DE DESPLIEGUE (DARK MODE) --- */
+ .pricing-section {
+     width: 100%;
+     padding: 120px 5%;
+     background-color: #101820;
+     /* Color base solicitado */
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: relative;
+ }
+
+ .pricing-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+     gap: 25px;
+     width: 100%;
+     max-width: 1200px;
+     margin-top: 60px;
+ }
+
+ .price-card {
+     background: rgba(255, 255, 255, 0.03);
+     backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+     border: 1px solid rgba(255, 255, 255, 0.08);
+     border-radius: 30px;
+     padding: 60px 40px;
+     display: flex;
+     flex-direction: column;
+     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+     color: #f5f5f7;
+ }
+
+ /* Efecto de brillo al pasar el mouse */
+ .price-card:hover {
+     transform: translateY(-10px);
+     background: rgba(255, 255, 255, 0.05);
+     border-color: var(--brand-green);
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+ }
+
+ .plan-type {
+     font-size: 11px;
+     font-weight: 700;
+     letter-spacing: 3px;
+     text-transform: uppercase;
+     color: var(--brand-green);
+     margin-bottom: 15px;
+ }
+
+ .plan-title {
+     font-size: 2.2rem;
+     font-weight: 700;
+     margin-bottom: 10px;
+     letter-spacing: -1px;
+ }
+
+ .plan-price {
+     font-size: 1.1rem;
+     color: var(--brand-gray);
+     margin-bottom: 30px;
+     font-weight: 400;
+ }
+
+ .plan-features {
+     list-style: none;
+     padding: 0;
+     margin-bottom: 50px;
+     flex-grow: 1;
+ }
+
+ .plan-features li {
+     padding: 15px 0;
+     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+     font-size: 0.95rem;
+     color: #a1a1a1;
+     display: flex;
+     align-items: center;
+     gap: 12px;
+ }
+
+ /* Icono de check personalizado */
+ .plan-features li::before {
+     content: "→";
+     color: var(--brand-green);
+     font-weight: bold;
+ }
+
+ .btn-plan {
+     width: 100%;
+     padding: 20px;
+     border-radius: 16px;
+     font-size: 15px;
+     font-weight: 600;
+     text-align: center;
+     text-decoration: none;
+     transition: all 0.3s ease;
+     border: 1px solid rgba(255, 255, 255, 0.1);
+ }
+
+ /* Botón principal */
+ .btn-primary {
+     background: #f5f5f7;
+     color: #101820;
+ }
+
+ .btn-outline {
+     background: transparent;
+     color: #f5f5f7;
+ }
+
+ .btn-plan:hover {
+     background: var(--brand-green);
+     color: white;
+     border-color: var(--brand-green);
+ }
+
+ /* Badge de Urgencia/Popular */
+ .badge-tech {
+     position: absolute;
+     top: 25px;
+     right: 30px;
+     background: var(--brand-green);
+     color: white;
+     padding: 4px 12px;
+     border-radius: 20px;
+     font-size: 10px;
+     font-weight: 800;
+ }
+
+ /* --- SECCIÓN: CONTACTO / FORMULARIO --- */
+ .contact-section {
+     width: 100%;
+     padding: 100px 5%;
+     background-color: #D7D7D6;
+     /* Base gris clara para contraste con los planes oscuros */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .contact-container {
+     width: 100%;
+     max-width: 900px;
+     background: #f5f5f7;
+     /* Gris Apple muy claro */
+     padding: 80px;
+     border-radius: 40px;
+     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+     display: grid;
+     grid-template-columns: 1fr 1.5fr;
+     gap: 60px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .contact-info-side h2 {
+     font-size: 2.5rem;
+     color: #101820;
+     line-height: 1.1;
+     margin-bottom: 20px;
+     letter-spacing: -1.5px;
+ }
+
+ .contact-info-side p {
+     color: #666;
+     font-size: 1rem;
+     line-height: 1.6;
+ }
+
+ /* Estilo de los Inputs */
+ .form-group {
+     margin-bottom: 25px;
+     position: relative;
+ }
+
+ .form-group input,
+ .form-group textarea,
+ .form-group select {
+     width: 100%;
+     padding: 18px 20px;
+     background: #ffffff;
+     border: 1px solid rgba(0, 0, 0, 0.08);
+     border-radius: 16px;
+     font-family: var(--font-main);
+     font-size: 16px;
+     color: #101820;
+     outline: none;
+     transition: all 0.3s ease;
+ }
+
+ .form-group textarea {
+     height: 150px;
+     resize: none;
+ }
+
+ .form-group input:focus,
+ .form-group textarea:focus {
+     border-color: var(--brand-green);
+     box-shadow: 0 0 0 4px rgba(25, 81, 10, 0.05);
+ }
+
+ /* Label flotante o sutil */
+ .form-group label {
+     display: block;
+     font-size: 12px;
+     font-weight: 700;
+     color: #888;
+     margin-bottom: 8px;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+
+ .btn-send {
+     width: 100%;
+     padding: 20px;
+     background: #101820;
+     color: white;
+     border: none;
+     border-radius: 16px;
+     font-size: 17px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s;
+ }
+
+ .btn-send:hover {
+     background: var(--brand-green);
+     transform: translateY(-2px);
+     box-shadow: 0 10px 20px rgba(25, 81, 10, 0.2);
+ }
+
+ /* Responsive */
+ @media (max-width: 850px) {
+     .contact-container {
+         grid-template-columns: 1fr;
+         padding: 40px;
+     }
+
+     .contact-info-side {
+         text-align: center;
+     }
+ }
+
+ /* --- EL FOOTER MÁS ÚNICO: HORIZONTE INFINITO --- */
+ .unique-footer {
+     width: 100%;
+     background-color: #101820;
+     /* El azul profundo solicitado */
+     color: #D7D7D6;
+     /* El gris claro solicitado */
+     position: relative;
+     padding: 150px 8% 50px;
+     z-index: 120;
+     overflow: hidden;
+ }
+
+ /* Curva de transición elegante desde la sección anterior (#D7D7D6) */
+ .footer-curve {
+     position: absolute;
+     top: -1px;
+     left: 0;
+     width: 100%;
+     height: 100px;
+     background: #D7D7D6;
+     clip-path: ellipse(60% 100% at 50% 0%);
+ }
+
+ .footer-hero {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 120px;
+ }
+
+ .footer-big-text {
+     font-size: clamp(3rem, 10vw, 7rem);
+     font-weight: 900;
+     line-height: 0.9;
+     letter-spacing: -4px;
+ }
+
+ .glitch-text {
+     color: #19510A;
+     /* Tu verde institucional */
+     position: relative;
+ }
+
+ /* Botón Orbital (Único en el mercado) */
+ .footer-cta-orbital {
+     width: 200px;
+     height: 200px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-decoration: none;
+     position: relative;
+     transition: transform 0.5s ease;
+ }
+
+ .cta-inner {
+     color: #D7D7D6;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     z-index: 2;
+ }
+
+ .cta-ring {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     border: 1px solid rgba(25, 81, 10, 0.5);
+     border-radius: 50%;
+     animation: orbit 4s linear infinite;
+ }
+
+ .cta-ring::after {
+     content: '';
+     position: absolute;
+     top: -5px;
+     left: 50%;
+     width: 10px;
+     height: 10px;
+     background: #19510A;
+     border-radius: 50%;
+     box-shadow: 0 0 15px #19510A;
+ }
+
+ @keyframes orbit {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ .footer-cta-orbital:hover {
+     transform: scale(1.1);
+ }
+
+ /* Barra inferior de datos */
+ .footer-bottom-bar {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-end;
+     padding-top: 50px;
+     border-top: 1px solid rgba(215, 215, 214, 0.1);
+ }
+
+ .footer-mini-logo {
+     height: 30px;
+     margin-bottom: 15px;
+     filter: brightness(0) invert(1) opacity(0.5);
+     /* Hace que el logo se vea blanco sutil */
+ }
+
+ .footer-brand p {
+     font-size: 0.9rem;
+     opacity: 0.5;
+ }
+
+ .footer-nav {
+     display: flex;
+     gap: 100px;
+ }
+
+ .nav-group {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+ }
+
+ .nav-group a {
+     color: #D7D7D6;
+     text-decoration: none;
+     font-size: 1rem;
+     font-weight: 500;
+     opacity: 0.6;
+     transition: opacity 0.3s, color 0.3s;
+ }
+
+ .nav-group a:hover {
+     opacity: 1;
+     color: #19510A;
+ }
+
+ /* RESPONSIVE */
+ @media (max-width: 900px) {
+     .footer-hero {
+         flex-direction: column;
+         text-align: center;
+         gap: 50px;
+     }
+
+     .footer-bottom-bar {
+         flex-direction: column;
+         align-items: center;
+         gap: 40px;
+         text-align: center;
+     }
+
+     .footer-nav {
+         gap: 40px;
+     }
+ }
+
+
+
+ /* --- CONTENEDOR DE REDES --- */
+ .social-nodes {
+     display: flex;
+     gap: 15px;
+     align-items: center;
+ }
+
+ .social-link {
+     width: 40px;
+     height: 40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 12px;
+     background: rgba(255, 255, 255, 0.03);
+     /* Casi invisible */
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     color: #86868b;
+     /* Gris apagado inicial */
+     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+     position: relative;
+     overflow: hidden;
+ }
+
+ .social-link:hover {
+     color: #19510A;
+     /* El verde de Bytes */
+     background: rgba(25, 81, 10, 0.1);
+     /* Brillo tenue de fondo */
+     border-color: rgba(25, 81, 10, 0.3);
+     transform: translateY(-5px);
+     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Efecto de resplandor sutil detrás del icono al hacer hover */
+ .social-link::after {
+     content: '';
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: radial-gradient(circle, rgba(25, 81, 10, 0.2) 0%, transparent 70%);
+     opacity: 0;
+     transition: opacity 0.3s ease;
+ }
+
+ .social-link:hover::after {
+     opacity: 1;
+ }
+
+ /* Ajuste para que el SVG esté por encima del resplandor */
+ .social-link svg {
+     z-index: 2;
+     position: relative;
+ }
+
+ 

@@ -1,0 +1,916 @@
+/* --- 1. VARIABLES Y CONFIGURACIÓN --- */
+:root {
+    --bg-deep: #101820;
+    --brand-green: #19510A;
+    --brand-gray: #D7D7D6;
+    --apple-gray: #f5f5f7;
+    --font-main: "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    background-color: var(--bg-deep);
+    font-family: var(--font-main);
+    color: var(--brand-gray);
+    overflow-x: hidden;
+}
+
+/* --- 2. FONDO FIJO COMPLETO (ESTRELLAS Y FUGAZ) --- */
+.background-fixed {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+    background: radial-gradient(circle at center, #1a2a1a 0%, var(--bg-deep) 100%);
+    overflow: hidden;
+}
+
+.stars { position: absolute; top: 0; left: 0; background: transparent; }
+
+/* Capas de estrellas */
+.layer1 { width: 1px; height: 1px; box-shadow: 1vw 2vh #fff, 4vw 8vh #fff, 12vw 3vh #fff, 18vw 5vh #fff, 5vw 35vh #fff, 10vw 55vh #fff, 85vw 2vh #fff, 92vw 8vh #fff, 95vw 85vh #fff; animation: blink 4s infinite alternate; }
+.layer2 { width: 2px; height: 2px; box-shadow: 3vw 15vh var(--brand-green), 7vw 50vh var(--brand-green), 85vw 25vh var(--brand-green), 95vw 60vh var(--brand-green), 45vw 5vh var(--brand-green); animation: blink 3s infinite alternate-reverse; }
+.layer3 { box-shadow: 20vw 10vh #fff, 15vw 30vh #fff, 70vw 15vh #fff, 85vw 40vh #fff, 20vw 80vh #fff, 65vw 90vh #fff; animation: blink 5s infinite alternate; }
+.layer4 { box-shadow: 0.5vw 0.5vh #fff, 99.5vw 0.5vh #fff, 0.5vw 99.5vh #fff, 99.5vw 99.5vh #fff; animation: blink 2.5s infinite alternate-reverse; }
+
+@keyframes blink { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+/* Estrella Fugaz */
+.shooting-star-u {
+    position: absolute;
+    top: -5%; left: 50%;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 10px var(--brand-green));
+    opacity: 0;
+    transform-origin: 0 650px; 
+    animation: arcTrajectory 10s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.shooting-star-u::after {
+    content: ''; position: absolute; top: 50%; right: 0;
+    width: 140px; height: 1px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+    transform: translateY(-50%);
+}
+
+@keyframes arcTrajectory {
+    0% { transform: rotate(-130deg); opacity: 0; }
+    5% { opacity: 1; }
+    35% { opacity: 1; } 
+    55% { transform: rotate(130deg); opacity: 0; }
+    100% { transform: rotate(130deg); opacity: 0; }
+}
+
+/* --- 3. SECCIÓN 1: HERO BYTES --- */
+.space-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-wrapper { text-align: center; z-index: 10; animation: revealIn 2s forwards; }
+
+.hero-logo { 
+    width: 160px; 
+    margin-bottom: 25px; 
+    filter: drop-shadow(0 0 30px rgba(25, 81, 10, 0.4)); 
+}
+
+.brand-name-bytes {
+    font-size: clamp(4rem, 15vw, 9rem); 
+    font-weight: 900; 
+    font-style: italic;
+    letter-spacing: -2px; 
+    text-transform: uppercase;
+    background: linear-gradient(180deg, var(--brand-gray) 0%, #8a8a8a 100%);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    line-height: 1.1;
+    padding-right: 0.15em; /* Fix para la S */
+}
+
+.tagline-bytes { font-size: 1.1rem; letter-spacing: 10px; color: var(--brand-green); text-transform: uppercase; margin-top: 15px; }
+
+/* --- 4. SECCIÓN 2: PRODUCTOS SIMÉTRICOS (APPLE STYLE) --- */
+.products-grid-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 20; /* Asegura que cubra el fondo de estrellas al hacer scroll */
+    position: relative;
+    background-color: #000;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.product-card.light { background-color: var(--apple-gray); color: #1d1d1f; }
+.product-card.dark { background-color: #000; color: #fff; }
+
+/* Imágenes Gemelas Superiores */
+.product-media {
+    height: 320px;
+    width: auto;
+    max-width: 90%;
+    object-fit: contain;
+    margin-bottom: 50px;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    order: -1;
+}
+
+.product-card:hover .product-media { transform: scale(1.04); }
+
+/* Tipografía de Producto */
+.product-title { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 600; line-height: 1.1; margin-bottom: 15px; }
+.product-tagline { font-size: 1.3rem; font-weight: 400; margin-bottom: 35px; opacity: 0.85; }
+
+/* Botones Apple */
+.button-group { display: flex; gap: 15px; justify-content: center; }
+.btn-blue, .btn-outline { padding: 12px 26px; border-radius: 980px; text-decoration: none; font-size: 17px; transition: all 0.3s ease; }
+.btn-blue { background: #0071e3; color: #fff; }
+.btn-blue:hover { background: #0077ed; }
+.btn-outline { border: 1px solid #2997ff; color: #2997ff; }
+.btn-outline:hover { background: #2997ff; color: #fff; }
+
+/* --- 5. INDICADORES --- */
+.scroll-indicator { margin-top: 60px; display: flex; justify-content: center; }
+.mouse { width: 26px; height: 42px; border: 2px solid var(--brand-green); border-radius: 20px; display: flex; justify-content: center; padding-top: 8px; }
+.wheel { width: 3px; height: 8px; background: var(--brand-green); border-radius: 2px; animation: scrollWheel 2s infinite; }
+
+@keyframes scrollWheel { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(15px); } }
+@keyframes revealIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- 6. RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .products-grid-section { grid-template-columns: 1fr; }
+    .product-card { min-height: 70vh; padding: 60px 20px; }
+    .product-media { height: 220px; }
+}
+
+/* --- SECCIÓN ESPECIAL ANA --- */
+.ana-special-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    padding: 100px 20px;
+    background: radial-gradient(circle at center, rgba(25, 81, 10, 0.15) 0%, transparent 70%);
+}
+
+.ana-container {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    padding: 60px;
+    background: rgba(16, 24, 32, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(215, 215, 214, 0.1);
+    border-radius: 40px;
+}
+
+/* Visual de ANA con efecto de pulsación */
+.ana-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ana-core-img {
+    width: 100%;
+    max-width: 350px;
+    z-index: 2;
+    filter: drop-shadow(0 0 50px var(--brand-green));
+    animation: floating 6s ease-in-out infinite;
+}
+
+.ana-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--brand-green);
+    filter: blur(120px);
+    opacity: 0.4;
+    border-radius: 50%;
+    animation: pulseGlow 4s infinite alternate;
+}
+
+/* Textos ANA */
+.ana-badge {
+    color: var(--brand-green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.ana-title {
+    font-size: clamp(4rem, 10vw, 6rem);
+    font-weight: 900;
+    color: #fff;
+    margin: 10px 0;
+    letter-spacing: -2px;
+}
+
+.ana-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--brand-gray);
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+/* BOTONES ÚNICOS BYTES/ANA */
+.ana-button-group {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-ana-primary {
+    background: var(--brand-green);
+    color: #fff;
+    padding: 16px 35px;
+    border-radius: 15px; /* Bordes menos Apple, más tecnológicos */
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(25, 81, 10, 0.3);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-ana-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(25, 81, 10, 0.5);
+    background: #24750e;
+}
+
+.btn-ana-secondary {
+    background: transparent;
+    color: #fff;
+    padding: 16px 35px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(215, 215, 214, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-ana-secondary:hover {
+    background: rgba(215, 215, 214, 0.1);
+    border-color: #fff;
+}
+
+/* Animaciones */
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulseGlow {
+    from { transform: scale(1); opacity: 0.3; }
+    to { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .ana-container {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        text-align: center;
+    }
+    .ana-button-group { justify-content: center; flex-direction: column; }
+    .ana-core-img { max-width: 250px; }
+} 
+/* --- SECCIÓN CRÓNICA: DISEÑO INDEPENDIENTE CLARO --- */
+.chronicle-section {
+    width: 100%;
+    min-height: 150vh;
+    background-color: #f4f1ea; /* Color papel/crema premium */
+    position: relative;
+    z-index: 70; /* Cubre todo lo anterior */
+    padding: 120px 5%;
+    color: #2c2c2c;
+    overflow: hidden;
+}
+
+/* Textura de grano fino para el fondo */
+.chronicle-bg-texture {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+}
+
+.chronicle-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.chronicle-intro {
+    text-align: center;
+    margin-bottom: 120px;
+}
+
+.chronicle-title {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 0.85;
+    color: #1a1a1a;
+    text-transform: uppercase;
+}
+
+.chronicle-line {
+    width: 60px;
+    height: 4px;
+    background: var(--brand-green);
+    margin: 30px auto;
+}
+
+/* Grid de la Historia */
+.story-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.story-entry {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+.story-entry.right { flex-direction: row-reverse; }
+
+.entry-year {
+    font-size: 6rem;
+    font-weight: 900;
+    color: rgba(25, 81, 10, 0.1); /* Verde muy tenue de fondo */
+    line-height: 1;
+    flex: 1;
+    text-align: center;
+}
+
+.entry-box {
+    flex: 1.5;
+    background: #ffffff;
+    padding: 60px;
+    border-radius: 2px; /* Brutalismo sutil */
+    box-shadow: 20px 20px 0px rgba(25, 81, 10, 0.05); /* Sombra sólida */
+    border: 1px solid #e0e0e0;
+    transition: all 0.4s ease;
+}
+
+.entry-box:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 30px 30px 0px rgba(25, 81, 10, 0.08);
+}
+
+.entry-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brand-green);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.entry-box h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.entry-box p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .story-entry, .story-entry.right { flex-direction: column; text-align: center; }
+    .entry-year { font-size: 4rem; }
+    .entry-box { padding: 40px 20px; width: 100%; }
+}
+
+/* --- SECCIÓN ENFOQUE: EFICACIA Y SIMETRÍA PERFECTA --- */
+.focus-nav-section {
+    width: 100%;
+    padding: 120px 8%; /* Más espacio lateral para comodidad */
+    background-color: #D7D7D6; /* Lienzo claro solicitado */
+    color: #101820; /* Texto profundo solicitado */
+    position: relative;
+    z-index: 110; /* Bloquea totalmente las estrellas */
+    overflow: hidden;
+}
+
+.focus-container {
+    max-width: 1300px; /* Un poco más ancho para dar aire */
+    margin: 0 auto;
+}
+
+.focus-intro {
+    text-align: center;
+    margin-bottom: 80px; /* Más aire antes de los bloques */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.focus-label {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #19510A; /* Acento verde de marca */
+    display: block;
+    margin-bottom: 15px;
+}
+
+.focus-title {
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 15px;
+}
+
+.focus-title span {
+    color: #111; /* Nombre de marca en negro azulado */
+}
+
+.focus-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.6;
+}
+
+/* Grid Simétrico de 3 Columnas Fijas (FIX: Evita el corte visual) */
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas idénticas */
+    gap: 30px; /* Espacio uniforme entre bloques */
+}
+
+.focus-card {
+    background: #ffffff; /* Blanco puro sobre el gris de fondo */
+    padding: 50px 40px; /* Padding generoso para comodidad */
+    border-radius: 24px; /* Bordes suaves */
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 320px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Transición más premium */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* Sombra muy sutil */
+    position: relative;
+}
+
+/* Efecto Hover Eficaz e Inversión de Color */
+.focus-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(16, 24, 32, 0.15);
+    background: #101820; /* Color azul profundo de marca */
+    color: #D7D7D6; /* Texto claro de marca */
+}
+
+.focus-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrado perfecto del contenido */
+    text-align: center;
+}
+
+.focus-icon {
+    width: 60px; /* Un poco más grande para ser visual */
+    height: 60px;
+    color: #19510A; /* Verde de marca */
+    margin-bottom: 30px;
+    transition: color 0.4s ease;
+}
+
+.focus-card:hover .focus-icon {
+    color: #D7D7D6; /* Icono claro en hover */
+}
+
+.focus-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.focus-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.7;
+    max-width: 300px;
+}
+
+.focus-arrow {
+    align-self: flex-end; /* Flecha abajo a la derecha */
+    font-size: 1.6rem;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.4s ease;
+    margin-top: 20px;
+}
+
+.focus-card:hover .focus-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .focus-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* 2 Columnas en tablet */
+    .focus-nav-section { padding: 100px 5%; }
+}
+
+@media (max-width: 768px) {
+    .focus-grid { grid-template-columns: 1fr; } /* 1 Columna en móvil */
+    .focus-card { min-height: auto; padding: 40px 20px; }
+}
+
+/* --- EL FOOTER MÁS ÚNICO: HORIZONTE INFINITO --- */
+.unique-footer {
+    width: 100%;
+    background-color: #101820; /* El azul profundo solicitado */
+    color: #D7D7D6; /* El gris claro solicitado */
+    position: relative;
+    padding: 150px 8% 50px;
+    z-index: 120;
+    overflow: hidden;
+}
+
+/* Curva de transición elegante desde la sección anterior (#D7D7D6) */
+.footer-curve {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #D7D7D6;
+    clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.footer-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 120px;
+}
+
+.footer-big-text {
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -4px;
+}
+
+.glitch-text {
+    color: #19510A; /* Tu verde institucional */
+    position: relative;
+}
+
+/* Botón Orbital (Único en el mercado) */
+.footer-cta-orbital {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.cta-inner {
+    color: #D7D7D6;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 2;
+}
+
+.cta-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(25, 81, 10, 0.5);
+    border-radius: 50%;
+    animation: orbit 4s linear infinite;
+}
+
+.cta-ring::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #19510A;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #19510A;
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.footer-cta-orbital:hover {
+    transform: scale(1.1);
+}
+
+/* Barra inferior de datos */
+.footer-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 50px;
+    border-top: 1px solid rgba(215, 215, 214, 0.1);
+}
+
+.footer-mini-logo {
+    height: 30px;
+    margin-bottom: 15px;
+    filter: brightness(0) invert(1) opacity(0.5); /* Hace que el logo se vea blanco sutil */
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    opacity: 0.5;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 100px;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-group a {
+    color: #D7D7D6;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.6;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.nav-group a:hover {
+    opacity: 1;
+    color: #19510A;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .footer-hero { flex-direction: column; text-align: center; gap: 50px; }
+    .footer-bottom-bar { flex-direction: column; align-items: center; gap: 40px; text-align: center; }
+    .footer-nav { gap: 40px; }
+}
+
+
+
+
+/* --- BARRA DE NAVEGACIÓN ESTILO APPLE / BYTES --- */
+.apple-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 44px; /* Altura estándar de Apple */
+    /* Usamos tu color de fondo con transparencia para el efecto Glassmorphism */
+    background: rgba(16, 24, 32, 0.8); 
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    z-index: 9999;
+    border-bottom: 1px solid rgba(215, 215, 214, 0.08);
+}
+
+.navbar-content {
+    max-width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+}
+
+/* Ajuste del Logo en la barra */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.nav-logo img {
+    height: 18px; /* Tamaño sutil */
+    width: auto;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover img {
+    opacity: 1;
+}
+
+/* Lista de enlaces */
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 34px; /* Espaciado exacto de Apple */
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: var(--brand-gray);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    opacity: 0.7;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    font-family: var(--font-main);
+}
+
+.nav-list a:hover {
+    color: var(--apple-gray);
+    opacity: 1;
+}
+
+/* Espaciador para equilibrio visual */
+.nav-spacer {
+    width: 18px; /* Mismo ancho que el logo para centrar la lista perfectamente */
+}
+
+/* Ajuste preventivo para el contenido debajo */
+body {
+    padding-top: 0; /* Mantener en 0 si quieres que el hero inicie bajo la barra */
+}
+
+/* --- RESPONSIVE NAVBAR --- */
+/* --- RESPONSIVE OPTIMIZADO PARA BYTES --- */
+
+/* Estilo del botón de menú (2 líneas minimalistas) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.menu-toggle .bar {
+    width: 20px;
+    height: 1.5px;
+    background-color: #f5f5f7;
+    transition: 0.3s;
+}
+
+@media (max-width: 800px) {
+    .menu-toggle {
+        display: flex; /* Mostramos el botón */
+    }
+
+    .nav-list {
+        display: none; /* Escondemos la lista horizontal */
+        flex-direction: column;
+        position: fixed;
+        top: 44px; /* Justo debajo de la barra */
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #101820; /* Tu color profundo */
+        padding: 40px 22px;
+        gap: 25px;
+        transform: none;
+        transition: all 0.4s ease;
+    }
+
+    /* Clase activa que pondremos con JS */
+    .nav-list.active {
+        display: flex;
+        animation: fadeInMenu 0.4s ease forwards;
+    }
+
+    .nav-list a {
+        font-size: 24px; /* Tamaño grande y legible tipo iPhone */
+        font-weight: 500;
+        opacity: 1;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid rgba(215, 215, 214, 0.1);
+        padding-bottom: 15px;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInMenu {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+
+
+
+
+
+
+
+/* --- CONTENEDOR DE REDES --- */
+.social-nodes {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03); /* Casi invisible */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #86868b; /* Gris apagado inicial */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link:hover {
+    color: #19510A; /* El verde de Bytes */
+    background: rgba(25, 81, 10, 0.1); /* Brillo tenue de fondo */
+    border-color: rgba(25, 81, 10, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de resplandor sutil detrás del icono al hacer hover */
+.social-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(25, 81, 10, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-link:hover::after {
+    opacity: 1;
+}
+
+/* Ajuste para que el SVG esté por encima del resplandor */
+.social-link svg {
+    z-index: 2;
+    position: relative;
+}

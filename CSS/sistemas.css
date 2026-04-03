@@ -1,0 +1,1183 @@
+ :root {
+     --bg-black: #101820;
+     --text-silver: #f5f5f7;
+     --brand-green: #19510A;
+     --brand-gray: #a1a1a1;
+     --apple-gray: #f5f5f7;
+     --font-main: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+     --laptop-color: #303030;
+ }
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ html {
+     scroll-behavior: smooth;
+ }
+
+ /* --- BUSCA ESTE BLOQUE Y ACTUALÍZALO --- */
+ body,
+ html {
+     width: 100%;
+     /* Eliminamos height: 100% y cambiamos overflow */
+     min-height: 100vh;
+     background-color: var(--bg-black);
+     font-family: var(--font-main);
+     color: var(--text-silver);
+     overflow-x: hidden;
+     /* Evita scroll horizontal */
+     overflow-y: auto;
+     /* PERMITE el scroll vertical */
+ }
+
+ /* --- 2. LAYOUT PRINCIPAL --- */
+ .hero-launch {
+     width: 100%;
+     min-height: 100vh;
+     /* Asegura que ocupe al menos toda la pantalla */
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     padding-top: 44px;
+ }
+
+ /* --- 3. NAVBAR APPLE ESTILO GLASSMORPHISM --- */
+ /* --- BARRA DE NAVEGACIÓN APPLE / BYTES (FIDELIDAD TOTAL) --- */
+ .apple-navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 44px;
+     /* Altura exacta del estándar de Apple */
+     background: rgba(16, 24, 32, 0.8);
+     /* Tu --bg-deep con opacidad */
+     backdrop-filter: saturate(180%) blur(20px);
+     -webkit-backdrop-filter: saturate(180%) blur(20px);
+     z-index: 9999;
+     border-bottom: 1px solid rgba(215, 215, 214, 0.08);
+ }
+
+ .navbar-content {
+     max-width: 1024px;
+     /* Ancho de contención de Apple Desktop */
+     height: 100%;
+     margin: 0 auto;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 22px;
+     position: relative;
+ }
+
+ /* Ajuste del Logo */
+ .nav-logo {
+     display: flex;
+     align-items: center;
+     z-index: 10;
+     transition: opacity 0.3s ease;
+ }
+
+ .nav-logo img {
+     height: 16px;
+     /* Reducción a 16px para mayor elegancia */
+     width: auto;
+     opacity: 0.8;
+ }
+
+ .nav-logo:hover {
+     opacity: 1;
+ }
+
+ /* Lista de enlaces: El corazón del diseño Apple */
+ .nav-list {
+     list-style: none;
+     display: flex;
+     gap: 34px;
+     /* Espaciado exacto entre ítems */
+     margin: 0;
+     padding: 0;
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     /* Centrado absoluto respecto a la pantalla */
+ }
+
+ .nav-list a {
+     text-decoration: none;
+     color: #f5f5f7;
+     /* --apple-gray directo */
+     font-size: 12px;
+     font-weight: 400;
+     letter-spacing: -0.01em;
+     /* Tracking negativo típico de SF Pro */
+     opacity: 0.8;
+     transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+ }
+
+ .nav-list a:hover {
+     opacity: 1;
+ }
+
+ /* Icono de búsqueda / Bolsa (Opcional, pero completa el look) */
+ .nav-actions {
+     display: flex;
+     gap: 25px;
+     align-items: center;
+     z-index: 10;
+ }
+
+ .nav-actions svg {
+     height: 16px;
+     fill: #f5f5f7;
+     opacity: 0.8;
+     cursor: pointer;
+     transition: opacity 0.3s;
+ }
+
+ .nav-actions svg:hover {
+     opacity: 1;
+ }
+
+ /* --- RESPONSIVE NAVBAR OPTIMIZADA POR ABEL GHANAM --- */
+/* --- RESPONSIVE OPTIMIZADO PARA BYTES --- */
+
+/* Estilo del botón de menú (2 líneas minimalistas) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.menu-toggle .bar {
+    width: 20px;
+    height: 1.5px;
+    background-color: #f5f5f7;
+    transition: 0.3s;
+}
+
+@media (max-width: 800px) {
+    .menu-toggle {
+        display: flex; /* Mostramos el botón */
+    }
+
+    .nav-list {
+        display: none; /* Escondemos la lista horizontal */
+        flex-direction: column;
+        position: fixed;
+        top: 44px; /* Justo debajo de la barra */
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #101820; /* Tu color profundo */
+        padding: 40px 22px;
+        gap: 25px;
+        transform: none;
+        transition: all 0.4s ease;
+    }
+
+    /* Clase activa que pondremos con JS */
+    .nav-list.active {
+        display: flex;
+        animation: fadeInMenu 0.4s ease forwards;
+    }
+
+    .nav-list a {
+        font-size: 24px; /* Tamaño grande y legible tipo iPhone */
+        font-weight: 500;
+        opacity: 1;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid rgba(215, 215, 214, 0.1);
+        padding-bottom: 15px;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInMenu {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+
+ /* --- 4. TEXTO DE FONDO (BYTES WEB) --- */
+ .background-text {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     font-size: clamp(6rem, 25vw, 15rem);
+     font-weight: 900;
+     text-transform: uppercase;
+     letter-spacing: -0.05em;
+     color: #D7D7D6;
+     opacity: 0.05;
+     /* Ajustado para que no compita con la laptop */
+     white-space: nowrap;
+     z-index: 1;
+     -webkit-user-select: none;
+     user-select: none;
+     animation: textFocus 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+ }
+
+ @keyframes textFocus {
+     0% {
+         filter: blur(20px);
+         opacity: 0;
+         transform: translate(-50%, -45%) scale(0.9);
+     }
+
+     100% {
+         filter: blur(0);
+         opacity: 0.05;
+         transform: translate(-50%, -50%) scale(1);
+     }
+ }
+
+
+ /* --- 6. TIPOGRAFÍA DE PRODUCTO --- */
+ .product-info {
+     text-align: center;
+     margin-top: 30px;
+     /* Espacio entre la laptop y el texto inferior */
+     z-index: 20;
+     position: relative;
+ }
+
+ .product-title {
+     font-size: clamp(1.8rem, 4vw, 2.8rem);
+     /* Un poco más contenido */
+     font-weight: 600;
+     letter-spacing: -0.02em;
+     margin-bottom: 8px;
+     background: linear-gradient(to bottom, #fff, #a1a1a1);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
+
+ .product-tagline {
+     font-size: 1.2rem;
+     font-weight: 400;
+     color: #86868b;
+     margin-bottom: 30px;
+ }
+
+ .btn-buy {
+     background: #0071e3;
+     color: white;
+     padding: 12px 24px;
+     border-radius: 980px;
+     text-decoration: none;
+     font-size: 17px;
+     font-weight: 400;
+     transition: all 0.3s;
+ }
+
+ .btn-buy:hover {
+     background: #0077ed;
+     transform: scale(1.05);
+ }
+
+ /* --- 7. ANIMACIONES --- */
+ @keyframes laptopReveal {
+     0% {
+         transform: translateY(100px) rotateX(20deg);
+         opacity: 0;
+     }
+
+     100% {
+         transform: translateY(0) rotateX(0deg);
+         opacity: 1;
+     }
+ }
+
+ /* Destello en la pantalla */
+ .screen-glare {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+     pointer-events: none;
+ }
+
+ /* --- 8. RESPONSIVE --- */
+ @media (max-width: 768px) {
+     .laptop-container {
+         max-width: 85%;
+     }
+
+     .background-text {
+         font-size: 5rem;
+     }
+
+     .nav-list {
+         display: none;
+     }
+
+     /* Ocultar enlaces en móvil para mantener estética */
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- 1. CONTENEDOR DEL SATURNO MONUMENTAL --- */
+.giant-planet-container {
+    position: absolute;
+    top: 0;
+    right: 10px; /* Alineado a la DERECHA */
+    width: 50%; /* Ocupa la mitad derecha de la pantalla */
+    height: 100%;
+    z-index: 5; /* CAPA MEDIA: ENCIMA del texto de fondo, DEBAJO de la info del producto */
+    pointer-events: none; /* Deja pasar los clics */
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: flex-start; /* Alinea el contenido interno al borde izquierdo de ESTE contenedor (centro de la pantalla) */
+    overflow: hidden; /* Importante para cortar la parte derecha del planeta */
+}
+
+/* Envoltorio para manejar la inclinación y el corte */
+.saturn-wrap {
+    position: relative;
+    /* Tamaño monumental: 80% de la altura de la pantalla */
+    width: 80vh; 
+    height: 80vh;
+    /* Posicionamiento: El centro de este div estará en el borde derecho de la pantalla */
+    transform: translate(10%, 0%) rotate(-15deg); /* Inclinación "estilo Saturno" */
+    animation: planetRevealRefined 2.5s ease-out forwards;
+}
+
+/* --- 2. EL CUERPO DEL PLANETA (COLOR #D7D7D6) --- */
+.saturn-planet {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55%; /* Relación de tamaño respecto a los anillos */
+    height: 55%;
+    /* Color sólido solicitado con degradado sutil para volumen */
+    background: radial-gradient(circle at 30% 30%, #fff 0%, #d7d7d642 40%, #a1a1a149 100%);
+    border-radius: 50%;
+    box-shadow: 
+        inset -15px -15px 40px rgba(0,0,0,0.4), /* Sombra interna para profundidad */
+        0 0 50px rgba(215, 215, 214, 0.1); /* Resplandor sutil */
+    z-index: 2; /* El cuerpo está ENCIMA de la parte trasera de los anillos */
+}
+
+/* --- 3. ANILLOS MEJOR PROGRAMADOS (USANDO PSEUDOELEMENTOS) --- */
+.saturn-wrap::before,
+.saturn-wrap::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    /* Perspectiva 3D: Aplanamos el círculo para que parezca un anillo */
+    transform: translate(-50%, -50%) rotateX(75deg); 
+}
+
+/* ANILLO 1: SISTEMA PRINCIPAL (Textura y División de Cassini) */
+.saturn-wrap::before {
+    width: 100%;
+    height: 100%;
+    /* Usamos un degradado cónico para simular miles de pequeños anillos */
+    background: conic-gradient(
+        from 0deg,
+        rgba(215, 215, 214, 0.1) 0%,
+        rgba(215, 215, 214, 0.3) 10%,
+        rgba(215, 215, 214, 0.1) 20%,
+        rgba(215, 215, 214, 0.4) 30%,
+        rgba(16, 24, 32, 0) 45%, /* HUECO: División de Cassini (transparente) */
+        rgba(16, 24, 32, 0) 55%, /* HUECO: División de Cassini (transparente) */
+        rgba(215, 215, 214, 0.2) 70%,
+        rgba(215, 215, 214, 0.1) 85%,
+        rgba(215, 215, 214, 0.3) 100%
+    );
+    /* Máscara radial para que solo sea visible el anillo, no el centro */
+    -webkit-mask-image: radial-gradient(circle, transparent 40%, black 41%);
+    mask-image: radial-gradient(circle, transparent 40%, black 41%);
+    z-index: 1; /* Por DEBAJO del cuerpo del planeta en la parte delantera */
+}
+
+/* ANILLO 2: BORDES PRECISOS Y RESPLANDOR (Programación Limpia) */
+.saturn-wrap::after {
+    width: 100%;
+    height: 100%;
+    /* Usamos bordes para definir los límites exactos */
+    border: 2px solid rgba(215, 215, 214, 0.5); /* Borde exterior sutil */
+    background: transparent;
+    /* Sombra exterior para dar el volumen final y unificar */
+    box-shadow: 
+        0 0 0 1px rgba(215, 215, 214, 0.1), /* Borde interior tenue */
+        0 0 40px rgba(215, 215, 214, 0.15); /* Resplandor general del sistema */
+    z-index: 1;
+}
+
+/* --- 4. NUEVA ANIMACIÓN REFINADA --- */
+@keyframes planetRevealRefined {
+    0% {
+        opacity: 0;
+        /* Empieza más fuera y más abajo */
+        transform: translate(40%, 10%) rotate(-5deg) scale(0.9);
+        filter: blur(15px);
+    }
+    100% {
+        opacity: 1;
+        /* Posición final solicitada */
+        transform: translate(10%, 0%) rotate(-15deg) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* --- 5. RESPONSIVE REFINADO --- */
+@media (max-width: 1024px) {
+    .giant-planet-container {
+        width: 100%; /* Ocupa todo el ancho */
+        justify-content: center; /* Centramos el sistema */
+        opacity: 0.3; /* Lo hacemos muy sutil para no molestar al texto */
+    }
+    .saturn-wrap {
+        width: 60vh; /* Un poco más pequeño */
+        height: 60vh;
+        transform: translate(0, 0) rotate(-15deg); /* Centrado sin traslación */
+    }
+    @keyframes planetRevealRefined {
+        0% { opacity: 0; transform: translate(0, 10%) rotate(-5deg) scale(0.9); filter: blur(15px); }
+        100% { opacity: 1; transform: translate(0, 0) rotate(-15deg) scale(1); filter: blur(0); }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.process-path-section {
+    background-color: #D7D7D6;
+    padding: 150px 5%;
+    color: #101820;
+    overflow: hidden;
+}
+
+.path-main-title {
+    text-align: center;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 120px;
+    letter-spacing: -3px;
+}
+
+.path-wrapper {
+    position: relative;
+    max-width: 1200px; /* Contenedor más ancho para paneles grandes */
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+/* El SVG que hace el camino curvo */
+.svg-path {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%; /* Se adapta al largo total de los cuadros */
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.path-step {
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin-bottom: 100px; /* Espacio entre pasos */
+    z-index: 2;
+}
+
+/* Alternancia con mayor amplitud */
+.path-step.left { justify-content: flex-start; }
+.path-step.right { justify-content: flex-end; }
+
+/* PANEL GIGANTE MINIMALISTA */
+.step-content-giant {
+    background: rgba(16, 24, 32, 0.04);
+    padding: 50px;
+    border-radius: 40px;
+    width: 45%; /* Cuadros mucho más grandes que antes */
+    min-width: 350px;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(16, 24, 32, 0.06);
+    position: relative;
+}
+
+/* El punto de conexión que toca la línea curva */
+.path-step::after {
+    content: '';
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: #19510A;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px rgba(25, 81, 10, 0.3);
+}
+
+/* Efectos Divertidos y Minimalistas al Hover */
+.path-step:hover .step-content-giant {
+    background: #101820;
+    color: #D7D7D6;
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #19510A;
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.step-content-giant h3 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.step-content-giant p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .step-content-giant {
+        width: 80%; /* En tablets ocupan casi todo el ancho */
+    }
+    .path-step.left, .path-step.right {
+        justify-content: center;
+    }
+    .svg-path {
+        opacity: 0.1; /* Atenuamos la línea en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    .path-step {
+        margin-bottom: 60px;
+    }
+    .step-content-giant {
+        padding: 30px;
+        width: 100%;
+    }
+    .path-step::after {
+        display: none; /* Quitamos los puntos en móvil para limpiar el diseño */
+    }
+}
+
+
+
+
+
+
+/* --- SECCIÓN DE PRECIOS INTERACTIVA Y PROFESIONAL --- */
+.interactive-pricing {
+    background-color: #101820; /* Tu negro profundo */
+    padding: 160px 8%;
+    color: #D7D7D6; /* Tu plata */
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-visual-header {
+    text-align: left;
+    margin-bottom: 100px;
+    max-width: 600px;
+    border-left: 3px solid #19510A; /* Acento verde Bytes */
+    padding-left: 30px;
+}
+
+.visual-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.visual-subtitle {
+    font-size: 1.2rem;
+    color: #86868b;
+    font-weight: 400;
+}
+
+/* El Grid Reactivo */
+.visual-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* LA LÁMINA DE CRISTAL REACTIVA */
+.visual-card {
+    background: rgba(215, 215, 214, 0.02); /* Transparencia mínima */
+    border-radius: 24px;
+    padding: 2px; /* Espacio para el borde iluminado */
+    position: relative;
+    overflow: hidden; /* Corta el glow que sale de la tarjeta */
+    transition: transform 0.1s ease; /* Suavidad para el efecto tilt */
+    border: 1px solid rgba(215, 215, 214, 0.05);
+}
+
+/* Contenedor interno para el padding real */
+.card-content-visual {
+    background: #101820; /* Fondo sólido para tapar el centro del glow */
+    border-radius: 22px;
+    padding: 50px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+}
+
+/* EFECTO DE RESPLANDOR DINÁMICO (Glow que sigue al mouse) */
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), /* Posición dinámica por JS */
+        rgba(215, 215, 214, 0.1) 0%, /* Color Plata sutil */
+        transparent 40%
+    );
+    z-index: 1;
+    pointer-events: none; /* No interfiere con clics */
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.5s ease;
+}
+
+.visual-card:hover .card-glow {
+    opacity: 1; /* Aparece al hover */
+}
+
+/* TARJETA DESTACADA (Glow Verde Bytes) */
+.featured-visual {
+    border: 1px solid rgba(25, 81, 10, 0.2);
+    transform: translateY(-10px); /* Ligeramente elevada */
+}
+
+.featured-visual .card-glow {
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(25, 81, 10, 0.15) 0%, /* Verde Bytes sutil */
+        transparent 40%
+    );
+}
+
+/* Tipografía Técnica Interna */
+.card-id-tech {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #86868b;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.card-name-visual {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+    letter-spacing: -0.01em;
+}
+
+.card-desc-visual {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #a1a1a6;
+    margin-bottom: 40px;
+    min-height: 80px;
+}
+
+.card-specs-tech {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 50px;
+    border-top: 1px solid rgba(215, 215, 214, 0.05);
+    padding-top: 30px;
+}
+
+.card-specs-tech span {
+    font-size: 0.9rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.card-specs-tech span::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #19510A; /* Punto verde técnico */
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+/* EL BOTÓN INDUSTRIAL MINIMALISTA */
+.btn-visual {
+    text-align: center;
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(215, 215, 214, 0.05);
+    border: 1px solid rgba(215, 215, 214, 0.1);
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.btn-visual:hover {
+    background: rgba(215, 215, 214, 0.1);
+    border-color: rgba(215, 215, 214, 0.2);
+    transform: translateY(-3px);
+}
+
+.btn-featured-visual {
+    background: #19510A; /* Verde Bytes sólido */
+    border: none;
+}
+
+.btn-featured-visual:hover {
+    background: #20690d;
+    box-shadow: 0 10px 30px rgba(25, 81, 10, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .interactive-pricing { padding: 100px 5%; }
+    .visual-grid { grid-template-columns: 1fr; gap: 20px; }
+    .featured-visual { transform: translateY(0); }
+    .card-content-visual { padding: 40px; }
+}
+
+
+
+
+
+
+
+
+
+/* --- SECCIÓN: CONTACTO / FORMULARIO --- */
+ .contact-section {
+     width: 100%;
+     padding: 100px 5%;
+     background-color: #D7D7D6;
+     /* Base gris clara para contraste con los planes oscuros */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .contact-container {
+     width: 100%;
+     max-width: 900px;
+     background: #f5f5f7;
+     /* Gris Apple muy claro */
+     padding: 80px;
+     border-radius: 40px;
+     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+     display: grid;
+     grid-template-columns: 1fr 1.5fr;
+     gap: 60px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .contact-info-side h2 {
+     font-size: 2.5rem;
+     color: #101820;
+     line-height: 1.1;
+     margin-bottom: 20px;
+     letter-spacing: -1.5px;
+ }
+
+ .contact-info-side p {
+     color: #666;
+     font-size: 1rem;
+     line-height: 1.6;
+ }
+
+ /* Estilo de los Inputs */
+ .form-group {
+     margin-bottom: 25px;
+     position: relative;
+ }
+
+ .form-group input,
+ .form-group textarea,
+ .form-group select {
+     width: 100%;
+     padding: 18px 20px;
+     background: #ffffff;
+     border: 1px solid rgba(0, 0, 0, 0.08);
+     border-radius: 16px;
+     font-family: var(--font-main);
+     font-size: 16px;
+     color: #101820;
+     outline: none;
+     transition: all 0.3s ease;
+ }
+
+ .form-group textarea {
+     height: 150px;
+     resize: none;
+ }
+
+ .form-group input:focus,
+ .form-group textarea:focus {
+     border-color: var(--brand-green);
+     box-shadow: 0 0 0 4px rgba(25, 81, 10, 0.05);
+ }
+
+ /* Label flotante o sutil */
+ .form-group label {
+     display: block;
+     font-size: 12px;
+     font-weight: 700;
+     color: #888;
+     margin-bottom: 8px;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+
+ .btn-send {
+     width: 100%;
+     padding: 20px;
+     background: #101820;
+     color: white;
+     border: none;
+     border-radius: 16px;
+     font-size: 17px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s;
+ }
+
+ .btn-send:hover {
+     background: var(--brand-green);
+     transform: translateY(-2px);
+     box-shadow: 0 10px 20px rgba(25, 81, 10, 0.2);
+ }
+
+ /* Responsive */
+ @media (max-width: 850px) {
+     .contact-container {
+         grid-template-columns: 1fr;
+         padding: 40px;
+     }
+
+     .contact-info-side {
+         text-align: center;
+     }
+ }
+
+
+
+
+
+
+
+
+ 
+
+ /* --- EL FOOTER MÁS ÚNICO: HORIZONTE INFINITO --- */
+ .unique-footer {
+     width: 100%;
+     background-color: #101820;
+     /* El azul profundo solicitado */
+     color: #D7D7D6;
+     /* El gris claro solicitado */
+     position: relative;
+     padding: 150px 8% 50px;
+     z-index: 120;
+     overflow: hidden;
+ }
+
+ /* Curva de transición elegante desde la sección anterior (#D7D7D6) */
+ .footer-curve {
+     position: absolute;
+     top: -1px;
+     left: 0;
+     width: 100%;
+     height: 100px;
+     background: #D7D7D6;
+     clip-path: ellipse(60% 100% at 50% 0%);
+ }
+
+ .footer-hero {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 120px;
+ }
+
+ .footer-big-text {
+     font-size: clamp(3rem, 10vw, 7rem);
+     font-weight: 900;
+     line-height: 0.9;
+     letter-spacing: -4px;
+ }
+
+ .glitch-text {
+     color: #19510A;
+     /* Tu verde institucional */
+     position: relative;
+ }
+
+ /* Botón Orbital (Único en el mercado) */
+ .footer-cta-orbital {
+     width: 200px;
+     height: 200px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-decoration: none;
+     position: relative;
+     transition: transform 0.5s ease;
+ }
+
+ .cta-inner {
+     color: #D7D7D6;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     z-index: 2;
+ }
+
+ .cta-ring {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     border: 1px solid rgba(25, 81, 10, 0.5);
+     border-radius: 50%;
+     animation: orbit 4s linear infinite;
+ }
+
+ .cta-ring::after {
+     content: '';
+     position: absolute;
+     top: -5px;
+     left: 50%;
+     width: 10px;
+     height: 10px;
+     background: #19510A;
+     border-radius: 50%;
+     box-shadow: 0 0 15px #19510A;
+ }
+
+ @keyframes orbit {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ .footer-cta-orbital:hover {
+     transform: scale(1.1);
+ }
+
+ /* Barra inferior de datos */
+ .footer-bottom-bar {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-end;
+     padding-top: 50px;
+     border-top: 1px solid rgba(215, 215, 214, 0.1);
+ }
+
+ .footer-mini-logo {
+     height: 30px;
+     margin-bottom: 15px;
+     filter: brightness(0) invert(1) opacity(0.5);
+     /* Hace que el logo se vea blanco sutil */
+ }
+
+ .footer-brand p {
+     font-size: 0.9rem;
+     opacity: 0.5;
+ }
+
+ .footer-nav {
+     display: flex;
+     gap: 100px;
+ }
+
+ .nav-group {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+ }
+
+ .nav-group a {
+     color: #D7D7D6;
+     text-decoration: none;
+     font-size: 1rem;
+     font-weight: 500;
+     opacity: 0.6;
+     transition: opacity 0.3s, color 0.3s;
+ }
+
+ .nav-group a:hover {
+     opacity: 1;
+     color: #19510A;
+ }
+
+ /* RESPONSIVE */
+ @media (max-width: 900px) {
+     .footer-hero {
+         flex-direction: column;
+         text-align: center;
+         gap: 50px;
+     }
+
+     .footer-bottom-bar {
+         flex-direction: column;
+         align-items: center;
+         gap: 40px;
+         text-align: center;
+     }
+
+     .footer-nav {
+         gap: 40px;
+     }
+ }
+
+
+
+ /* --- CONTENEDOR DE REDES --- */
+ .social-nodes {
+     display: flex;
+     gap: 15px;
+     align-items: center;
+ }
+
+ .social-link {
+     width: 40px;
+     height: 40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 12px;
+     background: rgba(255, 255, 255, 0.03);
+     /* Casi invisible */
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     color: #86868b;
+     /* Gris apagado inicial */
+     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+     position: relative;
+     overflow: hidden;
+ }
+
+ .social-link:hover {
+     color: #19510A;
+     /* El verde de Bytes */
+     background: rgba(25, 81, 10, 0.1);
+     /* Brillo tenue de fondo */
+     border-color: rgba(25, 81, 10, 0.3);
+     transform: translateY(-5px);
+     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Efecto de resplandor sutil detrás del icono al hacer hover */
+ .social-link::after {
+     content: '';
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: radial-gradient(circle, rgba(25, 81, 10, 0.2) 0%, transparent 70%);
+     opacity: 0;
+     transition: opacity 0.3s ease;
+ }
+
+ .social-link:hover::after {
+     opacity: 1;
+ }
+
+ /* Ajuste para que el SVG esté por encima del resplandor */
+ .social-link svg {
+     z-index: 2;
+     position: relative;
+ }
+
+ 

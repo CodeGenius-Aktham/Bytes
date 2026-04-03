@@ -1,0 +1,660 @@
+ :root {
+            --bg-black: #101820;
+            --text-silver: #f5f5f7;
+            --brand-green: #19510A;
+            --brand-gray: #a1a1a1;
+            --apple-gray: #f5f5f7;
+            --font-main: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --laptop-color: #303030;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body,
+        html {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--bg-black);
+            font-family: var(--font-main);
+            color: var(--text-silver);
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* --- 1. NAVIGATION (APPLE STYLE) --- */
+       .apple-navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 44px;
+     /* Altura exacta del estándar de Apple */
+     background: rgba(16, 24, 32, 0.8);
+     /* Tu --bg-deep con opacidad */
+     
+     -webkit-backdrop-filter: saturate(180%) blur(20px);
+     backdrop-filter: saturate(180%) blur(20px);
+     z-index: 9999;
+     border-bottom: 1px solid rgba(215, 215, 214, 0.08);
+ }
+
+ .navbar-content {
+     max-width: 1024px;
+     /* Ancho de contención de Apple Desktop */
+     height: 100%;
+     margin: 0 auto;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 22px;
+     position: relative;
+ }
+
+ /* Ajuste del Logo */
+ .nav-logo {
+     display: flex;
+     align-items: center;
+     z-index: 10;
+     transition: opacity 0.3s ease;
+ }
+
+ .nav-logo img {
+     height: 16px;
+     /* Reducción a 16px para mayor elegancia */
+     width: auto;
+     opacity: 0.8;
+ }
+
+ .nav-logo:hover {
+     opacity: 1;
+ }
+
+ /* Lista de enlaces: El corazón del diseño Apple */
+ .nav-list {
+     list-style: none;
+     display: flex;
+     gap: 34px;
+     /* Espaciado exacto entre ítems */
+     margin: 0;
+     padding: 0;
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     /* Centrado absoluto respecto a la pantalla */
+ }
+
+ .nav-list a {
+     text-decoration: none;
+     color: #f5f5f7;
+     /* --apple-gray directo */
+     font-size: 12px;
+     font-weight: 400;
+     letter-spacing: -0.01em;
+     /* Tracking negativo típico de SF Pro */
+     opacity: 0.8;
+     transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+ }
+
+ .nav-list a:hover {
+     opacity: 1;
+ }
+
+ /* Icono de búsqueda / Bolsa (Opcional, pero completa el look) */
+ .nav-actions {
+     display: flex;
+     gap: 25px;
+     align-items: center;
+     z-index: 10;
+ }
+
+ .nav-actions svg {
+     height: 16px;
+     fill: #f5f5f7;
+     opacity: 0.8;
+     cursor: pointer;
+     transition: opacity 0.3s;
+ }
+
+ .nav-actions svg:hover {
+     opacity: 1;
+ }
+
+        /* --- 2. LAYOUT PRINCIPAL --- */
+        .hero-launch {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-top: 44px;
+        }
+
+        /* --- 3. TEXTO DE FONDO --- */
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(6rem, 25vw, 15rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: #D7D7D6;
+            opacity: 0.05;
+            white-space: nowrap;
+            z-index: 1;
+            -webkit-user-select: none;
+            user-select: none;
+            animation: textFocus 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes textFocus {
+            0% { filter: blur(20px); opacity: 0; transform: translate(-50%, -45%) scale(0.9); }
+            100% { filter: blur(0); opacity: 0.05; transform: translate(-50%, -50%) scale(1); }
+        }
+/* --- 4. EFECTO VISUAL ANA IA (CENTRADA Y FIJA) --- */
+.ia-visual-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: clamp(200px, 50vw, 300px);
+    height: clamp(200px, 50vw, 300px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50; /* Lo subimos para que cubra todo al expandirse */
+    pointer-events: none;
+    /* Transición ultra suave para el scroll */
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.5s ease;
+    will-change: transform;
+}
+
+       .ia-core {
+    position: relative;
+    /* Usamos % para que crezca con el padre (.ia-visual-container) */
+    width: 60%; 
+    height: 60%;
+    border-radius: 50%;
+    /* Gradiente sutil, más oscuro en los bordes */
+    background: radial-gradient(circle, #f5f5f7 0%, #a1a1a1 100%);
+    /* Sombra verdosa sutil */
+    box-shadow: 0 0 50px rgba(6, 255, 31, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s linear;
+}
+
+   /* MODIFICACIÓN: La orbe interna (gradiente verde) */
+.ia-orb {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Usamos tus variables de marca */
+    background: linear-gradient(45deg, var(--brand-green), var(--brand-gray));
+    opacity: 0.8;
+    filter: blur(5px);
+    /* Mantenemos tu animación de rotación */
+    animation: orbRotate 10s linear infinite;
+}
+
+        .ia-pulse {
+    position: absolute;
+    /* Un poco más grande que el núcleo */
+    width: 130%; 
+    height: 130%;
+    border: 1px solid rgba(21, 255, 0, 0.4);
+    border-radius: 50%;
+    /* Mantenemos tu animación de pulso */
+    animation: corePulse 4s ease-out infinite;
+}
+
+        @keyframes orbRotate {
+            from { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            to { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes corePulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* --- 5. TIPOGRAFÍA DE PRODUCTO --- */
+        .product-info {
+            text-align: center;
+            margin-top: clamp(150px, 40vh, 250px);
+            z-index: 99990;
+            position: relative;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .product-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            background: linear-gradient(to bottom, #fff, #a1a1a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-tagline {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #86868b;
+            margin-bottom: 30px;
+        }
+
+        .btn-buy {
+            background: #0071e3;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 980px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-buy:hover {
+            background: #0077ed;
+            transform: scale(1.05);
+        }
+
+        /* --- 6. EXPANSIÓN Y REVELACIÓN --- */
+        .expansion-section {
+            height: 100vh; /* Altura total para scroll largo */
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-reveal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            width: 90%;
+        }
+
+        .content-reveal h2 {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        /* --- 7. RESPONSIVE MOBILE --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .menu-toggle .bar {
+            width: 20px;
+            height: 1.5px;
+            background-color: #f5f5f7;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            transform-origin: center;
+        }
+
+        @media (max-width: 800px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #101820;
+                padding: 80px 22px;
+                gap: 25px;
+                transform: none;
+                z-index: 9998;
+            }
+
+            .nav-list.active {
+                display: flex;
+                animation: fadeInMenu 0.4s ease forwards;
+            }
+
+            .nav-list a {
+                font-size: 24px;
+                font-weight: 500;
+                opacity: 1;
+                width: 100%;
+                display: block;
+                border-bottom: 1px solid rgba(215, 215, 214, 0.1);
+                padding-bottom: 15px;
+            }
+
+            @keyframes fadeInMenu {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+
+
+        /* Hacemos la sección muy larga para que el scroll dure */
+/* --- 6. SECCIÓN DE INMERSIÓN (CORREGIDA) --- */
+.expansion-section {
+    height: 500vh; /* Aumentado a 500 para un scroll más suave y pausado */
+    position: relative;
+    background: transparent;
+    z-index: 10;
+}
+
+/* Contenedor fijo para los textos de información */
+.info-overlay {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    height: 300px; /* Espacio reservado para el texto */
+    text-align: center;
+    z-index: 99999; /* Siempre por encima del orbe expandido (100) */
+    pointer-events: none; /* Permite que el scroll siga funcionando */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-step {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0; 
+    visibility: hidden;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    /* Añadimos un color sólido para asegurar que resalte sobre el verde */
+    color: #ffffff; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+}
+
+.info-step.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.info-step h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 20px;
+    color: var(--text-silver);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.info-step p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--brand-gray);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- 7. AJUSTES DE CAPAS FINALES --- */
+.hero-launch {
+    z-index: 5; /* Por debajo del orbe cuando este crece */
+}
+
+.product-info {
+    /* Ajustado para asegurar que sea clickeable antes del scroll */
+    z-index: 10; 
+    transition: opacity 0.5s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Curva de transición elegante desde la sección anterior (#D7D7D6) */
+ .footer-curve {
+     position: absolute;
+     top: -1px;
+     left: 0;
+     width: 100%;
+     height: 100px;
+     background: #D7D7D6;
+     clip-path: ellipse(60% 100% at 50% 0%);
+ }
+
+ .footer-hero {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 120px;
+ }
+
+ .footer-big-text {
+     font-size: clamp(3rem, 10vw, 7rem);
+     font-weight: 900;
+     line-height: 0.9;
+     letter-spacing: -4px;
+ }
+
+ .glitch-text {
+     color: #19510A;
+     /* Tu verde institucional */
+     position: relative;
+ }
+
+ /* Botón Orbital (Único en el mercado) */
+ .footer-cta-orbital {
+     width: 200px;
+     height: 200px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-decoration: none;
+     position: relative;
+     transition: transform 0.5s ease;
+ }
+
+ .cta-inner {
+     color: #D7D7D6;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     z-index: 2;
+ }
+
+ .cta-ring {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     border: 1px solid rgba(25, 81, 10, 0.5);
+     border-radius: 50%;
+     animation: orbit 4s linear infinite;
+ }
+
+ .cta-ring::after {
+     content: '';
+     position: absolute;
+     top: -5px;
+     left: 50%;
+     width: 10px;
+     height: 10px;
+     background: #19510A;
+     border-radius: 50%;
+     box-shadow: 0 0 15px #19510A;
+ }
+
+ @keyframes orbit {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ .footer-cta-orbital:hover {
+     transform: scale(1.1);
+ }
+
+ /* Barra inferior de datos */
+ .footer-bottom-bar {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-end;
+     padding-top: 50px;
+     border-top: 1px solid rgba(215, 215, 214, 0.1);
+ }
+
+ .footer-mini-logo {
+     height: 30px;
+     margin-bottom: 15px;
+     filter: brightness(0) invert(1) opacity(0.5);
+     /* Hace que el logo se vea blanco sutil */
+ }
+
+ .footer-brand p {
+     font-size: 0.9rem;
+     opacity: 0.5;
+ }
+
+ .footer-nav {
+     display: flex;
+     gap: 100px;
+ }
+
+ .nav-group {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+ }
+
+ .nav-group a {
+     color: #D7D7D6;
+     text-decoration: none;
+     font-size: 1rem;
+     font-weight: 500;
+     opacity: 0.6;
+     transition: opacity 0.3s, color 0.3s;
+ }
+
+ .nav-group a:hover {
+     opacity: 1;
+     color: #19510A;
+ }
+
+ /* RESPONSIVE */
+ @media (max-width: 900px) {
+     .footer-hero {
+         flex-direction: column;
+         text-align: center;
+         gap: 50px;
+     }
+
+     .footer-bottom-bar {
+         flex-direction: column;
+         align-items: center;
+         gap: 40px;
+         text-align: center;
+     }
+
+     .footer-nav {
+         gap: 40px;
+     }
+ }
+
+
+
+ /* --- CONTENEDOR DE REDES --- */
+ .social-nodes {
+     display: flex;
+     gap: 15px;
+     align-items: center;
+ }
+
+ .social-link {
+     width: 40px;
+     height: 40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 12px;
+     background: rgba(255, 255, 255, 0.03);
+     /* Casi invisible */
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     color: #86868b;
+     /* Gris apagado inicial */
+     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+     position: relative;
+     overflow: hidden;
+ }
+
+ .social-link:hover {
+     color: #19510A;
+     /* El verde de Bytes */
+     background: rgba(25, 81, 10, 0.1);
+     /* Brillo tenue de fondo */
+     border-color: rgba(25, 81, 10, 0.3);
+     transform: translateY(-5px);
+     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Efecto de resplandor sutil detrás del icono al hacer hover */
+ .social-link::after {
+     content: '';
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: radial-gradient(circle, rgba(25, 81, 10, 0.2) 0%, transparent 70%);
+     opacity: 0;
+     transition: opacity 0.3s ease;
+ }
+
+ .social-link:hover::after {
+     opacity: 1;
+ }
+
+ /* Ajuste para que el SVG esté por encima del resplandor */
+ .social-link svg {
+     z-index: 2;
+     position: relative;
+ }
+
+ 
