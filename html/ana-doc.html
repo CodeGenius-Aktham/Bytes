@@ -48,7 +48,7 @@
     </div>
 </main>
 
-<section class="expansion-section">
+<section class="expansion-section" id="expansion-section">
     <div class="info-overlay" id="info-overlay">
         <div class="info-step" id="step-1">
             <h2>¿Qué es ANA AI?</h2>
@@ -65,25 +65,286 @@
     </div>
 </section>
 
+<!-- ============================================================
+     SECCIÓN CUEVA ANA 
+     ============================================================ -->
 
+<section class="cave-wrapper" id="cave-section">
 
+  <!-- Techo / entrada de la cueva -->
+  <div class="cave-mouth">
+    <div class="cave-arch"></div>
+    <div class="cave-drip" style="--x:12%;--delay:0s;--h:120px"></div>
+    <div class="cave-drip" style="--x:27%;--delay:0.4s;--h:80px"></div>
+    <div class="cave-drip" style="--x:45%;--delay:0.9s;--h:150px"></div>
+    <div class="cave-drip" style="--x:63%;--delay:0.2s;--h:95px"></div>
+    <div class="cave-drip" style="--x:78%;--delay:0.7s;--h:110px"></div>
+    <div class="cave-drip" style="--x:91%;--delay:0.3s;--h:70px"></div>
+  </div>
 
+  <!-- Partículas de polvo flotando -->
+  <div class="cave-particles" id="cave-particles"></div>
 
+  <!-- Luz central que crece con el scroll -->
+  <div class="cave-light" id="cave-light"></div>
 
+  <!-- Túnel de profundidad -->
+  <div class="cave-tunnel">
+    <div class="tunnel-ring" style="--i:1"></div>
+    <div class="tunnel-ring" style="--i:2"></div>
+    <div class="tunnel-ring" style="--i:3"></div>
+    <div class="tunnel-ring" style="--i:4"></div>
+    <div class="tunnel-ring" style="--i:5"></div>
+    <div class="tunnel-ring" style="--i:6"></div>
+  </div>
 
+  <!-- Los 4 bloques de contenido -->
+  <div class="cave-content">
 
+    <div class="cave-block" data-index="0">
+      <div class="block-glow"></div>
+      <div class="block-inner">
+        <span class="block-tag">Núcleo Cognitivo</span>
+        <h3>ANA aprende tu empresa.<br>No solo la procesa.</h3>
+        <p>A diferencia de los modelos genéricos, ANA construye un grafo de conocimiento único para cada organización. Cada interacción refina su modelo interno — volviéndose más precisa, más contextual y más valiosa con el tiempo.</p>
+        <div class="block-stats">
+          <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Precisión contextual</span></div>
+          <div class="stat"><span class="stat-num">&lt;80ms</span><span class="stat-label">Tiempo de respuesta</span></div>
+        </div>
+      </div>
+    </div>
 
+    <div class="cave-block" data-index="1">
+      <div class="block-glow"></div>
+      <div class="block-inner">
+        <span class="block-tag">Integración Total</span>
+        <h3>Se conecta con todo.<br>Sin fricción.</h3>
+        <p>APIs nativas para ERP, CRM, bases de datos propietarias y herramientas legacy. ANA no reemplaza tu stack — lo potencia. Despliegue en menos de 72 horas, sin interrumpir operaciones activas.</p>
+        <div class="block-icons">
+          <div class="icon-pill">ERP</div>
+          <div class="icon-pill">CRM</div>
+          <div class="icon-pill">SQL</div>
+          <div class="icon-pill">REST</div>
+          <div class="icon-pill">Webhooks</div>
+        </div>
+      </div>
+    </div>
 
+    <div class="cave-block" data-index="2">
+      <div class="block-glow"></div>
+      <div class="block-inner">
+        <span class="block-tag">Casos de Uso</span>
+        <h3>Desde el almacén<br>hasta la sala de juntas.</h3>
+        <p>Logística predictiva, atención al cliente autónoma, análisis financiero en tiempo real, generación de reportes ejecutivos. ANA se adapta al sector — retail, salud, manufactura, finanzas.</p>
+        <div class="industry-grid">
+          <div class="industry-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <span>Retail</span>
+          </div>
+          <div class="industry-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <span>Salud</span>
+          </div>
+          <div class="industry-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>Manufactura</span>
+          </div>
+          <div class="industry-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Finanzas</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="cave-block" data-index="3">
+      <div class="block-glow"></div>
+      <div class="block-inner">
+        <span class="block-tag">Arquitectura</span>
+        <h3>Cómo funciona<br>por dentro.</h3>
+        <p>ANA opera en tres capas simultáneas: percepción de datos en tiempo real, razonamiento contextual sobre tu modelo de negocio, y ejecución autónoma con supervisión configurable.</p>
+        <div class="arch-flow">
+          <div class="arch-step">
+            <div class="arch-dot"></div>
+            <span>Percepción</span>
+          </div>
+          <div class="arch-line"></div>
+          <div class="arch-step">
+            <div class="arch-dot"></div>
+            <span>Razonamiento</span>
+          </div>
+          <div class="arch-line"></div>
+          <div class="arch-step">
+            <div class="arch-dot"></div>
+            <span>Ejecución</span>
+          </div>
+        </div>
+        <a href="#" class="cave-cta">Solicitar demo →</a>
+      </div>
+    </div>
 
-
-
-
-<!-- Sección de Llamado a la Acción 
-<section class="cta-section">
-    <h2 class="cta-title">¿Listo para llevar tu empresa al siguiente nivel?</h2>
-    <a href="mailto:contacto@bytes.com" class="btn-cta">Contáctanos</a>
+  </div>
 </section>
+
+
+<section class="ana-impact-dashboard-v3">
+    <div class="w">
+  <canvas id="bg"></canvas>
+
+  <div class="inner">
+
+    <!-- Header -->
+    <div class="hdr">
+      <div class="hdr-left">
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Live
+        </div>
+        <div>
+          <div class="hdr-title">ANA AI — Impacto Operativo</div>
+          <div class="hdr-sub">Infraestructura activa · actualización continua</div>
+        </div>
+      </div>
+      <div class="ts-row">
+        <div class="ts-pill">v4.2.1</div>
+        <div class="ts-pill">4 Nodos</div>
+        <div class="ts-pill">99.9% uptime</div>
+      </div>
+    </div>
+
+    <!-- Panel: Eficiencia -->
+    <div class="card card-eff">
+      <div class="clabel">
+        <div class="clabel-dot"></div>
+        Eficiencia
+      </div>
+      <div class="eff-row">
+        <div class="arc-container">
+          <svg class="arc-svg" viewBox="0 0 64 64">
+            <circle class="arc-bg"    cx="32" cy="32" r="26"/>
+            <circle class="arc-fill"  id="arc1" cx="32" cy="32" r="26"/>
+            <circle class="arc-pulse" cx="32" cy="32" r="26" stroke-dasharray="30 201"/>
+          </svg>
+          <div class="arc-val" id="arcv1">0%</div>
+        </div>
+        <div class="bar-stack">
+          <div class="bar-track">
+            <div class="bar-fill" id="b1"></div>
+          </div>
+          <div class="bar-labels">
+            <span>Recursos</span>
+            <strong id="bl1">0%</strong>
+          </div>
+          <div class="bar-track" style="margin-top:8px">
+            <div class="bar-fill teal" id="b2"></div>
+          </div>
+          <div class="bar-labels">
+            <span>Latencia</span>
+            <strong>18ms</strong>
+          </div>
+        </div>
+      </div>
+      <div class="sub-txt">Optimización de recursos en tiempo real</div>
+    </div>
+
+    <!-- Panel: Crecimiento -->
+    <div class="card card-grow">
+      <div class="clabel">
+        <div class="clabel-dot"></div>
+        Crecimiento
+      </div>
+      <div class="grow-val">
+        <div class="grow-big">10x</div>
+        <div class="grow-tag">+340% YoY</div>
+      </div>
+      <svg class="sparkline" viewBox="0 0 200 50" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#19510A" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#19510A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="sp-area" id="spa" fill="url(#sg)"
+          d="M0,45 C20,42 40,35 60,28 S100,15 130,18 S170,8 200,4 L200,50 L0,50Z"/>
+        <path class="sp-line" id="spl"
+          d="M0,45 C20,42 40,35 60,28 S100,15 130,18 S170,8 200,4"/>
+        <circle class="sp-dot" id="spd" cx="200" cy="4" r="3"/>
+      </svg>
+      <div class="sub-txt">Capacidad de infraestructura escalada</div>
+    </div>
+
+    <!-- Panel: Autonomía -->
+    <div class="card card-auto">
+      <div class="clabel">
+        <div class="clabel-dot"></div>
+        Autonomía
+      </div>
+      <div class="eff-row" style="gap:12px">
+        <div class="arc-container">
+          <svg class="arc-svg" viewBox="0 0 64 64">
+            <circle class="arc-bg"    cx="32" cy="32" r="26"/>
+            <circle class="arc-fill"  id="arc2" cx="32" cy="32" r="26"/>
+            <circle class="arc-pulse" cx="32" cy="32" r="26" stroke-dasharray="22 201"/>
+          </svg>
+          <div class="arc-val" id="arcv2">0%</div>
+        </div>
+        <div>
+          <div class="big" style="font-size:2rem" id="autonum">0</div>
+          <div class="sub-txt" style="margin-top:2px">
+            tareas/hr<br>sin intervención
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Ecosistema -->
+    <div class="card card-eco">
+      <div class="clabel">
+        <div class="clabel-dot"></div>
+        Ecosistema — nodos activos
+      </div>
+      <div class="nodes-grid" id="ngrid"></div>
+      <div class="eco-stats">
+        <div class="eco-stat">
+          <div class="eco-stat-val">18ms</div>
+          <div class="eco-stat-lbl">Latencia</div>
+        </div>
+        <div class="eco-stat">
+          <div class="eco-stat-val">99.9%</div>
+          <div class="eco-stat-lbl">Uptime</div>
+        </div>
+        <div class="eco-stat">
+          <div class="eco-stat-val">4.2K</div>
+          <div class="eco-stat-lbl">Req/s</div>
+        </div>
+        <div class="eco-stat">
+          <div class="eco-stat-val">0</div>
+          <div class="eco-stat-lbl">Errores</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Seguridad -->
+    <div class="card card-sec">
+      <div class="clabel">
+        <div class="clabel-dot"></div>
+        ANA-Shield
+      </div>
+      <div class="sec-shield">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="shield-badge">8</div>
+      </div>
+      <div class="sub-txt" style="margin-bottom:6px">Encriptación grado militar</div>
+      <div class="layers" id="lyr"></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
 
 <footer class="unique-footer">
     <div class="footer-curve"></div> <div class="footer-content">
@@ -97,15 +358,15 @@
 
         <div class="footer-bottom-bar">
             <div class="footer-brand">
-                <img src="recursos_bytes/Logo Bytes-57.png" alt="Bytes Logo" class="footer-mini-logo">
+                <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes Logo" class="footer-mini-logo">
                 <p>© 2026 Bytes. Hecho con ingeniería de alto impacto.</p>
             </div>
 
             <nav class="footer-nav">
                 <div class="nav-group">
-                    <a href="index.html">Inicio</a>
-                    <a href="html/ana.html">ANA AI</a>
-                    <a href="html/aurora.html">Aurora</a>
+                    <a href="../index.html">Inicio</a>
+                    <a href="../html/ana.html">ANA AI</a>
+                    <a href="../html/aurora.html">Aurora</a>
                 </div>
                 <div class="nav-group">
                     <a href="Navegacion_Bytes/Fundadores.html">Fundadores</a>
@@ -130,129 +391,344 @@
         </div>
     </div>
 </footer>
-        
--->
 
 <script>
-    // --- Lógica del Menú Mobile ---
-            const menuToggle = document.getElementById('mobile-menu');
-const navList = document.getElementById('nav-list');
+document.addEventListener('DOMContentLoaded', () => {
 
-menuToggle.addEventListener('click', () => {
-    navList.classList.toggle('active');
-    
-    // Animación simple de las barritas
-    const bars = document.querySelectorAll('.bar');
-    bars[0].style.transform = navList.classList.contains('active') ? 'rotate(45deg) translateY(5px)' : 'none';
-    bars[1].style.transform = navList.classList.contains('active') ? 'rotate(-45deg) translateY(-5px)' : 'none';
-});
-        // Efecto sutil de movimiento con el mouse
-        document.addEventListener('mousemove', (e) => {
-    const laptop = document.querySelector('.laptop-container');
-    if (!laptop) return;
-    
-    // Divisor más alto = movimiento más sutil y controlado
-    const xAxis = (window.innerWidth / 2 - e.pageX) / 100; 
-    const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
-    
-    laptop.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-});
+    const isMobile = window.innerWidth < 800;
 
+    // En móvil usamos una escala MUCHO menor para que la animación sea manejable
+    const targetScale    = isMobile ? 30 : 61.1;
+    const baseScale      = 1.1;
+    const scaleDiff      = targetScale - baseScale;
 
+    const expansionEnd     = 800;
+    const infoDuration     = 2000;
+    const collapseStart    = 2900;
+    const collapseDuration = isMobile ? 2500 : 800;
 
-
-
-const orbContainer = document.getElementById('orb-container');
-    const heroText = document.getElementById('hero-text');
-    const expansionSection = document.querySelector('.expansion-section');
-
-    // Configuración de la animación
-    // Define en qué punto del scroll (px) empieza y termina la expansión
-    const scrollStart = 0; 
-    const scrollEnd = 800; // Ajusta esto para hacer la animación más larga o corta
-
-    // Función principal de scroll
-   window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    
-    // --- FASE 1: EXPANSIÓN DEL ORBE ---
-    // El orbe se expande durante los primeros 1000px de scroll
-    const expansionEnd = 1000;
-    let expProgress = Math.max(0, Math.min(1, currentScroll / expansionEnd));
-    
-    let currentScale, currentTranslateY;
-
-    if (expProgress <= 0.3) {
-        // Baja
-        const p1 = expProgress / 0.3;
-        currentTranslateY = -50 + (25 * p1); 
-        currentScale = 1 + (0.1 * p1);
-    } else {
-        // Expande masivamente
-        const p2 = (expProgress - 0.3) / 0.7;
-        currentTranslateY = -25; 
-        currentScale = 1.1 + (60 * Math.pow(p2, 2)); // 60 asegura que tape todo
+    // ── Clave: forzamos que la página tenga suficiente altura ──
+    // El scroll máximo necesario es: collapseStart + collapseDuration
+    // Añadimos 600px extra para que el usuario pueda "terminar" la animación cómodamente
+    const minPageHeight = collapseStart + collapseDuration + 600;
+    const expansionSection = document.getElementById('expansion-section');
+    if (expansionSection) {
+        expansionSection.style.minHeight = minPageHeight + 'px';
     }
 
-    orbContainer.style.transform = `translate(-50%, ${currentTranslateY}%) scale(${currentScale})`;
-    
-    // Ocultar el Hero Text inicial
-    heroText.style.opacity = Math.max(0, 1 - (expProgress * 4));
+    const orbContainer = document.getElementById('orb-container');
+    const heroText     = document.getElementById('hero-text');
+    const infoOverlay  = document.getElementById('info-overlay');
+    const infoSteps    = document.querySelectorAll('.info-step');
 
-   // --- FASE 2: APARICIÓN DE INFORMACIÓN (MODO INMERSIVO) ---
-    const infoStart = 1000; // Donde termina la expansión y empieza el texto
-    
-    if (currentScroll > infoStart) {
-        // Calculamos cuánto scroll hemos hecho DESPUÉS de que el orbe se expandió
-        const relativeScroll = currentScroll - infoStart;
-        const infoDuration = 2500; // Distancia total de scroll para ver los 3 textos
-        
-        // El progreso va de 0 a 1 mientras scrolleas los 2500px de la sección
-        const stepProgress = Math.max(0, Math.min(1, relativeScroll / infoDuration));
+    function updateFrame() {
+        const currentScroll     = window.pageYOffset;
+        const currentTranslateY = -50;
+        let currentScale, zIndex;
 
-        const steps = document.querySelectorAll('.info-step');
-        
-        steps.forEach((step, index) => {
-            // Dividimos el 100% del progreso entre el número de pasos
-            const start = index / steps.length;
-            const end = (index + 1) / steps.length;
-
-            // Añadimos un pequeño margen para que no se encabalguen
-            if (stepProgress >= start && stepProgress < end) {
-                step.classList.add('visible');
+        // FASE 1: APERTURA (0 → 800)
+        if (currentScroll < expansionEnd) {
+            const progress = currentScroll / expansionEnd;
+            if (progress <= 0.3) {
+                currentScale = 1 + (0.1 * (progress / 0.3));
             } else {
-                step.classList.remove('visible');
+                const p2 = (progress - 0.3) / 0.7;
+                currentScale = baseScale + (scaleDiff * Math.pow(p2, 2));
             }
-        });
-    } else {
-        document.querySelectorAll('.info-step').forEach(s => s.classList.remove('visible'));
-    }
+            orbContainer.style.position = 'fixed';
+            orbContainer.style.top      = '50%';
+            zIndex = 50;
+            if (infoOverlay) infoOverlay.classList.add('hidden');
+        }
 
+        // FASE 2: INFO ACTIVA (800 → 2900)
+        else if (currentScroll < collapseStart) {
+            currentScale = targetScale;
+            zIndex = 99999;
+            orbContainer.style.position = 'fixed';
+            orbContainer.style.top      = '50%';
+            if (infoOverlay) infoOverlay.classList.remove('hidden');
 
-    // Dentro del window.addEventListener('scroll', () => { ...
+            const relativeScroll = currentScroll - expansionEnd;
+            const stepProgress   = Math.max(0, Math.min(1, relativeScroll / infoDuration));
 
-    if (expProgress <= 0.3) {
-        const p1 = expProgress / 0.3;
-        currentTranslateY = -50 + (25 * p1); 
-        currentScale = 1 + (0.1 * p1);
-        expansionSection.style.backgroundColor = "transparent"; // Fondo normal
-    } else {
-        const p2 = (expProgress - 0.3) / 0.7;
-        currentTranslateY = -25; 
-        
-        // Reducimos el scale máximo a 30 (suficiente para cubrir)
-        currentScale = 1.1 + (30 * Math.pow(p2, 2)); 
+            infoSteps.forEach((step, index) => {
+                const total = infoSteps.length;
+                const start = index / total;
+                const end   = (index + 1) / total;
+                step.classList.toggle('visible', stepProgress >= start && stepProgress < end);
+            });
+        }
 
-        // Si ya cubrió gran parte, pintamos el fondo del color del orbe
-        // Esto crea la ilusión de que el orbe sigue ahí aunque el navegador deje de dibujarlo
-        if (p2 > 0.8) {
-            expansionSection.style.backgroundColor = "var(--brand-green)"; 
-        } else {
-            expansionSection.style.backgroundColor = "transparent";
+        // FASE 3: CIERRE (2900 → fin)
+        else {
+            const collapseProgress = Math.min(1, (currentScroll - collapseStart) / collapseDuration);
+
+            // Ease-out cúbico: empieza rápido, termina suave
+            const eased   = 1 - Math.pow(1 - collapseProgress, 3);
+            currentScale  = targetScale - ((targetScale - 1) * eased);
+
+            if (infoOverlay) infoOverlay.classList.add('hidden');
+
+            if (collapseProgress >= 1) {
+                // Anclaje final: se convierte en absolute para no flotar
+                orbContainer.style.position = 'absolute';
+                const finalTop = collapseStart + collapseDuration + (window.innerHeight / 2);
+                orbContainer.style.top      = `${finalTop}px`;
+                zIndex = 5;
+                currentScale = 1; // garantizamos escala exacta final
+            } else {
+                orbContainer.style.position = 'fixed';
+                orbContainer.style.top      = '50%';
+                zIndex = 99999;
+            }
+        }
+
+        orbContainer.style.zIndex    = zIndex;
+        orbContainer.style.transform = `translate3d(-50%, ${currentTranslateY}%, 0) scale(${currentScale})`;
+
+        if (heroText) {
+            heroText.style.opacity = Math.max(0, 1 - (currentScroll / 400));
         }
     }
+
+    updateFrame();
+    window.addEventListener('scroll', updateFrame, { passive: true });
+    window.addEventListener('resize', updateFrame);
 });
+
+
+/* ============================================================
+   CAVE SECTION — cave-section.js
+   Pegar este <script> justo antes del </body>, después del
+   script principal que ya tienes en Ana-doc.html
+   ============================================================ */
+(function () {
+
+  /* ── Generar partículas ── */
+  const particleContainer = document.getElementById('cave-particles');
+  if (particleContainer) {
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      p.style.setProperty('--size',  size + 'px');
+      p.style.setProperty('--x',     Math.random() * 100 + '%');
+      p.style.setProperty('--y',     Math.random() * 100 + '%');
+      p.style.setProperty('--dur',   (Math.random() * 6 + 5) + 's');
+      p.style.setProperty('--delay', (Math.random() * 8) + 's');
+      particleContainer.appendChild(p);
+    }
+  }
+
+  /* ── Lógica de scroll ── */
+  const caveSection  = document.getElementById('cave-section');
+  const caveLight    = document.getElementById('cave-light');
+  const caveBlocks   = document.querySelectorAll('.cave-block');
+
+  if (!caveSection) return;
+
+  function onScroll() {
+    const scrollY      = window.pageYOffset;
+    const sectionTop   = caveSection.offsetTop;
+    const sectionH     = caveSection.offsetHeight;
+    const viewH        = window.innerHeight;
+
+    // Progreso dentro de la sección (0 → 1)
+    const rawProgress  = (scrollY - sectionTop) / (sectionH - viewH);
+    const progress     = Math.max(0, Math.min(1, rawProgress));
+
+    /* ── Luz: crece del 0 al 100% según scroll ── */
+    if (caveLight) {
+      // Opacidad: empieza en 0, llega a 1 a mitad de sección
+      const lightOpacity = Math.min(1, progress * 2.5);
+      // Tamaño del radial crece también
+      const spread = 20 + progress * 60; // 20% → 80%
+      caveLight.style.opacity = lightOpacity;
+      caveLight.style.background = `
+        radial-gradient(ellipse ${spread}% ${spread * 0.6}% at 50% 58%,
+          rgba(232,245,224,${0.15 * lightOpacity}) 0%,
+          rgba(46,204,64,${0.10 * lightOpacity})   30%,
+          rgba(25,81,10,${0.06 * lightOpacity})    60%,
+          transparent 100%)
+      `;
+    }
+
+    /* ── Bloques: aparecen según IntersectionObserver ── */
+    // (gestionado abajo con el observer)
+  }
+
+  /* ── IntersectionObserver para los bloques ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        // Quitar la clase al salir hacia arriba para re-animar al bajar
+        if (entry.boundingClientRect.top > 0) {
+          entry.target.classList.remove('visible');
+        }
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  caveBlocks.forEach(block => observer.observe(block));
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // estado inicial
+
+
+
+
+
+
+})();
+
+
+// Capas de seguridad — generadas dinámicamente
+const layers = [
+  ['01','AES-256'],  ['02','Firewall'],
+  ['03','Biometría'],['04','Sandbox'],
+  ['05','Anti-DDoS'],['06','Auditoría'],
+  ['07','Aislamiento'],['08','Integridad']
+];
+
+const lg = document.getElementById('lyr');
+layers.forEach(([n, t], i) => {
+  const d = document.createElement('div');
+  d.className = 'layer';
+  d.innerHTML = `<span class="layer-n">${n}</span><span class="layer-t">${t}</span>`;
+  d.style.transitionDelay = (.7 + i * .07) + 's';
+  lg.appendChild(d);
+});
+
+// Nodos del ecosistema — generados dinámicamente
+const ng = document.getElementById('ngrid');
+for (let i = 0; i < 48; i++) {
+  const n = document.createElement('div');
+  const on = i < 4;
+  n.className = 'node-sq' + (on ? ' on pulse' : '');
+  if (on) n.style.animationDelay = (i * .3) + 's';
+  ng.appendChild(n);
+}
+
+// Animación de arcos (donut)
+function animArc(id, valId, target, circ) {
+  let c = 0;
+  const step = () => {
+    c = Math.min(c + 1, target);
+    const da = (c / 100) * circ;
+    document.getElementById(id).style.strokeDasharray = da + ' ' + circ;
+    document.getElementById(valId).textContent = c + '%';
+    if (c < target) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// Animación de contadores numéricos
+function animCount(id, target, suffix) {
+  let c = 0;
+  const inc = Math.ceil(target / 60);
+  const step = () => {
+    c = Math.min(c + inc, target);
+    document.getElementById(id).textContent = c + (suffix || '');
+    if (c < target) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// Red neuronal en canvas (fondo animado)
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let pts = [];
+
+function resize() {
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+
+function initPts() {
+  pts = Array.from({ length: 28 }, () => ({
+    x:  Math.random() * canvas.width,
+    y:  Math.random() * canvas.height,
+    vx: (Math.random() - .5) * .3,
+    vy: (Math.random() - .5) * .3
+  }));
+}
+
+function drawNet() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  pts.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  });
+
+  for (let i = 0; i < pts.length; i++) {
+    for (let j = i + 1; j < pts.length; j++) {
+      const dx   = pts[i].x - pts[j].x;
+      const dy   = pts[i].y - pts[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 130) {
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x, pts[i].y);
+        ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.strokeStyle = `rgba(25,81,10,${.4 * (1 - dist / 130)})`;
+        ctx.lineWidth   = .6;
+        ctx.stroke();
+      }
+    }
+  }
+
+  pts.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(25,81,10,.4)';
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawNet);
+}
+
+resize();
+initPts();
+drawNet();
+window.addEventListener('resize', () => { resize(); initPts(); });
+
+// Arranque de todas las animaciones
+setTimeout(() => {
+  animArc('arc1', 'arcv1', 98, 163.4);
+  document.getElementById('b1').style.width  = '98%';
+  document.getElementById('bl1').textContent = '98%';
+  document.getElementById('b2').style.width  = '82%';
+
+  animArc('arc2', 'arcv2', 88, 163.4);
+  animCount('autonum', 1240);
+
+  document.getElementById('spl').style.strokeDashoffset = '0';
+  document.getElementById('spa').style.opacity          = '1';
+  document.getElementById('spd').style.opacity          = '1';
+
+  document.querySelectorAll('.layer').forEach(l => {
+    l.style.opacity   = '1';
+    l.style.transform = 'translateX(0)';
+  });
+
+  // Nodos aleatorios que parpadean en el ecosistema
+  setInterval(() => {
+    const sqs = document.querySelectorAll('.node-sq:not(.on)');
+    if (sqs.length > 0) {
+      const rand = sqs[Math.floor(Math.random() * sqs.length)];
+      rand.classList.add('on');
+      setTimeout(() => rand.classList.remove('on'), 800 + Math.random() * 600);
+    }
+  }, 400);
+
+}, 120);
 </script>
 </body>
 </html>
