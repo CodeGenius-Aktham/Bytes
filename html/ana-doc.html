@@ -728,6 +728,30 @@ setTimeout(() => {
   }, 400);
 
 }, 120);
+
+ const menuToggle = document.getElementById('mobile-menu');
+const navList = document.getElementById('nav-list');
+
+menuToggle.addEventListener('click', () => {
+    navList.classList.toggle('active');
+    
+    // Animación simple de las barritas
+    const bars = document.querySelectorAll('.bar');
+    bars[0].style.transform = navList.classList.contains('active') ? 'rotate(45deg) translateY(5px)' : 'none';
+    bars[1].style.transform = navList.classList.contains('active') ? 'rotate(-45deg) translateY(-5px)' : 'none';
+});
+        // Efecto sutil de movimiento con el mouse
+        document.addEventListener('mousemove', (e) => {
+    const laptop = document.querySelector('.laptop-container');
+    if (!laptop) return;
+    
+    // Divisor más alto = movimiento más sutil y controlado
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 100; 
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
+    
+    laptop.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
+
 </script>
 </body>
 </html>
