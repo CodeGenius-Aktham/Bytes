@@ -1,0 +1,299 @@
+/* ============================================================
+   FUNDADORES.CSS — Navegacion_Bytes/fundadores.html
+   Se carga después de base.css y chrome.css.
+   ============================================================ */
+
+:root {
+    --bg-deep:     #101820;
+    --brand-green: #19510A;
+    --brand-lime:  #2ECC40;
+    --brand-gray:  #D7D7D6;
+    --apple-gray:  #f5f5f7;
+    --font-main: "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-deep);
+    font-family: var(--font-main);
+    color: var(--brand-gray);
+    overflow-x: hidden;
+}
+
+/* --- Fondo estelar fijo, igual que la portada --- */
+.founders-sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 30%, #1a2a1a 0%, var(--bg-deep) 70%);
+    overflow: hidden;
+}
+
+.founders-sky .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+.founders-sky .layer1 {
+    width: 1px; height: 1px;
+    box-shadow: 8vw 12vh #fff, 22vw 30vh #fff, 41vw 8vh #fff, 63vw 22vh #fff,
+                78vw 44vh #fff, 91vw 15vh #fff, 15vw 68vh #fff, 55vw 82vh #fff;
+    animation: twinkle 4s infinite alternate;
+}
+
+.founders-sky .layer2 {
+    width: 2px; height: 2px;
+    box-shadow: 30vw 55vh var(--brand-green), 70vw 70vh var(--brand-green),
+                12vw 40vh var(--brand-green), 86vw 60vh var(--brand-green);
+    animation: twinkle 6s infinite alternate-reverse;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.25; }
+    to   { opacity: 1; }
+}
+
+/* --- HERO --- */
+.founders-hero {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 160px 24px 90px;
+    position: relative;
+}
+
+.founders-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--brand-lime);
+    opacity: 0.85;
+    margin-bottom: 26px;
+}
+
+.founders-title {
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    background: linear-gradient(180deg, #ffffff 0%, #8d9c8d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.founders-lead {
+    max-width: 620px;
+    margin: 32px auto 0;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(215, 215, 214, 0.72);
+}
+
+/* --- REJILLA DE FUNDADORES (dos tarjetas) --- */
+.founders-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.founder-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(215, 215, 214, 0.1);
+    border-radius: 26px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.6s ease,
+                box-shadow 0.6s ease;
+}
+
+.founder-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(46, 204, 64, 0.32);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* Retrato: el monograma queda detrás y se ve mientras no haya foto */
+.founder-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(46, 204, 64, 0.16) 0%, transparent 62%),
+        linear-gradient(160deg, #16211b 0%, #0d1319 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.founder-monogram {
+    font-size: clamp(3.5rem, 9vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: rgba(215, 215, 214, 0.14);
+    user-select: none;
+}
+
+.founder-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Si la foto aún no existe, fundadores.js la retira y queda el monograma */
+.founder-portrait.sin-foto .founder-photo { display: none; }
+
+.founder-body {
+    padding: 34px 32px 38px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.founder-name {
+    font-size: clamp(1.5rem, 3.2vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--apple-gray);
+}
+
+.founder-role {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand-lime);
+    opacity: 0.9;
+}
+
+.founder-bio {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(215, 215, 214, 0.68);
+}
+
+.founder-focus {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+}
+
+.founder-focus li {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border: 1px solid rgba(215, 215, 214, 0.16);
+    border-radius: 999px;
+    color: rgba(215, 215, 214, 0.75);
+}
+
+.founder-links {
+    margin-top: auto;
+    padding-top: 28px;
+    display: flex;
+    gap: 14px;
+}
+
+.founder-links a {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(215, 215, 214, 0.16);
+    border-radius: 50%;
+    color: var(--brand-gray);
+    opacity: 0.7;
+    transition: opacity 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.founder-links a:hover {
+    opacity: 1;
+    border-color: var(--brand-lime);
+    transform: translateY(-2px);
+}
+
+/* --- MANIFIESTO ---
+   Sección clara, como en el resto del sitio: todas las páginas
+   cierran con un bloque #D7D7D6 del que la .footer-curve baja
+   hacia el footer oscuro. Sin esto la curva flota suelta. */
+.founders-manifesto {
+    width: 100%;
+    background-color: var(--brand-gray);
+    color: #1d1d1f;
+    padding: 130px 24px 150px;
+    text-align: center;
+    position: relative;
+}
+
+.manifesto-inner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.manifesto-rule {
+    width: 1px;
+    height: 70px;
+    margin: 0 auto 44px;
+    background: linear-gradient(to bottom, transparent, var(--brand-green), transparent);
+}
+
+.manifesto-quote {
+    font-size: clamp(1.4rem, 3.6vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    color: #1d1d1f;
+}
+
+.manifesto-attrib {
+    margin-top: 32px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(29, 29, 31, 0.5);
+}
+
+/* --- Aparición al hacer scroll (la activa JS/effects.js) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.founder-card:nth-child(2) { transition-delay: 0.1s; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 860px) {
+    .founders-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .founders-hero {
+        min-height: 52vh;
+        padding: 130px 22px 70px;
+    }
+
+    .founder-body { padding: 28px 24px 32px; }
+    .founders-manifesto { padding: 90px 22px 110px; }
+}

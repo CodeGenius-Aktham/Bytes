@@ -46,4 +46,15 @@
             if (!queued) { queued = true; requestAnimationFrame(apply); }
         }, { passive: true });
     }
+
+    /* ── Retratos de fundadores ──
+       Si la foto todavía no se ha subido, se retira el <img> y queda
+       visible el monograma de iniciales que hay detrás, en vez del
+       icono de imagen rota del navegador. */
+    document.querySelectorAll('.founder-photo').forEach((img) => {
+        const fallback = () => img.closest('.founder-portrait')?.classList.add('sin-foto');
+        img.addEventListener('error', fallback);
+        // Puede haber fallado ya, antes de que corriera este script
+        if (img.complete && img.naturalWidth === 0) fallback();
+    });
 })();
