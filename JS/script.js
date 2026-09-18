@@ -1,53 +1,54 @@
-// --- ANIMACIÓN DE ENTRADA DE PRODUCTOS (INTERSECTION OBSERVER) ---
-const products = document.querySelectorAll('.product-card');
+/* ============================================================
+   SCRIPT.JS — Lógica exclusiva de la portada (index.html).
+   El menú móvil vive ahora en nav.js y los efectos genéricos
+   en effects.js.
+   ============================================================ */
+(function () {
+    'use strict';
 
-const observerOptions = {
-    root: null, // usa el viewport
-    threshold: 0.3 // dispara cuando el 30% del elemento es visible
-};
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const productObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            // Opcional: dejar de observar una vez visible
-            // observer.unobserve(entry.target); 
+    /* ── Entrada de las tarjetas de producto ── */
+    const products = document.querySelectorAll('.product-card');
+
+    if (products.length) {
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            products.forEach(p => p.classList.add('is-visible'));
         } else {
-            // Opcional: quitar la clase si quieres que la animación se repita al subir
-            // entry.target.classList.remove('is-visible');
+            const productObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('is-visible', entry.isIntersecting);
+                });
+            }, { threshold: 0.3 });
+
+            products.forEach(product => productObserver.observe(product));
         }
-    });
-}, observerOptions);
-
-products.forEach(product => {
-    productObserver.observe(product);
-});
-
-
-// --- EFECTO DE DESVANECIMIENTO DE LA PRIMERA SECCIÓN AL HACER SCROLL ---
-window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const heroSection = document.querySelector('.brand-landing');
-    
-    // A medida que haces scroll down, la opacidad baja de 1 a 0
-    // 500 es la distancia en px donde se vuelve completamente invisible
-    let opacity = 1 - (scrollPosition / 500); 
-    
-    if (opacity >= 0 && heroSection) {
-        heroSection.style.opacity = opacity;
-        // También podemos moverla un poco hacia arriba para dar efecto de profundidad
-        heroSection.style.transform = `translateY(${-scrollPosition * 0.2}px)`;
     }
-});
 
-const menuToggle = document.getElementById('mobile-menu');
-const navList = document.getElementById('nav-list');
+    /* ── Desvanecido del hero al hacer scroll ──
+       Antes se escribía en el DOM dentro del propio evento de scroll,
+       lo que forzaba un reflow por evento. Ahora se agrupa en un rAF. */
+    const heroSection = document.querySelector('.brand-landing');
 
-menuToggle.addEventListener('click', () => {
-    navList.classList.toggle('active');
-    
-    // Animación simple de las barritas
-    const bars = document.querySelectorAll('.bar');
-    bars[0].style.transform = navList.classList.contains('active') ? 'rotate(45deg) translateY(5px)' : 'none';
-    bars[1].style.transform = navList.classList.contains('active') ? 'rotate(-45deg) translateY(-5px)' : 'none';
-});
+    if (heroSection && !reduceMotion) {
+        const FADE_DISTANCE = 500; // px hasta la opacidad 0
+        let queued = false;
+
+        const paint = () => {
+            queued = false;
+            const scrollPosition = window.scrollY;
+            const opacity = Math.max(0, Math.min(1, 1 - scrollPosition / FADE_DISTANCE));
+
+            heroSection.style.opacity = opacity;
+            heroSection.style.transform = `translate3d(0, ${-scrollPosition * 0.2}px, 0)`;
+            // Sin repintar cuando ya es invisible
+            heroSection.style.visibility = opacity === 0 ? 'hidden' : '';
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!queued) { queued = true; requestAnimationFrame(paint); }
+        }, { passive: true });
+
+        paint();
+    }
+})();
