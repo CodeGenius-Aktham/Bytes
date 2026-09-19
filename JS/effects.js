@@ -47,12 +47,13 @@
         }, { passive: true });
     }
 
-    /* ── Retratos de fundadores ──
+    /* ── Retratos de personas (fundadores y equipo) ──
        Si la foto todavía no se ha subido, se retira el <img> y queda
        visible el monograma de iniciales que hay detrás, en vez del
        icono de imagen rota del navegador. */
-    document.querySelectorAll('.founder-photo').forEach((img) => {
-        const fallback = () => img.closest('.founder-portrait')?.classList.add('sin-foto');
+    document.querySelectorAll('.founder-photo, .member-photo').forEach((img) => {
+        const marco = img.closest('.founder-portrait, .member-portrait');
+        const fallback = () => marco && marco.classList.add('sin-foto');
         img.addEventListener('error', fallback);
         // Puede haber fallado ya, antes de que corriera este script
         if (img.complete && img.naturalWidth === 0) fallback();

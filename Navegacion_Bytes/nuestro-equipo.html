@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro equipo | Bytes</title>
+    <meta name="description" content="Las personas que construyen Bytes: ingeniería, producto y diseño detrás de nuestro software y de ANA, nuestra inteligencia artificial.">
+    <meta name="theme-color" content="#f5f5f7">
+    <meta name="color-scheme" content="light">
+
+    <link rel="icon" href="../recursos_bytes/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../recursos_bytes/apple-touch-icon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bytes">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="Nuestro equipo | Bytes">
+    <meta property="og:description" content="Las personas que construyen Bytes.">
+    <meta property="og:image" content="../recursos_bytes/Logo Bytes-57.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/chrome.css">
+    <link rel="stylesheet" href="../CSS/equipo.css">
+</head>
+
+<body>
+
+<nav class="apple-navbar">
+    <div class="navbar-content">
+        <a href="../index.html" class="nav-logo">
+            <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" width="18" height="18" decoding="async">
+        </a>
+
+        <button class="menu-toggle" id="mobile-menu" type="button"
+                aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-list">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <ul class="nav-list" id="nav-list">
+            <li><a href="../html/ana.html">ANA</a></li>
+            <li><a href="../html/desarrollo-web.html">Web</a></li>
+            <li><a href="../html/sistemas-apps.html">Sistemas</a></li>
+            <li><a href="../html/ana-doc.html">Documentación</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="nuestro-equipo.html" aria-current="page">Equipo</a></li>
+            <li><a href="fundadores.html">Fundadores</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+
+    <header class="team-hero">
+        <p class="team-eyebrow">Las personas</p>
+        <h1 class="team-title">Nuestro equipo</h1>
+        <p class="team-lead">
+            Bytes no es una plantilla ni un framework. Es un grupo pequeño de
+            personas que discuten cada decisión hasta que el resultado aguanta
+            cualquier comparación.
+        </p>
+    </header>
+
+    <!-- ============================================================
+         CONTENIDO A SUSTITUIR
+         Por cada persona hay que cambiar:
+           · .member-monogram → sus iniciales
+           · .member-label    → su área
+           · .member-name     → nombre y apellido
+           · .member-role     → cargo
+           · .member-bio      → biografía
+           · .member-skills   → sus habilidades
+           · .member-social   → URLs reales (ahora apuntan a #)
+           · .member-photo    → subir la foto a recursos_bytes/ con el
+                                nombre que indica el src (equipo-1.jpg,
+                                equipo-2.jpg, equipo-3.jpg). Vale
+                                cualquier foto normal, con fondo:
+                                se recorta sola al marco 4:5.
+         Mientras la foto no exista se muestra el monograma, no una
+         imagen rota.
+         ============================================================ -->
+    <!-- Persona 01 · foto a la izquierda -->
+    <section class="member member--tono-a" aria-labelledby="miembro-1">
+        <div class="member-inner reveal">
+
+            <figure class="member-portrait">
+                <span class="member-monogram" aria-hidden="true">NA</span>
+                <img class="member-photo" src="../recursos_bytes/equipo-1.jpg"
+                     alt="Retrato de la primera persona del equipo de Bytes"
+                     width="560" height="700" loading="lazy" decoding="async">
+            </figure>
+
+            <div class="member-info">
+                <span class="member-index" aria-hidden="true">01</span>
+                <span class="member-label">Ingeniería</span>
+
+                <h2 class="member-name" id="miembro-1">Nombre Apellido</h2>
+                <p class="member-role">Cargo dentro de Bytes</p>
+
+                <p class="member-bio">
+                    Tres o cuatro frases sobre esta persona: qué hace en Bytes,
+                    en qué proyectos ha trabajado y qué aporta al equipo.
+                    Sustituye este texto por el real.
+                </p>
+
+                <ul class="member-skills">
+                    <li>Habilidad uno</li>
+                    <li>Habilidad dos</li>
+                    <li>Habilidad tres</li>
+                </ul>
+
+                <ul class="member-social">
+                    <li><a href="#" aria-label="Instagram de la primera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="#" aria-label="GitHub de la primera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la primera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Persona 02 · foto a la derecha -->
+    <section class="member member--tono-b member--invertida" aria-labelledby="miembro-2">
+        <div class="member-inner reveal">
+
+            <figure class="member-portrait">
+                <span class="member-monogram" aria-hidden="true">NA</span>
+                <img class="member-photo" src="../recursos_bytes/equipo-2.jpg"
+                     alt="Retrato de la segunda persona del equipo de Bytes"
+                     width="560" height="700" loading="lazy" decoding="async">
+            </figure>
+
+            <div class="member-info">
+                <span class="member-index" aria-hidden="true">02</span>
+                <span class="member-label">Producto</span>
+
+                <h2 class="member-name" id="miembro-2">Nombre Apellido</h2>
+                <p class="member-role">Cargo dentro de Bytes</p>
+
+                <p class="member-bio">
+                    Tres o cuatro frases sobre esta persona: qué hace en Bytes,
+                    en qué proyectos ha trabajado y qué aporta al equipo.
+                    Sustituye este texto por el real.
+                </p>
+
+                <ul class="member-skills">
+                    <li>Habilidad uno</li>
+                    <li>Habilidad dos</li>
+                    <li>Habilidad tres</li>
+                </ul>
+
+                <ul class="member-social">
+                    <li><a href="#" aria-label="Instagram de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="#" aria-label="GitHub de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Persona 03 · foto a la izquierda -->
+    <section class="member member--tono-a" aria-labelledby="miembro-3">
+        <div class="member-inner reveal">
+
+            <figure class="member-portrait">
+                <span class="member-monogram" aria-hidden="true">NA</span>
+                <img class="member-photo" src="../recursos_bytes/equipo-3.jpg"
+                     alt="Retrato de la tercera persona del equipo de Bytes"
+                     width="560" height="700" loading="lazy" decoding="async">
+            </figure>
+
+            <div class="member-info">
+                <span class="member-index" aria-hidden="true">03</span>
+                <span class="member-label">Diseño</span>
+
+                <h2 class="member-name" id="miembro-3">Nombre Apellido</h2>
+                <p class="member-role">Cargo dentro de Bytes</p>
+
+                <p class="member-bio">
+                    Tres o cuatro frases sobre esta persona: qué hace en Bytes,
+                    en qué proyectos ha trabajado y qué aporta al equipo.
+                    Sustituye este texto por el real.
+                </p>
+
+                <ul class="member-skills">
+                    <li>Habilidad uno</li>
+                    <li>Habilidad dos</li>
+                    <li>Habilidad tres</li>
+                </ul>
+
+                <ul class="member-social">
+                    <li><a href="#" aria-label="Instagram de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="#" aria-label="GitHub de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="unique-footer">
+    <div class="footer-curve"></div> <div class="footer-content">
+        <div class="footer-hero">
+            <h2 class="footer-big-text">¿Listo para el <br> <span class="glitch-text">Siguiente Nivel?</span></h2>
+            <a href="mailto:contacto@bytes.com" class="footer-cta-orbital">
+                <span class="cta-inner">Hablemos</span>
+                <div class="cta-ring"></div>
+            </a>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-brand">
+                <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" class="footer-mini-logo" width="30" height="30" loading="lazy" decoding="async">
+                <p>© 2026 Bytes. Hecho con ingeniería de alto impacto.</p>
+            </div>
+
+            <nav class="footer-nav">
+                <div class="nav-group">
+                    <a href="../index.html">Inicio</a>
+                    <a href="../html/ana.html">ANA AI</a>
+                </div>
+                <div class="nav-group">
+                    <a href="fundadores.html">Fundadores</a>
+                    <a href="nuestro-equipo.html">Equipo</a>
+                    <a href="proyectos.html">Proyectos</a>
+                </div>
+            </nav>
+            <div class="nav-group social-nodes">
+    <a href="#" class="social-link" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </a>
+    <a href="https://www.instagram.com/bytes_technology/" class="social-link" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="X (Twitter)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768m2.46-2.46L20 4"></path></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+    </a>
+</div>
+        </div>
+    </div>
+</footer>
+
+    <script src="../JS/nav.js" defer></script>
+    <script src="../JS/effects.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+/* ============================================================
+   EQUIPO.CSS — Navegacion_Bytes/nuestro-equipo.html
+   Se carga después de base.css y chrome.css.
+
+   Única página clara del sitio. Usa sólo tonos que ya estaban en
+   uso: #f5f5f7 y #D7D7D6 de fondo, #1d1d1f para el texto y
+   #19510A como acento. La navbar sigue siendo la translúcida
+   oscura y el footer el mismo de siempre.
+   ============================================================ */
+
+:root {
+    --luz-alta:    #f5f5f7;
+    --luz-media:   #D7D7D6;
+    --tinta:       #1d1d1f;
+    --brand-green: #19510A;
+    --brand-lime:  #2ECC40;
+    --font-main: "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--luz-alta);
+    font-family: var(--font-main);
+    color: var(--tinta);
+    overflow-x: hidden;
+}
+
+/* --- HERO --- */
+.team-hero {
+    min-height: 58vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 170px 24px 100px;
+    background: var(--luz-alta);
+}
+
+.team-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--brand-green);
+    margin-bottom: 26px;
+}
+
+.team-title {
+    font-size: clamp(2.8rem, 10vw, 7rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    color: var(--tinta);
+}
+
+.team-lead {
+    max-width: 640px;
+    margin: 32px auto 0;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(29, 29, 31, 0.65);
+}
+
+/* --- SECCIÓN DE CADA PERSONA --- */
+.member {
+    padding: 110px 24px;
+}
+
+/* Tonos alternos: cada persona tiene su propia banda.
+   La última es #D7D7D6 para empalmar con la curva del footer. */
+.member--tono-a { background: var(--luz-media); }
+.member--tono-b { background: var(--luz-alta); }
+
+.member-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 72px;
+    align-items: center;
+}
+
+/* Invertida: la foto pasa a la derecha */
+.member--invertida .member-inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.member--invertida .member-portrait { order: 2; }
+
+/* --- Retrato --- */
+.member-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(165deg, #e8e8e9 0%, #cfcfce 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Filete de acento en la esquina, distinto según el lado */
+.member-portrait::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 64px;
+    height: 4px;
+    background: var(--brand-green);
+}
+
+.member--invertida .member-portrait::after {
+    left: auto;
+    right: 0;
+}
+
+.member-monogram {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: rgba(29, 29, 31, 0.16);
+    user-select: none;
+}
+
+.member-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.member-portrait:hover .member-photo { transform: scale(1.03); }
+
+/* Si la foto aún no existe, JS/effects.js la retira y queda el monograma */
+.member-portrait.sin-foto .member-photo { display: none; }
+
+/* --- Información --- */
+.member-index {
+    display: block;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(29, 29, 31, 0.3);
+    margin-bottom: 18px;
+}
+
+.member-label {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-green);
+    margin-bottom: 14px;
+}
+
+.member-name {
+    font-size: clamp(1.9rem, 4.4vw, 2.9rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--tinta);
+}
+
+.member-role {
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: rgba(29, 29, 31, 0.55);
+}
+
+.member-bio {
+    margin-top: 24px;
+    max-width: 52ch;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(29, 29, 31, 0.72);
+}
+
+.member-skills {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+}
+
+.member-skills li {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 7px 13px;
+    border: 1px solid rgba(29, 29, 31, 0.18);
+    border-radius: 999px;
+    color: rgba(29, 29, 31, 0.7);
+}
+
+.member-social {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    list-style: none;
+}
+
+.member-social a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(29, 29, 31, 0.2);
+    border-radius: 50%;
+    color: var(--tinta);
+    opacity: 0.65;
+    transition: opacity 0.3s ease, border-color 0.3s ease,
+                background-color 0.3s ease, transform 0.3s ease;
+}
+
+.member-social a:hover {
+    opacity: 1;
+    border-color: var(--brand-green);
+    background: rgba(25, 81, 10, 0.07);
+    transform: translateY(-2px);
+}
+
+/* --- Aparición al hacer scroll (la activa JS/effects.js) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Foco visible: el verde del sitio se ve mejor que el lima sobre claro */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--brand-green);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .team-hero { min-height: 46vh; padding: 140px 22px 70px; }
+
+    .member { padding: 72px 22px; }
+
+    .member-inner,
+    .member--invertida .member-inner {
+        grid-template-columns: 1fr;
+        gap: 38px;
+    }
+
+    /* En una sola columna la foto va siempre arriba */
+    .member--invertida .member-portrait { order: 0; }
+
+    .member-portrait { aspect-ratio: 4 / 4.2; }
+
+    .member-index { margin-bottom: 12px; }
+}
