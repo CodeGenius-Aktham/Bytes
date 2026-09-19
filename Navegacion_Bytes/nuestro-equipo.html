@@ -53,7 +53,9 @@
 
 <main>
 
-    <header class="team-hero">
+    <header class="team-launch">
+        <div class="team-ghost" aria-hidden="true">EQUIPO</div>
+
         <p class="team-eyebrow">Las personas</p>
         <h1 class="team-title">Nuestro equipo</h1>
         <p class="team-lead">
@@ -61,6 +63,10 @@
             personas que discuten cada decisión hasta que el resultado aguanta
             cualquier comparación.
         </p>
+
+        <div class="team-scroll" aria-hidden="true">
+            <div class="mouse"><div class="wheel"></div></div>
+        </div>
     </header>
 
     <!-- ============================================================
@@ -83,6 +89,7 @@
          ============================================================ -->
     <!-- Persona 01 · foto a la izquierda -->
     <section class="member member--tono-a" aria-labelledby="miembro-1">
+        <span class="member-ghost" aria-hidden="true">01</span>
         <div class="member-inner reveal">
 
             <figure class="member-portrait">
@@ -123,6 +130,7 @@
 
     <!-- Persona 02 · foto a la derecha -->
     <section class="member member--tono-b member--invertida" aria-labelledby="miembro-2">
+        <span class="member-ghost" aria-hidden="true">02</span>
         <div class="member-inner reveal">
 
             <figure class="member-portrait">
@@ -163,6 +171,7 @@
 
     <!-- Persona 03 · foto a la izquierda -->
     <section class="member member--tono-a" aria-labelledby="miembro-3">
+        <span class="member-ghost" aria-hidden="true">03</span>
         <div class="member-inner reveal">
 
             <figure class="member-portrait">
@@ -250,5 +259,6 @@
 
     <script src="../JS/nav.js" defer></script>
     <script src="../JS/effects.js" defer></script>
+    <script src="../JS/equipo.js" defer></script>
 </body>
 </html>
