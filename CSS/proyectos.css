@@ -1,0 +1,657 @@
+/* ============================================================
+   PROYECTOS.CSS — Navegacion_Bytes/proyectos.html
+   Se carga después de base.css y chrome.css.
+
+   Página oscura, como el resto del sitio, con el verde de marca
+   como protagonista. Todas las animaciones mueven sólo transform
+   y opacity, se disparan con IntersectionObserver y se apagan
+   enteras con prefers-reduced-motion.
+   ============================================================ */
+
+:root {
+    --bg-deep:     #101820;
+    --brand-green: #19510A;
+    --brand-lime:  #2ECC40;
+    --brand-gray:  #D7D7D6;
+    --apple-gray:  #f5f5f7;
+    --tinta:       #1d1d1f;
+    --font-main: "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --curva: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+    background-color: var(--bg-deep);
+    font-family: var(--font-main);
+    color: var(--brand-gray);
+    overflow-x: hidden;
+}
+
+/* ── Barra de progreso de lectura, fija arriba ── */
+.barra-progreso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    z-index: 10000;
+    background: rgba(215, 215, 214, 0.07);
+    pointer-events: none;
+}
+
+.barra-progreso span {
+    display: block;
+    height: 100%;
+    width: 0;
+    transform-origin: left center;
+    background: linear-gradient(90deg, var(--brand-green), var(--brand-lime));
+    box-shadow: 0 0 12px rgba(46, 204, 64, 0.7);
+}
+
+/* ============================================================
+   1. HERO
+   ============================================================ */
+
+.pr-launch {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 44px 24px 70px;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse 90% 60% at 50% 42%, rgba(25, 81, 10, 0.20) 0%, transparent 70%),
+        var(--bg-deep);
+}
+
+/* Constelación en canvas, la dibuja proyectos.js */
+.pr-campo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.pr-campo canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0.55;
+}
+
+/* ── Sistema de aros concéntricos girando ── */
+.pr-sistema {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(760px, 88vw);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.aro {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(46, 204, 64, 0.16);
+    animation: giro 26s linear infinite;
+}
+
+/* La bolita de cada aro: mismo recurso que el botón del footer */
+.aro i {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 50%;
+    background: var(--brand-lime);
+    box-shadow: 0 0 14px rgba(46, 204, 64, 0.9);
+}
+
+.aro--2 {
+    inset: 14%;
+    border-color: rgba(46, 204, 64, 0.22);
+    animation-duration: 18s;
+    animation-direction: reverse;
+}
+
+.aro--2 i { width: 6px; height: 6px; margin-left: -3px; top: -3px; }
+
+.aro--3 {
+    inset: 29%;
+    border-color: rgba(46, 204, 64, 0.30);
+    animation-duration: 11s;
+}
+
+.aro--3 i { width: 5px; height: 5px; margin-left: -2.5px; top: -2.5px; }
+
+.aro-nucleo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 13%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 30%, rgba(46, 204, 64, 0.55) 0%, rgba(25, 81, 10, 0.32) 55%, transparent 72%);
+    animation: latido 4.5s ease-in-out infinite;
+}
+
+@keyframes giro   { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes latido { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
+                    50%      { transform: translate(-50%, -50%) scale(1.14); opacity: 1; } }
+
+/* ── Palabra gigante de fondo, como en el resto del sitio ── */
+.pr-ghost {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    font-size: clamp(3.4rem, 15vw, 11rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: var(--brand-gray);
+    opacity: 0;
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+    animation: ghostFocus 2.5s var(--curva) forwards;
+}
+
+@keyframes ghostFocus {
+    0%   { filter: blur(20px); opacity: 0; transform: translate(-50%, -45%) scale(0.9); }
+    100% { filter: blur(0);    opacity: 0.05; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ── Barrido verde: cruza el hero una vez al cargar ── */
+.pr-barrido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent 0%, rgba(46, 204, 64, 0.10) 45%, rgba(46, 204, 64, 0.02) 60%, transparent 100%);
+    animation: barrido 2.6s var(--curva) 0.35s both;
+}
+
+@keyframes barrido {
+    from { transform: translateX(-120%); }
+    to   { transform: translateX(340%); }
+}
+
+.pr-contenido {
+    position: relative;
+    z-index: 3;
+    max-width: 780px;
+}
+
+.pr-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--brand-lime);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: subir 1s var(--curva) 0.2s forwards;
+}
+
+/* ── Título: cada palabra sube desde detrás de su línea ── */
+.pr-titulo {
+    font-size: clamp(2.6rem, 8.5vw, 5.6rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+}
+
+.palabra {
+    display: block;
+    overflow: hidden;          /* recorta la palabra mientras sube */
+}
+
+.palabra > span {
+    display: block;
+    background: linear-gradient(180deg, #ffffff 0%, #8fa38f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transform: translateY(110%);
+    animation: asomar 1.15s var(--curva) forwards;
+}
+
+.palabra:nth-child(1) > span { animation-delay: 0.35s; }
+.palabra:nth-child(2) > span { animation-delay: 0.47s; }
+.palabra:nth-child(3) > span { animation-delay: 0.59s; }
+
+@keyframes asomar { to { transform: translateY(0); } }
+@keyframes subir  { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+.pr-lead {
+    max-width: 560px;
+    margin: 30px auto 0;
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.68;
+    color: rgba(215, 215, 214, 0.62);
+    opacity: 0;
+    animation: subir 1s var(--curva) 0.95s forwards;
+}
+
+/* ── Cifras con contador ── */
+.pr-cifras {
+    margin-top: 54px;
+    display: flex;
+    justify-content: center;
+    gap: clamp(28px, 6vw, 72px);
+    list-style: none;
+    opacity: 0;
+    animation: subir 1s var(--curva) 1.15s forwards;
+}
+
+.pr-cifras li { text-align: center; }
+
+.pr-cifras strong {
+    display: block;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--apple-gray);
+    font-variant-numeric: tabular-nums;
+}
+
+.pr-cifras span {
+    display: block;
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(215, 215, 214, 0.42);
+}
+
+/* ── Señal de scroll: una línea verde que baja ── */
+.pr-cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    width: 1px;
+    height: 58px;
+    transform: translateX(-50%);
+    background: rgba(215, 215, 214, 0.12);
+    overflow: hidden;
+    z-index: 3;
+}
+
+.pr-cue span {
+    position: absolute;
+    top: -60%;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, transparent, var(--brand-lime));
+    animation: caer 2.2s ease-in-out infinite;
+}
+
+@keyframes caer { from { transform: translateY(0); } to { transform: translateY(280%); } }
+
+/* ============================================================
+   2. CINTA DE TECNOLOGÍAS
+   ============================================================ */
+
+.cinta {
+    position: relative;
+    padding: 26px 0;
+    border-top: 1px solid rgba(215, 215, 214, 0.08);
+    border-bottom: 1px solid rgba(215, 215, 214, 0.08);
+    overflow: hidden;
+    background: rgba(25, 81, 10, 0.05);
+}
+
+.cinta-pista {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    width: max-content;
+    animation: desfilar 34s linear infinite;
+}
+
+/* La lista va duplicada en el HTML, así que al llegar al -50%
+   el segundo juego está exactamente donde estaba el primero. */
+@keyframes desfilar { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.cinta-pista span {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(215, 215, 214, 0.5);
+    white-space: nowrap;
+}
+
+.cinta-sep { color: var(--brand-lime) !important; opacity: 0.7; }
+
+/* ============================================================
+   3. LISTA DE PROYECTOS
+   ============================================================ */
+
+.pr-lista {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 130px 24px 60px;
+}
+
+.pr-lista-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 76px;
+}
+
+.pr-linea {
+    flex: 1;
+    height: 1px;
+    max-width: 120px;
+    background: linear-gradient(90deg, transparent, var(--brand-lime));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.2s var(--curva);
+}
+
+.pr-lista-cabecera.visible .pr-linea { transform: scaleX(1); }
+
+.pr-lista-titulo {
+    font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--apple-gray);
+}
+
+.pr-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+}
+
+.proyecto {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 52px;
+    align-items: center;
+    padding: 40px;
+    border: 1px solid rgba(215, 215, 214, 0.09);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.022);
+    transition: border-color 0.7s ease, background-color 0.7s ease,
+                transform 0.9s var(--curva);
+}
+
+/* Los pares se invierten: el visual pasa a la derecha */
+.proyecto:nth-child(even) .proyecto-marco { order: 2; }
+
+.proyecto:hover {
+    border-color: rgba(46, 204, 64, 0.34);
+    background: rgba(46, 204, 64, 0.04);
+    transform: translateY(-6px);
+}
+
+/* ── Visual del proyecto: aros girando alrededor de un núcleo ── */
+.proyecto-marco {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 52%, rgba(25, 81, 10, 0.30) 0%, transparent 66%),
+        linear-gradient(160deg, #16211b 0%, #0c1218 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.proyecto-num {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(215, 215, 214, 0.22);
+    z-index: 2;
+}
+
+.proyecto-visual {
+    position: relative;
+    width: 62%;
+    aspect-ratio: 1;
+}
+
+.visual-aro {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(46, 204, 64, 0.26);
+    animation: giro 16s linear infinite;
+}
+
+.visual-aro::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: var(--brand-lime);
+    box-shadow: 0 0 12px rgba(46, 204, 64, 0.9);
+}
+
+.visual-aro--2 {
+    inset: 22%;
+    animation-duration: 9s;
+    animation-direction: reverse;
+    border-color: rgba(46, 204, 64, 0.34);
+}
+
+.visual-nucleo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #8fe39c 0%, #2b7a1d 52%, #19510A 100%);
+    box-shadow: 0 0 34px rgba(46, 204, 64, 0.32);
+    animation: latido 5s ease-in-out infinite;
+}
+
+/* ── Texto del proyecto ── */
+.proyecto-meta {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(215, 215, 214, 0.45);
+    margin-bottom: 16px;
+}
+
+.proyecto-anio { color: var(--brand-lime); }
+
+.proyecto-titulo {
+    font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--apple-gray);
+}
+
+.proyecto-desc {
+    margin-top: 18px;
+    max-width: 54ch;
+    font-size: 0.98rem;
+    line-height: 1.74;
+    color: rgba(215, 215, 214, 0.66);
+}
+
+.proyecto-tags {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+}
+
+.proyecto-tags li {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 7px 13px;
+    border: 1px solid rgba(215, 215, 214, 0.16);
+    border-radius: 999px;
+    color: rgba(215, 215, 214, 0.72);
+    transition: border-color 0.4s ease, color 0.4s ease, transform 0.4s var(--curva);
+}
+
+.proyecto:hover .proyecto-tags li {
+    border-color: rgba(46, 204, 64, 0.35);
+    color: var(--brand-gray);
+}
+
+.proyecto-flecha {
+    display: inline-block;
+    margin-top: 26px;
+    font-size: 1.5rem;
+    color: var(--brand-lime);
+    transition: transform 0.6s var(--curva);
+}
+
+.proyecto:hover .proyecto-flecha { transform: translateX(12px); }
+
+/* ── Entrada al hacer scroll ── */
+.proyecto {
+    opacity: 0;
+    transform: translateY(56px) scale(0.98);
+}
+
+.proyecto.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 1.1s var(--curva), transform 1.1s var(--curva),
+                border-color 0.7s ease, background-color 0.7s ease;
+}
+
+.proyecto-info > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.9s var(--curva), transform 0.9s var(--curva);
+}
+
+.proyecto.visible .proyecto-info > * { opacity: 1; transform: translateY(0); }
+.proyecto.visible .proyecto-info > *:nth-child(1) { transition-delay: 0.16s; }
+.proyecto.visible .proyecto-info > *:nth-child(2) { transition-delay: 0.24s; }
+.proyecto.visible .proyecto-info > *:nth-child(3) { transition-delay: 0.32s; }
+.proyecto.visible .proyecto-info > *:nth-child(4) { transition-delay: 0.40s; }
+.proyecto.visible .proyecto-info > *:nth-child(5) { transition-delay: 0.48s; }
+
+/* ============================================================
+   4. CIERRE — banda clara, de la que baja la curva del footer
+   ============================================================ */
+
+.pr-cierre {
+    width: 100%;
+    background-color: var(--brand-gray);
+    color: var(--tinta);
+    padding: 130px 24px 150px;
+    text-align: center;
+}
+
+.pr-cierre-inner { max-width: 720px; margin: 0 auto; }
+
+.pr-cierre-titulo {
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--tinta);
+}
+
+.pr-cierre-texto {
+    margin-top: 22px;
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.7;
+    color: rgba(29, 29, 31, 0.68);
+}
+
+.pr-cierre-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 15px 34px;
+    border-radius: 999px;
+    background: var(--brand-green);
+    color: var(--apple-gray);
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    transition: transform 0.5s var(--curva), box-shadow 0.5s ease;
+}
+
+.pr-cierre-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(25, 81, 10, 0.34);
+}
+
+/* ============================================================
+   5. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .pr-launch { min-height: 94vh; padding: 44px 22px 60px; }
+    .pr-cifras { gap: 26px; margin-top: 42px; }
+    .pr-sistema { width: 118vw; }
+
+    .pr-lista { padding: 90px 22px 40px; }
+    .pr-lista-cabecera { margin-bottom: 52px; }
+
+    .proyecto {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 26px;
+    }
+
+    /* En una columna el visual va siempre arriba */
+    .proyecto:nth-child(even) .proyecto-marco { order: 0; }
+
+    .proyecto-marco { aspect-ratio: 16 / 11; }
+    .proyecto-num { font-size: 2rem; top: 12px; left: 14px; }
+
+    .pr-cierre { padding: 90px 22px 110px; }
+}
+
+/* ============================================================
+   6. MOVIMIENTO REDUCIDO
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .pr-ghost { animation: none; opacity: 0.05; transform: translate(-50%, -50%); }
+    .pr-barrido { display: none; }
+    .pr-cue { display: none; }
+
+    .pr-eyebrow, .pr-lead, .pr-cifras { animation: none; opacity: 1; }
+    .palabra > span { animation: none; transform: none; }
+
+    .aro, .visual-aro, .aro-nucleo, .visual-nucleo, .cinta-pista {
+        animation: none !important;
+    }
+
+    .proyecto,
+    .proyecto-info > * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .pr-linea { transform: scaleX(1) !important; }
+}
