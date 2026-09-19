@@ -332,7 +332,9 @@ body::before {
     margin: 0;
     border-radius: 24px;
     overflow: hidden;
-    background: linear-gradient(165deg, #e8e8e9 0%, #cfcfce 100%);
+    background:
+        radial-gradient(ellipse 62% 40% at 50% 92%, rgba(25, 81, 10, 0.10) 0%, transparent 70%),
+        linear-gradient(165deg, #e8e8e9 0%, #cfcfce 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -375,15 +377,20 @@ body::before {
     user-select: none;
 }
 
-/* La foto va sobredimensionada para que el parallax de equipo.js
-   (--py) pueda desplazarla sin descubrir los bordes del marco. */
+/* Las fotos del equipo son recortes sin fondo, igual que las de los
+   fundadores. Por eso object-fit: contain y no cover: con cover la
+   silueta se estiraría hasta llenar el marco y recortaría cabeza o
+   pies. Se apoya en la base y deja aire por arriba. */
 .member-photo {
     position: absolute;
-    inset: 0;
+    top: 7%;
+    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.14) translateY(var(--py, 0px));
+    height: 93%;
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 20px 34px rgba(29, 29, 31, 0.28));
+    transform: translateY(var(--py, 0px));
     will-change: transform;
 }
 
@@ -616,6 +623,6 @@ button:focus-visible {
     }
 
     .member-ghost { transform: translateY(-50%) !important; }
-    .member-photo { transform: scale(1.14) !important; }
+    .member-photo { transform: none !important; }
     .planeta, .orbita { animation: none !important; }
 }

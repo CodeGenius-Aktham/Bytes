@@ -17,7 +17,7 @@
     const secciones = document.querySelectorAll('.member');
     if (!secciones.length) return;
 
-    const AMPLITUD = 26;          // px de recorrido del parallax
+    const AMPLITUD = 12;          // px de recorrido del parallax
     const enPantalla = new Set();
 
     /* ── Aparición del número de fondo ── */
