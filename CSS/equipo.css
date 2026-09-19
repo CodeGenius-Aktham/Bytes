@@ -60,10 +60,11 @@ body::before {
 }
 
 /* ── Planetas del fondo del hero ──
-   Sólo contorno, en el verde de marca. Son <span> posicionados en
-   porcentaje (no un SVG) para que cada uno flote a su ritmo y la
-   composición aguante cualquier anchura. Decorativos: el contenedor
-   va con aria-hidden. */
+   Esferas de verdad, no contornos: degradado radial con la luz
+   arriba a la izquierda, terminador en sombra al lado opuesto y
+   sombra proyectada. Son <span> posicionados en porcentaje (no un
+   SVG) para que cada uno flote a su ritmo y la composición aguante
+   cualquier anchura. Decorativos: el contenedor va con aria-hidden. */
 .team-orbits {
     position: absolute;
     inset: 0;
@@ -74,34 +75,112 @@ body::before {
 
 .planeta {
     position: absolute;
-    border: 1px solid rgba(25, 81, 10, 0.30);
-    border-radius: 50%;
     animation: flotar 14s ease-in-out infinite;
 }
 
-/* Anillo: una elipse muy achatada alrededor del planeta */
-.planeta .anillo {
+/* El cuerpo del planeta */
+.cuerpo {
     position: absolute;
-    inset: -26% -54%;
-    border: 1px solid rgba(25, 81, 10, 0.42);
+    inset: 0;
     border-radius: 50%;
-    transform: rotate(-18deg);
+    background: radial-gradient(circle at 33% 27%,
+                #8fe39c 0%,
+                #4dbb5c 22%,
+                #2b7a1d 55%,
+                #19510A 78%,
+                #0e3206 100%);
+    box-shadow:
+        inset -16px -12px 34px rgba(4, 18, 2, 0.55),      /* terminador */
+        inset 10px 9px 24px rgba(214, 255, 219, 0.22),    /* luz rebotada */
+        0 16px 42px rgba(25, 81, 10, 0.22);               /* sombra proyectada */
+    overflow: hidden;
 }
 
-.planeta--4 .anillo { transform: rotate(14deg); }
+/* Bandas de superficie, muy tenues */
+.cuerpo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    /* Bandas irregulares y anchas: a franjas finas y regulares
+       el planeta parecía un balón de playa. */
+    background: repeating-linear-gradient(168deg,
+                rgba(255, 255, 255, 0.05) 0 9px,
+                rgba(0, 0, 0, 0.04) 9px 17px,
+                rgba(255, 255, 255, 0.03) 17px 31px,
+                rgba(0, 0, 0, 0.05) 31px 44px);
+    opacity: 0.3;
+}
+
+/* Anillo tipo Saturno, en dos piezas:
+
+   · .anillo va ANTES que .cuerpo en el HTML, así que se pinta
+     detrás de la esfera: el tramo trasero queda oculto.
+   · .anillo--frente va DESPUÉS y se recorta a su mitad inferior
+     con clip-path, de modo que cruza por delante de la esfera.
+
+   El clip-path se aplica en las coordenadas del elemento y el
+   transform después, así que la "mitad inferior" gira con el
+   anillo y el recorte sigue siendo el correcto al inclinarlo.
+
+   La elipse va aplanada (alto ~0,55 del diámetro, ancho ~1,9):
+   abierta parecía una órbita suelta, no un anillo pegado. */
+.anillo {
+    position: absolute;
+    inset: 22% -45%;
+    border: 2px solid rgba(25, 81, 10, 0.5);
+    border-radius: 50%;
+    transform: rotate(14deg);
+}
+
+.anillo--frente {
+    clip-path: inset(50% 0 0 0);
+}
+
+/* Órbita con su bolita, el mismo recurso que el botón del footer:
+   el aro gira y arrastra la luna pegada a su borde.
+   Más amplia que el anillo de .planeta--4 a propósito: cuando los
+   dos coincidían en un mismo planeta se estorbaban. */
+.orbita {
+    position: absolute;
+    inset: -48%;
+    border: 1px solid rgba(25, 81, 10, 0.40);
+    border-radius: 50%;
+    animation: orbit 9s linear infinite;
+}
+
+.luna {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #7fd88a 0%, #19510A 70%, #0e3206 100%);
+    box-shadow: 0 0 16px rgba(25, 81, 10, 0.6);
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
 
 /* Tamaños y posiciones: todos fuera del eje central, que es donde
    van el título y el párrafo. */
-.planeta--1 { width: 230px; height: 230px; top: 12%;  left: 6%;   animation-delay: 0s;    }
-.planeta--2 { width: 120px; height: 120px; top: 62%;  left: 14%;  animation-delay: -3.5s; }
-.planeta--3 { width: 64px;  height: 64px;  top: 30%;  left: 26%;  animation-delay: -7s;   }
-.planeta--4 { width: 170px; height: 170px; top: 16%;  right: 9%;  animation-delay: -1.8s; }
-.planeta--5 { width: 92px;  height: 92px;  top: 66%;  right: 20%; animation-delay: -5.2s; }
-.planeta--6 { width: 38px;  height: 38px;  top: 46%;  right: 5%;  animation-delay: -9s;   }
+.planeta--1 { width: 212px; height: 212px; top: 11%; left: 5%;   animation-delay: 0s;    }
+.planeta--2 { width: 128px; height: 128px; top: 62%; left: 13%;  animation-delay: -3.5s; }
+.planeta--3 { width: 56px;  height: 56px;  top: 31%; left: 27%;  animation-delay: -7s;   }
+.planeta--4 { width: 158px; height: 158px; top: 15%; right: 10%; animation-delay: -1.8s; }
+.planeta--5 { width: 88px;  height: 88px;  top: 66%; right: 19%; animation-delay: -5.2s; }
+.planeta--6 { width: 34px;  height: 34px;  top: 46%; right: 5%;  animation-delay: -9s;   }
 
 @keyframes flotar {
     0%, 100% { transform: translateY(0); }
     50%      { transform: translateY(-16px); }
+}
+
+  50%      { transform: translateY(-16px); }
 }
 
 /* Resplandor verde muy tenue detrás del título */
@@ -543,5 +622,5 @@ button:focus-visible {
 
     .member-ghost { transform: translateY(-50%) !important; }
     .member-photo { transform: scale(1.14) !important; }
-    .planeta { animation: none !important; }
+    .planeta, .orbita { animation: none !important; }
 }
