@@ -278,7 +278,12 @@ body::before {
 
 .member {
     position: relative;
-    padding: 130px 24px;
+    /* 54px de lateral, no 24: la sección recorta (overflow: hidden,
+       que hace falta para el número de fondo) y la figura sobresale
+       unos 20px por cada lado. Con 24px no llegaba a recortarse,
+       pero se quedaba a 3px de hacerlo hacia los 1160px de ancho.
+       Con 54px el peor caso del barrido 360-1920px es 21px. */
+    padding: 130px 54px;
     overflow: hidden;
 }
 
@@ -331,7 +336,10 @@ body::before {
     aspect-ratio: 4 / 5;
     margin: 0;
     border-radius: 24px;
-    overflow: hidden;
+    /* visible, no hidden: la figura sale por arriba y por los lados.
+       El fondo del propio marco sigue recortado por su border-radius
+       (eso no depende de overflow), así que las esquinas no se pierden. */
+    overflow: visible;
     background:
         radial-gradient(ellipse 62% 40% at 50% 92%, rgba(25, 81, 10, 0.10) 0%, transparent 70%),
         linear-gradient(165deg, #e8e8e9 0%, #cfcfce 100%);
@@ -355,6 +363,9 @@ body::before {
     bottom: 0;
     width: 64px;
     height: 4px;
+    /* Sin el recorte del marco, la esquina cuadrada del filete
+       asomaba fuera de la curva. Le damos la misma curvatura. */
+    border-bottom-left-radius: 24px;
     background: var(--brand-green);
     transform-origin: left center;
     transition: width 0.8s var(--curva);
@@ -381,17 +392,28 @@ body::before {
    fundadores. Por eso object-fit: contain y no cover: con cover la
    silueta se estiraría hasta llenar el marco y recortaría cabeza o
    pies. Se apoya en la base y deja aire por arriba. */
+/* La caja de la imagen es un 16% mayor que el marco y se apoya en su
+   base, así que la figura sobresale por arriba y por los lados y la
+   base queda a ras.
+
+   Con object-fit: contain la figura se escala por el alto (la caja es
+   más ancha en proporción que el recorte 3:4), de modo que su altura
+   es 1,16 veces la del marco y su ancho 0,9375 x 1,16 = 1,087 veces
+   el del marco: sobresale un 8% del ancho, repartido a los lados.
+   Sin parallax: al desbordar, cualquier desplazamiento vertical
+   despegaba la figura de la base o la sacaba por debajo. */
 .member-photo {
     position: absolute;
-    top: 7%;
-    left: 0;
-    width: 100%;
-    height: 93%;
+    left: 50%;
+    bottom: 0;
+    width: 116%;
+    height: 116%;
+    /* base.css pone img { max-width: 100% } y recortaba el 116% */
+    max-width: none;
+    transform: translateX(-50%);
     object-fit: contain;
     object-position: center bottom;
-    filter: drop-shadow(0 20px 34px rgba(29, 29, 31, 0.28));
-    transform: translateY(var(--py, 0px));
-    will-change: transform;
+    filter: drop-shadow(0 22px 38px rgba(29, 29, 31, 0.30));
 }
 
 /* Si la foto aún no existe, JS/effects.js la retira y queda el monograma */
@@ -573,7 +595,7 @@ button:focus-visible {
     .planeta--4 { width: 104px; height: 104px; top: 13%; right: -6%; }
     .planeta--5 { width: 58px;  height: 58px;  top: 76%; right: 8%; }
 
-    .member { padding: 84px 22px; }
+    .member { padding: 100px 22px; }
 
     .member-inner,
     .member--invertida .member-inner {
@@ -585,6 +607,14 @@ button:focus-visible {
     .member--invertida .member-portrait { order: 0; }
 
     .member-portrait { aspect-ratio: 4 / 4.2; }
+
+    /* En una columna el marco ocupa casi todo el ancho: la figura
+       sólo sobresale por arriba, no hay hueco a los lados.
+       El 109% está calculado para que lo que sobresale quepa en el
+       hueco superior de la sección en todo el rango hasta 900px: a
+       más ancho, más alto el marco y más sobresale, y con 114% se
+       recortaba la cabeza a partir de unos 700px. */
+    .member-photo { width: 100%; height: 109%; }
 
     /* Sin desplazamiento lateral: en columna resultaba brusco */
     .member-portrait,
@@ -623,6 +653,6 @@ button:focus-visible {
     }
 
     .member-ghost { transform: translateY(-50%) !important; }
-    .member-photo { transform: none !important; }
+    .member-photo { transform: translateX(-50%) !important; }
     .planeta, .orbita { animation: none !important; }
 }
