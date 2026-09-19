@@ -161,11 +161,6 @@ body::before {
     box-shadow: 0 0 16px rgba(25, 81, 10, 0.6);
 }
 
-@keyframes orbit {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-}
-
 /* Tamaños y posiciones: todos fuera del eje central, que es donde
    van el título y el párrafo. */
 .planeta--1 { width: 212px; height: 212px; top: 11%; left: 5%;   animation-delay: 0s;    }

@@ -723,16 +723,6 @@
      overflow: hidden;
  }
 
- @keyframes orbit {
-     from {
-         transform: rotate(0deg);
-     }
-
-     to {
-         transform: rotate(360deg);
-     }
- }
-
  /* RESPONSIVE */
  @media (max-width: 900px) {
      .footer-hero {

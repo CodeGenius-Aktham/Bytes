@@ -1241,11 +1241,6 @@ html {
 
 /* --- 8. FOOTER --- */
 
-@keyframes orbit {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-}
-
 /* --- 10. RESPONSIVE --- */
 .menu-toggle {
     display: none;

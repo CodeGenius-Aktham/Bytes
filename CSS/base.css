@@ -77,6 +77,15 @@ html {
     animation: orbit 4s linear infinite;
 }
 
+/* La usa .cta-ring, justo encima. Vive aquí, en la misma hoja que
+   la regla que la invoca: al traer .cta-ring a base.css se quedó en
+   las hojas de cada página, y la de Fundadores no la tenía, así que
+   allí el anillo del botón salía quieto. */
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
 .cta-ring::after {
     content: '';
     position: absolute;
