@@ -97,7 +97,8 @@ body {
 /* --- REJILLA DE FUNDADORES (dos tarjetas) --- */
 .founders-grid {
     max-width: 1100px;
-    margin: 0 auto;
+    /* el margen superior deja sitio a lo que la foto sobresale del marco */
+    margin: 120px auto 0;
     padding: 0 24px 120px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -108,7 +109,8 @@ body {
     background: rgba(255, 255, 255, 0.025);
     border: 1px solid rgba(215, 215, 214, 0.1);
     border-radius: 26px;
-    overflow: hidden;
+    /* visible, no hidden: la foto recortada sobresale por arriba */
+    overflow: visible;
     display: flex;
     flex-direction: column;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -122,16 +124,36 @@ body {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* Retrato: el monograma queda detrás y se ve mientras no haya foto */
+/* Retrato.
+   El fondo se recorta con su propio border-radius, así que la tarjeta
+   conserva las esquinas redondeadas aunque la foto se salga del marco.
+   El monograma queda detrás y se ve mientras no haya foto. */
 .founder-portrait {
     position: relative;
-    aspect-ratio: 4 / 5;
+    /* Marco algo más bajo que 4/5 a propósito: es lo que deja a la
+       figura sobresalir por arriba (ver el cálculo en .founder-photo). */
+    aspect-ratio: 4 / 4.6;
+    border-radius: 25px 25px 0 0;
     background:
-        radial-gradient(circle at 50% 35%, rgba(46, 204, 64, 0.16) 0%, transparent 62%),
+        radial-gradient(circle at 50% 38%, rgba(46, 204, 64, 0.17) 0%, transparent 62%),
         linear-gradient(160deg, #16211b 0%, #0d1319 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Halo detrás de la figura, para despegarla del fondo */
+.founder-portrait::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    width: 78%;
+    height: 38%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(46, 204, 64, 0.13) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .founder-monogram {
@@ -142,16 +164,72 @@ body {
     user-select: none;
 }
 
+/* Foto recortada (PNG sin fondo).
+   Se apoya en la base del marco y lo desborda por arriba.
+
+   Cuánto sobresale = alto que ocupa la figura − alto del marco.
+   Con object-fit: contain la figura se escala por el ancho, así que
+   para un recorte en 3:4 sale 1,333 × ancho, frente a 1,15 × ancho
+   del marco: sobresale un 18% del ancho de la tarjeta (~90 px).
+   Si tus fotos tienen otra proporción, ajusta --foto-ancho. */
+.founder-card { --foto-ancho: 100%; }
+
 .founder-photo {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: var(--foto-ancho);
+    height: 145%;               /* caja holgada: no recorta la figura */
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.55));
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
 }
 
-/* Si la foto aún no existe, fundadores.js la retira y queda el monograma */
+.founder-card:hover .founder-photo {
+    transform: translateX(-50%) scale(1.03);
+}
+
+/* Si la foto aún no existe, JS/effects.js la retira y queda el monograma */
 .founder-portrait.sin-foto .founder-photo { display: none; }
+
+/* Instagram, GitHub y correo, flotando sobre la foto */
+.founder-social {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+    padding: 7px 10px;
+    list-style: none;
+    border: 1px solid rgba(215, 215, 214, 0.16);
+    border-radius: 999px;
+    background: rgba(10, 15, 20, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.founder-social a {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--brand-gray);
+    opacity: 0.75;
+    transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+.founder-social a:hover {
+    opacity: 1;
+    background: rgba(46, 204, 64, 0.16);
+    transform: translateY(-2px);
+}
 
 .founder-body {
     padding: 34px 32px 38px;
@@ -198,32 +276,6 @@ body {
     border: 1px solid rgba(215, 215, 214, 0.16);
     border-radius: 999px;
     color: rgba(215, 215, 214, 0.75);
-}
-
-.founder-links {
-    margin-top: auto;
-    padding-top: 28px;
-    display: flex;
-    gap: 14px;
-}
-
-.founder-links a {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(215, 215, 214, 0.16);
-    border-radius: 50%;
-    color: var(--brand-gray);
-    opacity: 0.7;
-    transition: opacity 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-
-.founder-links a:hover {
-    opacity: 1;
-    border-color: var(--brand-lime);
-    transform: translateY(-2px);
 }
 
 /* --- MANIFIESTO ---
@@ -282,6 +334,150 @@ body {
 
 .founder-card:nth-child(2) { transition-delay: 0.1s; }
 
+
+/* ============================================================
+   CÓMO NACIÓ BYTES — línea de tiempo
+   Espina central con los hitos alternando lado en escritorio;
+   en móvil la espina se va a la izquierda y todo cae en columna.
+   ============================================================ */
+
+.birth-section {
+    padding: 40px 24px 130px;
+}
+
+.birth-head {
+    max-width: 720px;
+    margin: 0 auto 90px;
+    text-align: center;
+}
+
+.birth-title {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: var(--apple-gray);
+    margin-bottom: 26px;
+}
+
+.birth-title span {
+    background: linear-gradient(120deg, var(--brand-lime), #7fd88a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+/* La espina: se desvanece en los extremos para que no corte en seco */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(46, 204, 64, 0.38) 10%,
+                rgba(46, 204, 64, 0.38) 90%,
+                transparent 100%);
+}
+
+.tl-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 88px 1fr;
+    align-items: center;
+    margin-bottom: 76px;
+}
+
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-card {
+    grid-column: 1;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(215, 215, 214, 0.1);
+    border-radius: 20px;
+    padding: 30px 32px 34px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.6s ease;
+}
+
+.tl-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(46, 204, 64, 0.3);
+}
+
+.tl-year {
+    grid-column: 3;
+    font-size: clamp(3rem, 8vw, 5.2rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(215, 215, 214, 0.28);
+    padding-left: 10px;
+}
+
+/* Hitos pares: tarjeta a la derecha, año a la izquierda */
+.tl-item:nth-child(even) .tl-card { grid-column: 3; }
+
+.tl-item:nth-child(even) .tl-year {
+    grid-column: 1;
+    text-align: right;
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+.tl-marker {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tl-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--brand-lime);
+    box-shadow: 0 0 0 5px rgba(46, 204, 64, 0.12),
+                0 0 22px rgba(46, 204, 64, 0.65);
+}
+
+.tl-label {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-lime);
+    opacity: 0.9;
+    margin-bottom: 14px;
+}
+
+.tl-title {
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--apple-gray);
+}
+
+.tl-text {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(215, 215, 214, 0.68);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 860px) {
     .founders-grid {
@@ -296,4 +492,39 @@ body {
 
     .founder-body { padding: 28px 24px 32px; }
     .founders-manifesto { padding: 90px 22px 110px; }
+
+    .birth-section { padding: 20px 22px 100px; }
+    .birth-head { margin-bottom: 60px; }
+
+    .timeline::before { left: 5px; transform: none; }
+
+    .tl-item {
+        grid-template-columns: 11px 1fr;
+        column-gap: 26px;
+        align-items: start;
+        margin-bottom: 52px;
+    }
+
+    .tl-marker,
+    .tl-item:nth-child(even) .tl-marker {
+        grid-column: 1;
+        grid-row: 1;
+        margin-top: 30px;
+    }
+
+    .tl-year,
+    .tl-item:nth-child(even) .tl-year {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left;
+        padding: 0 0 12px;
+        font-size: 2.6rem;
+    }
+
+    .tl-card,
+    .tl-item:nth-child(even) .tl-card {
+        grid-column: 2;
+        grid-row: 2;
+        padding: 26px 24px 28px;
+    }
 }
