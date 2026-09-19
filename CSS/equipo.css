@@ -59,6 +59,51 @@ body::before {
     overflow: hidden;
 }
 
+/* ── Planetas del fondo del hero ──
+   Sólo contorno, en el verde de marca. Son <span> posicionados en
+   porcentaje (no un SVG) para que cada uno flote a su ritmo y la
+   composición aguante cualquier anchura. Decorativos: el contenedor
+   va con aria-hidden. */
+.team-orbits {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.planeta {
+    position: absolute;
+    border: 1px solid rgba(25, 81, 10, 0.30);
+    border-radius: 50%;
+    animation: flotar 14s ease-in-out infinite;
+}
+
+/* Anillo: una elipse muy achatada alrededor del planeta */
+.planeta .anillo {
+    position: absolute;
+    inset: -26% -54%;
+    border: 1px solid rgba(25, 81, 10, 0.42);
+    border-radius: 50%;
+    transform: rotate(-18deg);
+}
+
+.planeta--4 .anillo { transform: rotate(14deg); }
+
+/* Tamaños y posiciones: todos fuera del eje central, que es donde
+   van el título y el párrafo. */
+.planeta--1 { width: 230px; height: 230px; top: 12%;  left: 6%;   animation-delay: 0s;    }
+.planeta--2 { width: 120px; height: 120px; top: 62%;  left: 14%;  animation-delay: -3.5s; }
+.planeta--3 { width: 64px;  height: 64px;  top: 30%;  left: 26%;  animation-delay: -7s;   }
+.planeta--4 { width: 170px; height: 170px; top: 16%;  right: 9%;  animation-delay: -1.8s; }
+.planeta--5 { width: 92px;  height: 92px;  top: 66%;  right: 20%; animation-delay: -5.2s; }
+.planeta--6 { width: 38px;  height: 38px;  top: 46%;  right: 5%;  animation-delay: -9s;   }
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-16px); }
+}
+
 /* Resplandor verde muy tenue detrás del título */
 .team-launch::after {
     content: '';
@@ -98,7 +143,13 @@ body::before {
     100% { filter: blur(0);    opacity: 0.06; transform: translate(-50%, -50%) scale(1); }
 }
 
-.team-launch > *:not(.team-ghost) {
+/* Los elementos de contenido, por encima de planetas y palabra.
+   Se nombran uno a uno: con .team-launch > *:not(.team-ghost) la
+   especificidad (0,2,0) le ganaba al position:absolute de
+   .team-orbits (0,1,0) y el contenedor colapsaba a 0x0. */
+.team-eyebrow,
+.team-title,
+.team-lead {
     position: relative;
     z-index: 2;
 }
@@ -106,8 +157,7 @@ body::before {
 /* Entrada escalonada de los elementos del hero */
 .team-eyebrow,
 .team-title,
-.team-lead,
-.team-scroll {
+.team-lead {
     opacity: 0;
     animation: heroIn 1.1s var(--curva) forwards;
 }
@@ -115,7 +165,6 @@ body::before {
 .team-eyebrow { animation-delay: 0.15s; }
 .team-title   { animation-delay: 0.30s; }
 .team-lead    { animation-delay: 0.45s; }
-.team-scroll  { animation-delay: 0.70s; }
 
 @keyframes heroIn {
     from { opacity: 0; transform: translateY(26px); }
@@ -147,36 +196,6 @@ body::before {
     font-size: clamp(1rem, 2.2vw, 1.2rem);
     line-height: 1.65;
     color: rgba(29, 29, 31, 0.62);
-}
-
-/* Indicador de scroll, el mismo de la portada en versión clara */
-.team-scroll {
-    margin-top: 64px;
-    display: flex;
-    justify-content: center;
-}
-
-.team-scroll .mouse {
-    width: 26px;
-    height: 42px;
-    border: 2px solid var(--brand-green);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-}
-
-.team-scroll .wheel {
-    width: 3px;
-    height: 8px;
-    background: var(--brand-green);
-    border-radius: 2px;
-    animation: scrollWheel 2s infinite;
-}
-
-@keyframes scrollWheel {
-    0%   { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(15px); }
 }
 
 /* ============================================================
@@ -465,7 +484,13 @@ button:focus-visible {
 
 @media (max-width: 900px) {
     .team-launch { min-height: 92vh; padding: 44px 22px 50px; }
-    .team-scroll { margin-top: 46px; }
+
+    /* En pantalla estrecha sobran: dejamos cuatro y más contenidos */
+    .planeta--3, .planeta--6 { display: none; }
+    .planeta--1 { width: 150px; height: 150px; top: 9%;  left: -6%; }
+    .planeta--2 { width: 78px;  height: 78px;  top: 72%; left: 4%;  }
+    .planeta--4 { width: 104px; height: 104px; top: 13%; right: -6%; }
+    .planeta--5 { width: 58px;  height: 58px;  top: 76%; right: 8%; }
 
     .member { padding: 84px 22px; }
 
@@ -504,7 +529,7 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
     .team-ghost { animation: none; opacity: 0.06; transform: translate(-50%, -50%); }
 
-    .team-eyebrow, .team-title, .team-lead, .team-scroll { animation: none; opacity: 1; }
+    .team-eyebrow, .team-title, .team-lead { animation: none; opacity: 1; }
 
     .member-portrait,
     .member--invertida .member-portrait,
@@ -518,5 +543,5 @@ button:focus-visible {
 
     .member-ghost { transform: translateY(-50%) !important; }
     .member-photo { transform: scale(1.14) !important; }
-    .team-scroll .wheel { animation: none; }
+    .planeta { animation: none !important; }
 }
