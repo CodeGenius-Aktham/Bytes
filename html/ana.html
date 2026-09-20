@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente IA - Orbe Verde Líquido</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldGlow: '#10b981',
+                        emeraldDark: '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            height: 100svh;
+            height: 100dvh;
+        }
+        /* Liquid Glass effect customized for clean white theme with green tones */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.08);
+        }
+        #voiceBtn.recording {
+            background-color: #ef4444 !important;
+            color: white !important;
+            animation: pulseRec 1.2s infinite;
+        }
+        @keyframes pulseRec {
+            0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+            70%  { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Transición suave del orbe: grande en bienvenida, un poco más chico al conversar (siempre centrado) */
+        #orbWrap {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        filter 0.5s ease;
+            /* clamp() da una escala fluida y precisa entre celulares chicos, tablets y monitores grandes,
+               en vez de saltar entre 2-3 breakpoints fijos */
+            filter: drop-shadow(0 10px 40px rgba(16, 185, 129, 0.18));
+        }
+        .orb-size-hero {
+            width: clamp(9.5rem, 42vw, 20rem);
+            height: clamp(9.5rem, 42vw, 20rem);
+        }
+        .orb-size-active {
+            width: clamp(7rem, 28vw, 15rem);
+            height: clamp(7rem, 28vw, 15rem);
+        }
+        /* En pantallas muy bajas de altura (celular en horizontal, ventanas chicas) priorizamos que
+           todo quepa sin cortar el input de abajo */
+        @media (max-height: 560px) {
+            .orb-size-hero { width: clamp(7rem, 22vh, 20rem); height: clamp(7rem, 22vh, 20rem); }
+            .orb-size-active { width: clamp(5.5rem, 16vh, 15rem); height: clamp(5.5rem, 16vh, 15rem); }
+        }
+
+        #ambientGlow {
+            filter: blur(48px);
+        }
+
+        /* Texto de lo que dijo el usuario, arriba de la respuesta */
+        #userQueryText {
+            transition: opacity 0.4s ease;
+            font-size: clamp(0.8rem, 1.6vw + 0.5rem, 1rem);
+        }
+
+        /* Texto de la respuesta del modelo */
+        #aiResponseText {
+            min-height: 1.75em;
+            font-size: clamp(1.05rem, 1.4vw + 0.75rem, 1.35rem);
+        }
+
+        /* Cursor parpadeante mientras "habla" el modelo */
+        .speaking-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: #10b981;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.9s infinite;
+        }
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 flex flex-col overflow-hidden selection:bg-emerald-500 selection:text-white" style="height: 100svh; height: 100dvh;">
+
+    <p style="color: #16a34a; font-size: clamp(0.7rem, 1.2vw + 0.4rem, 0.8rem); text-align: center; padding: 0.5rem 1rem 0 1rem; flex-shrink: 0;">
+        Esta version es una DEMO, por lo cual algunas funciones pueden no estar disponibles y otras pueden cometer errores.
+    </p>
+
+    <!-- Header vacío y limpio sin datos adicionales -->
+    <header class="w-full px-4 sm:px-6 pt-2 sm:pt-4 pb-1 flex justify-between items-center z-10 flex-shrink-0">
+        <div></div>
+        <div></div>
+    </header>
+
+    <!-- ZONA CENTRAL: orbe siempre en el medio de la pantalla, cara a cara, sin historial de chat -->
+    <div id="mainArea" class="flex-1 min-h-0 w-full flex flex-col items-center justify-center px-4 sm:px-8 py-3 sm:py-6 gap-3 sm:gap-5 overflow-hidden">
+
+        <!-- Contenedor del Orbe -->
+        <div id="orbWrap" class="orb-size-hero relative flex items-center justify-center flex-shrink-0">
+            <!-- Resplandor ambiental verde dinámico -->
+            <div id="ambientGlow" class="absolute inset-0 rounded-full bg-emerald-400/20 blur-3xl transition-all duration-700 pointer-events-none scale-90"></div>
+            <!-- Lienzo para la animación fluida tipo plastilina/líquido -->
+            <canvas id="orbCanvas" class="w-full h-full cursor-pointer z-10"></canvas>
+        </div>
+
+        <!-- Proceso actual / Pensamiento -->
+        <div class="h-6 flex items-center justify-center flex-shrink-0">
+            <div id="thoughtProcess" class="text-xs sm:text-sm text-emerald-600 font-medium tracking-wide flex items-center space-x-2 transition-all duration-300 opacity-0">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span id="thoughtText">Procesando respuesta...</span>
+            </div>
+        </div>
+
+        <!-- Mensaje de bienvenida, solo visible antes del primer mensaje -->
+        <div id="welcomeText" class="max-w-2xl w-full text-center px-4">
+            <p class="font-light text-slate-700" style="font-size: clamp(1.4rem, 3vw + 0.8rem, 1.875rem);">Bienvenido nuevamente</p>
+            <p class="text-slate-400 mt-2" style="font-size: clamp(0.8rem, 1.2vw + 0.5rem, 1rem);">Escribe tu consulta o habla directamente para comenzar.</p>
+        </div>
+
+        <!-- Intercambio actual: lo que tú dijiste arriba, la respuesta del modelo abajo. Sin historial, sin burbujas. -->
+        <div id="exchangeArea" class="hidden w-full max-w-2xl flex-1 min-h-0 flex flex-col items-center justify-start gap-2 sm:gap-3 overflow-y-auto px-2 py-2">
+            <p id="userQueryText" class="text-slate-400 italic text-center"></p>
+            <div id="aiResponseText" class="text-slate-700 text-center leading-relaxed whitespace-pre-wrap"></div>
+        </div>
+    </div>
+
+    <!-- Controls & Prompt Input Footer con Liquid Glass Verde y botones ordenados -->
+    <footer class="w-full px-4 sm:px-6 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] z-10 flex flex-col items-center flex-shrink-0">
+        <div class="max-w-3xl w-full flex items-center gap-2 sm:gap-3 liquid-glass rounded-2xl p-2 sm:p-2.5 transition-all focus-within:ring-2 focus-within:ring-emerald-500/30">
+            <input type="text" id="userInput" placeholder="Escribe un mensaje..." 
+                class="flex-1 min-w-0 bg-transparent border-none px-3 sm:px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none">
+            
+            <!-- Botón de Envío -->
+            <button id="sendBtn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium p-2.5 sm:p-3 rounded-xl text-sm transition-all shadow-md shadow-emerald-500/20 active:scale-95 flex items-center justify-center flex-shrink-0" title="Enviar">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+
+            <!-- Botón de Voz / Micrófono a la derecha -->
+            <button id="voiceBtn" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-medium p-2.5 sm:p-3 rounded-xl text-sm transition-all active:scale-95 flex items-center justify-center flex-shrink-0" title="Hablar directamente">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Script de animación del orbe verde puro y conexión con el backend Flask -->
+    <script>
+        // Elementos UI
+        const canvas = document.getElementById('orbCanvas');
+        const ctx = canvas.getContext('2d');
+        const thoughtProcess = document.getElementById('thoughtProcess');
+        const thoughtText = document.getElementById('thoughtText');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const ambientGlow = document.getElementById('ambientGlow');
+
+        const orbWrap = document.getElementById('orbWrap');
+        const welcomeText = document.getElementById('welcomeText');
+        const exchangeArea = document.getElementById('exchangeArea');
+        const userQueryText = document.getElementById('userQueryText');
+        const aiResponseText = document.getElementById('aiResponseText');
+
+        // Configuración de Canvas Retina Display — se recalcula en cada resize/orientación
+        // para que el orbe se vea nítido en cualquier pantalla (celular, tablet, monitor 4K)
+        function resizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 3);
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 150));
+        if (window.ResizeObserver) {
+            new ResizeObserver(resizeCanvas).observe(canvas);
+        }
+        resizeCanvas();
+
+        // Estados del Orbe (siempre tonos verdes)
+        let orbState = 'idle'; // idle, thinking, speaking
+        let time = 0;
+        let audioLevel = 0; 
+
+        // Puntos de control para la plastilina/fluido verde orgánico
+        const numPoints = 16;
+        let points = [];
+        for (let i = 0; i < numPoints; i++) {
+            points.push({
+                angle: (i / numPoints) * Math.PI * 2,
+                offset: 0,
+                velocity: Math.random() * 0.04 + 0.015
+            });
+        }
+
+        // Bucle de renderizado del Orbe Verde
+        function animateOrb() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const rect = canvas.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            let baseRadius = Math.min(centerX, centerY) * 0.52;
+
+            time += 0.025;
+
+            let currentDeform = 10;
+            let speedMultiplier = 1;
+
+            if (orbState === 'idle') {
+                currentDeform = 9;
+                speedMultiplier = 0.9;
+                ambientGlow.style.background = 'rgba(16, 185, 129, 0.18)';
+            } else if (orbState === 'thinking') {
+                currentDeform = 16;
+                speedMultiplier = 2.2;
+                ambientGlow.style.background = 'rgba(5, 150, 105, 0.25)';
+            } else if (orbState === 'speaking') {
+                currentDeform = 26 + (audioLevel * 22);
+                speedMultiplier = 3.2;
+                ambientGlow.style.background = 'rgba(52, 211, 153, 0.35)';
+            }
+
+            // Deriva el contorno líquido (mismo cálculo, reutilizado para cuerpo + brillo + borde)
+            let coords = [];
+            for (let i = 0; i < numPoints; i++) {
+                let p = points[i];
+                let noise = Math.sin(time * speedMultiplier + i * 1.2) * currentDeform;
+                if (orbState === 'speaking') {
+                    noise += (Math.random() - 0.5) * 14 * audioLevel;
+                }
+                let r = baseRadius + noise;
+                let x = centerX + Math.cos(p.angle) * r;
+                let y = centerY + Math.sin(p.angle) * r;
+                coords.push({x, y});
+            }
+
+            function trazarContorno() {
+                ctx.beginPath();
+                ctx.moveTo((coords[0].x + coords[numPoints - 1].x) / 2, (coords[0].y + coords[numPoints - 1].y) / 2);
+                for (let i = 0; i < numPoints; i++) {
+                    let curr = coords[i];
+                    let next = coords[(i + 1) % numPoints];
+                    let mx = (curr.x + next.x) / 2;
+                    let my = (curr.y + next.y) / 2;
+                    ctx.quadraticCurveTo(curr.x, curr.y, mx, my);
+                }
+                ctx.closePath();
+            }
+
+            // Sombra ambiental proyectada debajo del orbe (le da peso y profundidad)
+            ctx.save();
+            trazarContorno();
+            ctx.shadowColor = 'rgba(6, 95, 70, 0.30)';
+            ctx.shadowBlur = 40;
+            ctx.shadowOffsetY = 14;
+            ctx.fillStyle = 'rgba(6, 95, 70, 0.001)';
+            ctx.fill();
+            ctx.restore();
+
+            // Cuerpo principal: gradiente radial más rico, con más paradas de color para dar volumen esférico
+            ctx.save();
+            trazarContorno();
+            const gradient = ctx.createRadialGradient(
+                centerX - baseRadius * 0.32, centerY - baseRadius * 0.38, baseRadius * 0.08,
+                centerX, centerY, baseRadius * 1.4
+            );
+            gradient.addColorStop(0, '#6ee7b7');     // Highlight superior claro
+            gradient.addColorStop(0.28, '#34d399');  // Verde esmeralda brillante
+            gradient.addColorStop(0.62, '#059669');  // Verde esmeralda intenso
+            gradient.addColorStop(0.88, '#047857');  // Transición
+            gradient.addColorStop(1, '#064e3b');     // Sombra verde profunda en el borde
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = 'rgba(16, 185, 129, 0.45)';
+            ctx.shadowBlur = orbState === 'speaking' ? 55 : 32;
+            ctx.fill();
+            ctx.restore();
+
+            // Brillo especular: un reflejo suave arriba a la izquierda, como luz incidiendo sobre líquido
+            ctx.save();
+            trazarContorno();
+            ctx.clip();
+            const especular = ctx.createRadialGradient(
+                centerX - baseRadius * 0.4, centerY - baseRadius * 0.5, 0,
+                centerX - baseRadius * 0.4, centerY - baseRadius * 0.5, baseRadius * 0.75
+            );
+            especular.addColorStop(0, 'rgba(255, 255, 255, 0.55)');
+            especular.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = especular;
+            ctx.fillRect(centerX - baseRadius * 1.5, centerY - baseRadius * 1.5, baseRadius * 3, baseRadius * 3);
+            ctx.restore();
+
+            // Borde interior sutil que define el volumen del orbe
+            ctx.save();
+            trazarContorno();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.restore();
+
+            requestAnimationFrame(animateOrb);
+        }
+        animateOrb();
+
+        // ==========================================
+        // MODO CONVERSACIÓN CARA A CARA: el orbe se queda siempre en el centro,
+        // solo se achica un poco. No hay historial ni burbujas: se muestra
+        // únicamente lo que tú dijiste y, debajo, lo que responde el modelo.
+        // ==========================================
+        let chatStarted = false;
+
+        function iniciarModoConversacion() {
+            if (chatStarted) return;
+            chatStarted = true;
+
+            orbWrap.classList.remove('orb-size-hero');
+            orbWrap.classList.add('orb-size-active');
+            welcomeText.classList.add('hidden');
+
+            exchangeArea.classList.remove('hidden');
+            exchangeArea.classList.add('flex');
+
+            resizeCanvas();
+        }
+
+        // Muestra el nuevo intercambio: reemplaza lo anterior, no lo apila
+        function mostrarIntercambio(textoUsuario) {
+            iniciarModoConversacion();
+            userQueryText.innerText = textoUsuario;
+            aiResponseText.innerHTML = '';
+        }
+
+        // Efecto de escritura letra por letra en la respuesta del modelo, con cursor parpadeante
+        function escribirRespuesta(texto) {
+            return new Promise((resolve) => {
+                aiResponseText.innerHTML = '<span class="speaking-cursor"></span>';
+                let i = 0;
+                const velocidad = 20;
+
+                function escribir() {
+                    if (i < texto.length) {
+                        const textoParcial = texto.slice(0, i + 1);
+                        aiResponseText.innerHTML = escaparHtml(textoParcial) + '<span class="speaking-cursor"></span>';
+                        audioLevel = Math.sin(i * 0.4) * 0.5 + 0.5;
+                        i++;
+                        setTimeout(escribir, velocidad);
+                    } else {
+                        aiResponseText.innerHTML = escaparHtml(texto);
+                        audioLevel = 0;
+                        resolve();
+                    }
+                }
+                escribir();
+            });
+        }
+
+        function escaparHtml(str) {
+            const div = document.createElement('div');
+            div.innerText = str;
+            return div.innerHTML;
+        }
+
+        // ==========================================
+        // ZONA DE CONEXIÓN CON EL BACKEND FLASK (blueprint 'input')
+        //   POST /query/into      -> ingreso de audio, devuelve el texto transcrito
+        //   POST /query/response  -> recibe { texto } y devuelve la respuesta del modelo
+        //   POST /query/generate  -> recibe { texto } y devuelve la voz (texto a voz)
+        // ==========================================
+        // NOTA: si cambia la URL de ngrok, solo hay que actualizar esta constante.
+        const API_BASE = 'https://479f-190-24-70-29.ngrok-free.app/query';
+
+        // Header requerido por ngrok free para evitar la página de advertencia del navegador
+        const NGROK_HEADERS = { 'ngrok-skip-browser-warning': 'true' };
+
+        // Texto del usuario -> respuesta del modelo -> voz de salida
+        async function conectarConMiModelo(promptTexto) {
+            setOrbState('thinking');
+            mostrarProceso(true, "Procesando solicitud...");
+            mostrarIntercambio(promptTexto);
+
+            try {
+                const resResponse = await fetch(`${API_BASE}/response`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...NGROK_HEADERS
+                    },
+                    body: JSON.stringify({ texto: promptTexto })
+                });
+
+                if (!resResponse.ok) {
+                    throw new Error(`Error en /response: ${resResponse.status}`);
+                }
+
+                const dataResponse = await resResponse.json();
+                // NOTA: ajusta esta clave según lo que realmente devuelva response_modelo()
+                const respuestaIA = dataResponse.output ?? dataResponse.respuesta ?? dataResponse.texto ?? JSON.stringify(dataResponse);
+
+                mostrarProceso(false);
+                setOrbState('speaking');
+
+                // Texto y voz en paralelo, sincronizados
+                await Promise.all([
+                    escribirRespuesta(respuestaIA),
+                    generarVoz(respuestaIA)
+                ]);
+
+            } catch (error) {
+                console.error("Error al conectar con el modelo:", error);
+                mostrarProceso(false);
+                aiResponseText.innerText = "Error de conexión con el modelo.";
+            } finally {
+                setOrbState('idle');
+            }
+        }
+
+        // Texto a voz vía /generate
+        async function generarVoz(texto) {
+            try {
+                const resVoz = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...NGROK_HEADERS
+                    },
+                    body: JSON.stringify({ texto: texto })
+                });
+
+                if (!resVoz.ok) {
+                    throw new Error(`Error en /generate (voz): ${resVoz.status}`);
+                }
+
+                const contentType = resVoz.headers.get('Content-Type') || '';
+
+                if (contentType.startsWith('audio/')) {
+                    // generate_model() devuelve el audio directamente como binario
+                    const audioBlob = await resVoz.blob();
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    await audio.play();
+                } else {
+                    // generate_model() devuelve JSON con audio_url o audio en base64
+                    // NOTA: ajusta estas claves según lo que realmente devuelva tu backend
+                    const dataVoz = await resVoz.json();
+                    const audioSrc = dataVoz.audio_url
+                        ?? (dataVoz.audio_base64 ? `data:audio/mpeg;base64,${dataVoz.audio_base64}` : null);
+                    if (audioSrc) {
+                        const audio = new Audio(audioSrc);
+                        await audio.play();
+                    }
+                }
+            } catch (error) {
+                console.error("Error al generar voz en /generate:", error);
+            }
+        }
+
+        function setOrbState(state) {
+            orbState = state;
+        }
+
+        function mostrarProceso(mostrar, texto = "Procesando...") {
+            if (mostrar) {
+                thoughtText.innerText = texto;
+                thoughtProcess.classList.remove('opacity-0');
+            } else {
+                thoughtProcess.classList.add('opacity-0');
+            }
+        }
+
+        // Eventos de interacción (texto escrito)
+        sendBtn.addEventListener('click', () => {
+            const texto = userInput.value.trim();
+            if (texto) {
+                userInput.value = "";
+                conectarConMiModelo(texto);
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+        // ==========================================
+        // CAPTURA DE AUDIO -> /into (ingreso de info)
+        // Se graba con MediaRecorder, se sube el blob a /into,
+        // y el texto transcrito que devuelve se manda a conectarConMiModelo().
+        // ==========================================
+        let mediaRecorder = null;
+        let mediaStream = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        async function iniciarGrabacion() {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(mediaStream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) audioChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    mediaStream.getTracks().forEach(track => track.stop());
+                    voiceBtn.classList.remove('recording');
+                    setOrbState('thinking');
+                    mostrarProceso(true, "Transcribiendo audio...");
+
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const formData = new FormData();
+                    // NOTA: ajusta el nombre del campo ('audio') según lo que espere captura_audio()
+                    formData.append('audio', audioBlob, 'grabacion.webm');
+
+                    try {
+                        const resInto = await fetch(`${API_BASE}/into`, {
+                            method: 'POST',
+                            headers: { ...NGROK_HEADERS },
+                            body: formData
+                        });
+
+                        if (!resInto.ok) {
+                            throw new Error(`Error en /into: ${resInto.status}`);
+                        }
+
+                        const dataInto = await resInto.json();
+                        // NOTA: ajusta esta clave según lo que realmente devuelva captura_audio()
+                        const textoTranscrito = dataInto.texto ?? dataInto.transcripcion ?? dataInto.output ?? "";
+
+                        mostrarProceso(false);
+
+                        if (textoTranscrito) {
+                            await conectarConMiModelo(textoTranscrito);
+                        } else {
+                            setOrbState('idle');
+                            mostrarProceso(true, "No se pudo transcribir el audio.");
+                            setTimeout(() => mostrarProceso(false), 2500);
+                        }
+                    } catch (error) {
+                        console.error("Error al enviar audio a /into:", error);
+                        mostrarProceso(false);
+                        setOrbState('idle');
+                    }
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                voiceBtn.classList.add('recording');
+                mostrarProceso(true, "Escuchando... presiona de nuevo para detener.");
+            } catch (err) {
+                console.error("No se pudo acceder al micrófono:", err);
+                mostrarProceso(true, "Permiso de micrófono denegado o no disponible.");
+                setTimeout(() => mostrarProceso(false), 3000);
+            }
+        }
+
+        function detenerGrabacion() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+            }
+        }
+
+        if (navigator.mediaDevices && window.MediaRecorder) {
+            voiceBtn.addEventListener('click', () => {
+                if (isRecording) {
+                    detenerGrabacion();
+                } else {
+                    iniciarGrabacion();
+                }
+            });
+        } else {
+            voiceBtn.addEventListener('click', () => {
+                mostrarProceso(true, "Tu navegador no soporta grabación de audio.");
+                setTimeout(() => mostrarProceso(false), 3000);
+            });
+        }
+    </script>
+</body>
+</html>
