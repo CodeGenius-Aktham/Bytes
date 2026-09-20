@@ -89,12 +89,6 @@
     <!-- ============================================================
          CONTENIDO A SUSTITUIR
          Por cada persona hay que cambiar:
-           · .member-monogram → sus iniciales
-           · .member-label    → su área
-           · .member-name     → nombre y apellido
-           · .member-role     → cargo
-           · .member-bio      → biografía
-           · .member-skills   → sus habilidades
            · .member-social   → URLs reales (ahora apuntan a #)
            · .member-photo    → subir la foto a la carpeta equipo/ con
                                 el nombre que indica el src. Son recortes
@@ -143,20 +137,58 @@
         </div>
     </section>
 
-    <!-- Persona 02 · foto a la derecha -->
+    <!-- Persona 02 · foto a la izquierda -->
     <section class="member member--tono-b member--invertida" aria-labelledby="miembro-2">
         <span class="member-ghost" aria-hidden="true">02</span>
         <div class="member-inner reveal">
 
             <figure class="member-portrait">
-                <span class="member-monogram" aria-hidden="true"></span>
+                <span class="member-monogram" aria-hidden="true">NA</span>
                 <img class="member-photo" src="../equipo/equipo-2.webp"
-                     alt="Retrato de la segunda persona del equipo de Bytes"
+                     alt="Retrato de la primera persona del equipo de Bytes"
                      width="896" height="1195" loading="lazy" decoding="async">
             </figure>
 
             <div class="member-info">
                 <span class="member-index" aria-hidden="true">02</span>
+                <span class="member-label">Centro Administrativo</span>
+
+                <h2 class="member-name" id="miembro-1">Matthew Osorio</h2>
+                <p class="member-role">Gerente administrativo</p>
+
+                <p class="member-bio">
+                    Como Gerente Administrativo, mantiene la estructura y el orden
+                    que le permiten a Bytes crecer de forma sólida y organizada.
+                </p>
+
+                <ul class="member-skills">
+                    <li>Director</li>
+                    <li>Administrativo</li>
+                    <li>Gerencia</li>
+                </ul>
+
+                <ul class="member-social">
+                    <li><a href="#" aria-label="Instagram de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Persona 03 · foto a la derecha -->
+    <section class="member member--tono-a" aria-labelledby="miembro-3">
+        <span class="member-ghost" aria-hidden="true">03</span>
+        <div class="member-inner reveal">
+
+            <figure class="member-portrait">
+                <span class="member-monogram" aria-hidden="true"></span>
+                <img class="member-photo" src="../equipo/equipo-3.webp"
+                     alt="Retrato de la segunda persona del equipo de Bytes"
+                     width="896" height="1195" loading="lazy" decoding="async">
+            </figure>
+
+            <div class="member-info">
+                <span class="member-index" aria-hidden="true">03</span>
                 <span class="member-label">Ventas</span>
 
                 <h2 class="member-name" id="miembro-2">Moises Guerra</h2>
@@ -175,8 +207,8 @@
                 </ul>
 
                 <ul class="member-social">
-                    <li><a href="#" aria-label="Instagram de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
-                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la segunda persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                    <li><a href="#" aria-label="Instagram de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
                 </ul>
             </div>
 
@@ -184,39 +216,38 @@
     </section>
 
     <!-- Persona 03 · foto a la izquierda -->
-    <section class="member member--tono-a" aria-labelledby="miembro-3">
-        <span class="member-ghost" aria-hidden="true">03</span>
+    <section class="member member--tono-b member--invertida" aria-labelledby="miembro-4">
+        <span class="member-ghost" aria-hidden="true">04</span>
         <div class="member-inner reveal">
 
             <figure class="member-portrait">
                 <span class="member-monogram" aria-hidden="true">NA</span>
-                <img class="member-photo" src="../equipo/equipo-3.webp"
+                <img class="member-photo" src="../equipo/equipo-4.webp"
                      alt="Retrato de la tercera persona del equipo de Bytes"
                      width="896" height="1195" loading="lazy" decoding="async">
             </figure>
 
             <div class="member-info">
-                <span class="member-index" aria-hidden="true">03</span>
-                <span class="member-label">Diseño</span>
+                <span class="member-index" aria-hidden="true">04</span>
+                <span class="member-label">Ventas</span>
 
-                <h2 class="member-name" id="miembro-3">Nombre Apellido</h2>
-                <p class="member-role">Cargo dentro de Bytes</p>
+                <h2 class="member-name" id="miembro-3">Jesus Martins</h2>
+                <p class="member-role">SDR</p>
 
                 <p class="member-bio">
-                    Tres o cuatro frases sobre esta persona: qué hace en Bytes,
-                    en qué proyectos ha trabajado y qué aporta al equipo.
-                    Sustituye este texto por el real.
+                    Parte del equipo de ventas de Bytes, diseñó un enfoque propio
+                    que ha impulsado el crecimiento comercial de la empresa.
                 </p>
 
                 <ul class="member-skills">
-                    <li>Habilidad uno</li>
-                    <li>Habilidad dos</li>
-                    <li>Habilidad tres</li>
+                    <li>Atención</li>
+                    <li>Negociador</li>
+                    <li>Cierre de ventas</li>
                 </ul>
 
                 <ul class="member-social">
-                    <li><a href="#" aria-label="Instagram de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
-                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la tercera persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
+                    <li><a href="#" aria-label="Instagram de la cuarta persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></li>
+                    <li><a href="mailto:contacto@bytes.com" aria-label="Correo de la cuarta persona del equipo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a></li>
                 </ul>
             </div>
 
