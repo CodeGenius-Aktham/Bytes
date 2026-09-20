@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente IA - Orbe Verde Líquido</title>
+    <title>ANA AI | Bytes</title>
+    <meta name="description" content="Habla con ANA, la inteligencia artificial empresarial de Bytes. Versión de demostración.">
+    <meta name="theme-color" content="#101820">
+
+    <link rel="icon" href="../recursos_bytes/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../recursos_bytes/apple-touch-icon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bytes">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ANA AI | Bytes">
+    <meta property="og:description" content="Habla con ANA, la inteligencia artificial empresarial de Bytes.">
+    <meta property="og:image" content="../recursos_bytes/Logo Bytes-57.png">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,14 +35,42 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Navbar y footer compartidos con el resto del sitio. Van después del CDN de
+         Tailwind para que sus reglas no las pise el preflight. -->
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/chrome.css">
     <style>
-        html, body {
-            height: 100%;
-        }
         body {
             font-family: 'Outfit', sans-serif;
-            height: 100svh;
-            height: 100dvh;
+        }
+
+        /* La demo ocupa la ventana menos la barra fija de 44px; el footer del
+           sitio queda debajo, al hacer scroll. */
+        #anaDemoShell {
+            margin-top: 44px;
+            height: calc(100svh - 44px);
+            height: calc(100dvh - 44px);
+            overflow: hidden;
+        }
+
+        /* El navbar y el footer conservan la tipografía del sitio, no la de la demo */
+        .apple-navbar,
+        .unique-footer {
+            font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        /* .footer-content sólo está definido en Ana-doc.css y esta página no carga esa hoja */
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* La curva empalma con lo que tiene encima: aquí la demo es blanca, no #D7D7D6 */
+        .footer-curve {
+            background: #fff;
         }
         /* Liquid Glass effect customized for clean white theme with green tones */
         .liquid-glass {
@@ -106,7 +147,33 @@
         }
     </style>
 </head>
-<body class="bg-white text-slate-800 flex flex-col overflow-hidden selection:bg-emerald-500 selection:text-white" style="height: 100svh; height: 100dvh;">
+<body class="bg-white text-slate-800 selection:bg-emerald-500 selection:text-white">
+
+<nav class="apple-navbar">
+    <div class="navbar-content">
+        <a href="../index.html" class="nav-logo">
+            <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" width="18" height="18" decoding="async">
+        </a>
+        
+        <button class="menu-toggle" id="mobile-menu" type="button"
+                aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-list">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <ul class="nav-list" id="nav-list">
+            <li><a href="ana.html">ANA</a></li>
+            <li><a href="desarrollo-web.html">Web</a></li>
+            <li><a href="sistemas-apps.html">Sistemas</a></li>
+            <li><a href="ana-doc.html">Documentación</a></li>
+            <li><a href="../Navegacion_Bytes/proyectos.html">Proyectos</a></li>
+            <li><a href="../Navegacion_Bytes/nuestro-equipo.html">Equipo</a></li>
+            <li><a href="../Navegacion_Bytes/fundadores.html">Fundadores</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="anaDemoShell" class="flex flex-col">
 
     <p style="color: #16a34a; font-size: clamp(0.7rem, 1.2vw + 0.4rem, 0.8rem); text-align: center; padding: 0.5rem 1rem 0 1rem; flex-shrink: 0;">
         Esta version es una DEMO, por lo cual algunas funciones pueden no estar disponibles y otras pueden cometer errores.
@@ -154,7 +221,7 @@
     </div>
 
     <!-- Controls & Prompt Input Footer con Liquid Glass Verde y botones ordenados -->
-    <footer class="w-full px-4 sm:px-6 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] z-10 flex flex-col items-center flex-shrink-0">
+    <div class="w-full px-4 sm:px-6 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] z-10 flex flex-col items-center flex-shrink-0">
         <div class="max-w-3xl w-full flex items-center gap-2 sm:gap-3 liquid-glass rounded-2xl p-2 sm:p-2.5 transition-all focus-within:ring-2 focus-within:ring-emerald-500/30">
             <input type="text" id="userInput" placeholder="Escribe un mensaje..." 
                 class="flex-1 min-w-0 bg-transparent border-none px-3 sm:px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none">
@@ -169,7 +236,54 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
             </button>
         </div>
-    </footer>
+    </div>
+
+</div>
+
+<footer class="unique-footer">
+    <div class="footer-curve"></div> <div class="footer-content">
+        <div class="footer-hero">
+            <h2 class="footer-big-text">¿Listo para el <br> <span class="glitch-text">Siguiente Nivel?</span></h2>
+            <a href="mailto:contacto@bytes.com" class="footer-cta-orbital">
+                <span class="cta-inner">Hablemos</span>
+                <div class="cta-ring"></div>
+            </a>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-brand">
+                <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" class="footer-mini-logo" width="30" height="30" loading="lazy" decoding="async">
+                <p>© 2026 Bytes. Hecho con ingeniería de alto impacto.</p>
+            </div>
+
+            <nav class="footer-nav">
+                <div class="nav-group">
+                    <a href="../index.html">Inicio</a>
+                    <a href="ana.html">ANA AI</a>
+                </div>
+                <div class="nav-group">
+                    <a href="../Navegacion_Bytes/fundadores.html">Fundadores</a>
+                    <a href="../Navegacion_Bytes/nuestro-equipo.html">Equipo</a>
+                    <a href="../Navegacion_Bytes/proyectos.html">Proyectos</a>
+                </div>
+            </nav>
+            <div class="nav-group social-nodes">
+    <a href="#" class="social-link" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </a>
+    <a href="https://www.instagram.com/bytes_technology/" class="social-link" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="X (Twitter)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768m2.46-2.46L20 4"></path></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+    </a>
+</div>
+        </div>
+    </div>
+</footer>
 
     <!-- Script de animación del orbe verde puro y conexión con el backend Flask -->
     <script>
@@ -606,5 +720,7 @@
             });
         }
     </script>
+
+    <script src="../JS/nav.js" defer></script>
 </body>
 </html>
