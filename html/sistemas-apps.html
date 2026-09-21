@@ -191,12 +191,10 @@
             </div>
         </div>
 
-        <form class="contact-form" action="https://formsubmit.co/contactosbytes@gmail.com" method="POST">
-            <!-- Ajustes de FormSubmit, no son datos del visitante: asunto del
-                 correo, formato de tabla y sin su captcha intermedio. -->
-            <input type="hidden" name="_subject" value="Nueva solicitud de proyecto — Sistemas y Apps">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
+        <form class="contact-form" action="../contacto.php" method="POST">
+            <!-- De qué página viene la solicitud: contacto.php lo usa para el
+                 asunto del correo, y así se distingue de un vistazo. -->
+            <input type="hidden" name="_origen" value="Sistemas y Apps">
             <!-- Trampa antispam: invisible para las personas, los bots la rellenan. -->
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
 

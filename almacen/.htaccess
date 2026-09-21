@@ -1,0 +1,3 @@
+# El almacén guarda datos personales de quien escribe por el formulario.
+# Nadie debe poder leerlo desde el navegador.
+Require all denied

@@ -1,14 +1,13 @@
 /* ============================================================
    CONTACTO.JS — Envío de los formularios de contacto de Bytes.
 
-   El sitio es estático, así que no hay backend propio: el envío se
-   delega en FormSubmit, que reenvía los campos al correo indicado
-   en el action del <form>.
+   El trabajo de verdad lo hace contacto.php, en el servidor. Este
+   script sólo evita la recarga de página: manda los campos por fetch
+   y escribe la respuesta debajo del botón.
 
-   El formulario ya funciona sin JavaScript (POST normal al endpoint,
-   con la página de gracias de FormSubmit). Este script mejora esa
-   base: envía por fetch al endpoint /ajax/, informa del resultado en
-   la misma página y evita el salto a un sitio externo.
+   Sin JavaScript el formulario sigue funcionando: el navegador hace
+   el POST normal del action y contacto.php responde con su propia
+   página de confirmación.
    ============================================================ */
 (function () {
     'use strict';
@@ -21,10 +20,6 @@
     const boton = form.querySelector('.btn-send');
     const estado = form.querySelector('.form-status');
     const etiquetaBoton = boton ? boton.textContent : '';
-
-    // El action apunta al endpoint normal (el que sirve de reserva sin JS);
-    // para fetch usamos el de AJAX, que responde JSON en vez de redirigir.
-    const endpointAjax = form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
     const mostrar = (mensaje, tipo) => {
         if (!estado) return;
@@ -42,19 +37,26 @@
         mostrar('Enviando tu solicitud...', 'cargando');
 
         try {
-            const res = await fetch(endpointAjax, {
+            // El Accept es lo que le dice a contacto.php que responda JSON
+            // en vez de su página de confirmación.
+            const res = await fetch(form.action, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: new FormData(form)
             });
 
-            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const datos = await res.json();
 
-            mostrar('¡Listo! Recibimos tu solicitud y te respondemos en menos de 24 horas.', 'ok');
-            form.reset();
+            if (datos.ok) {
+                mostrar(datos.mensaje, 'ok');
+                form.reset();
+            } else {
+                // Validación o fallo de envío: el servidor ya explica el motivo.
+                mostrar(datos.mensaje, 'error');
+            }
         } catch (err) {
             console.error('No se pudo enviar el formulario:', err);
-            mostrar('No pudimos enviar tu solicitud. Escríbenos a contactosbytes@gmail.com', 'error');
+            mostrar('No pudimos enviar tu solicitud. Revisa tu conexión e inténtalo de nuevo.', 'error');
         } finally {
             if (boton) {
                 boton.disabled = false;

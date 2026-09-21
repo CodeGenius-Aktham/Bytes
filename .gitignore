@@ -1,0 +1,6 @@
+# Credenciales del formulario de contacto: nunca al repositorio.
+contacto-config.php
+
+# Solicitudes guardadas y control de límite por IP.
+almacen/*.log
+almacen/*.json
