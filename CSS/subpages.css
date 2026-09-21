@@ -753,3 +753,31 @@
         scroll-behavior: auto !important;
     }
 }
+
+/* Mensaje de resultado del envío, lo rellena JS/contacto.js */
+.form-status {
+    margin-top: 16px;
+    min-height: 1.5em;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.form-status.is-cargando { color: #888; }
+.form-status.is-ok       { color: var(--brand-green); font-weight: 600; }
+.form-status.is-error    { color: #c0392b; font-weight: 600; }
+
+.btn-send:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Marca los campos que no son obligatorios, dentro del <label> */
+.label-opcional {
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #aaa;
+}

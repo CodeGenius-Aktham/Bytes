@@ -191,15 +191,33 @@
             </div>
         </div>
 
-        <form class="contact-form">
+        <form class="contact-form" action="https://formsubmit.co/contactosbytes@gmail.com" method="POST">
+            <!-- Ajustes de FormSubmit, no son datos del visitante: asunto del
+                 correo, formato de tabla y sin su captcha intermedio. -->
+            <input type="hidden" name="_subject" value="Nueva solicitud de proyecto — Sistemas y Apps">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <!-- Trampa antispam: invisible para las personas, los bots la rellenan. -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+
             <div class="form-group">
-                <label>Nombre Completo</label>
-                <input type="text" placeholder="Ej. Abel Ghanam" required>
+                <label for="sis-nombre">Nombre Completo</label>
+                <input id="sis-nombre" name="Nombre" type="text" placeholder="Ej. Abel Ghanam" autocomplete="name" required>
             </div>
 
             <div class="form-group">
-                <label>Nivel de Urgencia</label>
-                <select>
+                <label for="sis-email">Correo Electrónico</label>
+                <input id="sis-email" name="email" type="email" placeholder="Ej. abel@empresa.com" autocomplete="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sis-telefono">Teléfono <span class="label-opcional">(opcional)</span></label>
+                <input id="sis-telefono" name="Telefono" type="tel" placeholder="Ej. +57 300 000 0000" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+                <label for="sis-urgencia">Nivel de Urgencia</label>
+                <select id="sis-urgencia" name="Urgencia">
                     <option>Inmediata (Sprint)</option>
                     <option>Estándar (Pro)</option>
                     <option>Planificación (Enterprise)</option>
@@ -207,11 +225,12 @@
             </div>
 
             <div class="form-group">
-                <label>Detalles del Proyecto</label>
-                <textarea placeholder="Describe qué funcionalidades y cuántas secciones necesitas en tu web..."></textarea>
+                <label for="sis-detalles">Detalles del Proyecto</label>
+                <textarea id="sis-detalles" name="Detalles" placeholder="Describe qué funcionalidades y cuántas secciones necesitas en tu web..." required></textarea>
             </div>
 
             <button type="submit" class="btn-send">Enviar Solicitud de Proyecto</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
         </form>
     </div>
 </section>
@@ -292,6 +311,7 @@
 
     <script src="../JS/nav.js" defer></script>
     <script src="../JS/effects.js" defer></script>
+    <script src="../JS/contacto.js" defer></script>
 </body>
 
 </html>
