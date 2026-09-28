@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         SEGURIDAD
+         Esta página no admite ninguna entrada del usuario y no ejecuta
+         nada que no venga de este mismo dominio. La política de abajo
+         lo impone en el navegador aunque alguien lograra colar HTML:
+           · sin scripts inline ni de terceros (bloquea XSS/inyección)
+           · sin estilos inline ni hojas externas
+           · sin formularios, sin <object>/<embed>, sin <base> ajeno
+           · ninguna conexión saliente (fetch/XHR/WebSocket)
+         El servidor manda además las mismas cabeceras (ver .htaccess),
+         incluida frame-ancestors, que en <meta> no tiene efecto.
+         ============================================================ -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>Términos y Privacidad | Bytes</title>
+    <meta name="description" content="Términos y condiciones de uso y política de privacidad y tratamiento de datos personales de Bytes.">
+    <meta name="theme-color" content="#101820">
+    <meta name="color-scheme" content="dark">
+    <meta name="robots" content="index, follow">
+
+    <link rel="icon" href="../recursos_bytes/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../recursos_bytes/apple-touch-icon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bytes">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="Términos y Privacidad | Bytes">
+    <meta property="og:description" content="Cómo trabajamos y cómo cuidamos tus datos.">
+
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/chrome.css">
+    <link rel="stylesheet" href="../CSS/legal.css">
+</head>
+
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<nav class="apple-navbar">
+    <div class="navbar-content">
+        <a href="../index.html" class="nav-logo">
+            <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" width="18" height="18" decoding="async">
+        </a>
+
+        <button class="menu-toggle" id="mobile-menu" type="button"
+                aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-list">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <ul class="nav-list" id="nav-list">
+            <li><a href="../html/ana.html">ANA</a></li>
+            <li><a href="../html/desarrollo-web.html">Web</a></li>
+            <li><a href="../html/sistemas-apps.html">Sistemas</a></li>
+            <li><a href="../html/ana-doc.html">Documentación</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="nuestro-equipo.html">Equipo</a></li>
+            <li><a href="fundadores.html">Fundadores</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main id="contenido">
+
+    <header class="legal-hero">
+        <p class="legal-eyebrow">Legal</p>
+        <h1 class="legal-title">Términos y Privacidad</h1>
+        <p class="legal-lead">
+            Lo que puedes esperar de nosotros, lo que esperamos de ti y qué
+            hacemos con los datos que nos confías. Sin letra pequeña.
+        </p>
+        <p class="legal-updated">Última actualización: <time datetime="2026-09-28">28 de septiembre de 2026</time></p>
+    </header>
+
+    <div class="legal-layout">
+
+        <nav class="legal-toc" aria-label="Índice del documento">
+            <p class="legal-toc-title">En esta página</p>
+            <ol>
+                <li><a href="#terminos">Términos y condiciones</a>
+                    <ol>
+                        <li><a href="#t-aceptacion">Aceptación</a></li>
+                        <li><a href="#t-servicios">Servicios</a></li>
+                        <li><a href="#t-uso">Uso permitido</a></li>
+                        <li><a href="#t-propiedad">Propiedad intelectual</a></li>
+                        <li><a href="#t-ana">ANA</a></li>
+                        <li><a href="#t-responsabilidad">Responsabilidad</a></li>
+                        <li><a href="#t-enlaces">Enlaces externos</a></li>
+                        <li><a href="#t-cambios">Cambios</a></li>
+                        <li><a href="#t-ley">Ley aplicable</a></li>
+                    </ol>
+                </li>
+                <li><a href="#privacidad">Política de privacidad</a>
+                    <ol>
+                        <li><a href="#p-responsable">Responsable</a></li>
+                        <li><a href="#p-datos">Datos que recogemos</a></li>
+                        <li><a href="#p-finalidad">Para qué los usamos</a></li>
+                        <li><a href="#p-base">Base legal</a></li>
+                        <li><a href="#p-conservacion">Conservación</a></li>
+                        <li><a href="#p-terceros">Terceros</a></li>
+                        <li><a href="#p-cookies">Cookies</a></li>
+                        <li><a href="#p-seguridad">Seguridad</a></li>
+                        <li><a href="#p-derechos">Tus derechos</a></li>
+                        <li><a href="#p-menores">Menores</a></li>
+                    </ol>
+                </li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ol>
+        </nav>
+
+        <div class="legal-doc">
+
+            <!-- ======================= TÉRMINOS ======================= -->
+            <section class="legal-part" id="terminos" aria-labelledby="terminos-titulo">
+                <p class="legal-part-num">01</p>
+                <h2 class="legal-part-title" id="terminos-titulo">Términos y condiciones</h2>
+
+                <section class="legal-block" id="t-aceptacion">
+                    <h3>1. Aceptación</h3>
+                    <p>
+                        Estos términos regulan el uso de este sitio web y de los servicios
+                        que Bytes ofrece a través de él. Al navegar por el sitio o enviarnos
+                        una solicitud, aceptas estas condiciones. Si no estás de acuerdo con
+                        ellas, te pedimos que no uses el sitio.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-servicios">
+                    <h3>2. Servicios</h3>
+                    <p>
+                        Bytes es un estudio de ingeniería de software e inteligencia artificial
+                        que diseña y construye sitios web, sistemas, aplicaciones y soluciones
+                        basadas en ANA, nuestra IA propia.
+                    </p>
+                    <p>
+                        La información publicada en el sitio es orientativa. Cada proyecto se
+                        rige por la propuesta o el contrato que firmemos con el cliente, que
+                        define alcance, plazos, precio y garantías. Si ese documento y estos
+                        términos dicen cosas distintas, prevalece el contrato.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-uso">
+                    <h3>3. Uso permitido</h3>
+                    <p>Puedes usar el sitio libremente para conocernos y contactarnos. No está permitido:</p>
+                    <ul>
+                        <li>Intentar acceder sin autorización a servidores, archivos o datos del sitio.</li>
+                        <li>Introducir código malicioso, realizar inyecciones de código o SQL, ataques XSS o cualquier técnica que busque alterar su funcionamiento.</li>
+                        <li>Sobrecargar el sitio con envíos automatizados, <i>scraping</i> masivo o ataques de denegación de servicio.</li>
+                        <li>Enviar a través del formulario información falsa, ofensiva o de terceros sin su permiso.</li>
+                        <li>Hacerte pasar por Bytes o por cualquier miembro de nuestro equipo.</li>
+                    </ul>
+                    <p>
+                        Registramos y bloqueamos los intentos de abuso, y podemos denunciarlos
+                        ante las autoridades competentes.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-propiedad">
+                    <h3>4. Propiedad intelectual</h3>
+                    <p>
+                        El nombre y el logotipo de Bytes, el diseño del sitio, sus textos,
+                        imágenes, código y la marca ANA son propiedad de Bytes o de sus
+                        titulares, y están protegidos por las leyes de propiedad intelectual.
+                        No puedes copiarlos, modificarlos ni usarlos con fines comerciales sin
+                        nuestro permiso por escrito.
+                    </p>
+                    <p>
+                        La titularidad del software que desarrollamos para un cliente se
+                        establece en el contrato de cada proyecto.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-ana">
+                    <h3>5. ANA y contenido generado por IA</h3>
+                    <p>
+                        Las respuestas de ANA se generan de forma automática y pueden contener
+                        errores. Son una ayuda, no un consejo profesional, legal, médico ni
+                        financiero. Revisa la información importante antes de tomar decisiones
+                        basadas en ella, y no compartas con ANA contraseñas, datos bancarios ni
+                        información sensible.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-responsabilidad">
+                    <h3>6. Limitación de responsabilidad</h3>
+                    <p>
+                        Trabajamos para que el sitio esté disponible y sea seguro, pero no podemos
+                        garantizar que funcione sin interrupciones ni errores. En la medida en que
+                        lo permita la ley, Bytes no responde de daños derivados del uso del sitio,
+                        de su indisponibilidad temporal ni de decisiones tomadas únicamente con
+                        base en su contenido informativo.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-enlaces">
+                    <h3>7. Enlaces externos</h3>
+                    <p>
+                        El sitio enlaza a servicios de terceros como Instagram o GitHub. No
+                        controlamos esos sitios ni respondemos de su contenido o de cómo tratan
+                        tus datos: al visitarlos se aplican sus propias condiciones.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-cambios">
+                    <h3>8. Cambios en estos términos</h3>
+                    <p>
+                        Podemos actualizar estos términos cuando cambien nuestros servicios o la
+                        ley. La fecha de la parte superior indica la última revisión. Si el cambio
+                        es importante, lo avisaremos de forma visible en el sitio.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="t-ley">
+                    <h3>9. Ley aplicable</h3>
+                    <p>
+                        Estos términos se rigen por las leyes de la República de Colombia.
+                        Cualquier controversia se intentará resolver primero de forma directa y
+                        amistosa; si no es posible, se someterá a los jueces competentes de
+                        Bogotá D.C., salvo que la ley de protección al consumidor de tu país te
+                        conceda otro fuero.
+                    </p>
+                </section>
+            </section>
+
+            <!-- ======================= PRIVACIDAD ======================= -->
+            <section class="legal-part" id="privacidad" aria-labelledby="privacidad-titulo">
+                <p class="legal-part-num">02</p>
+                <h2 class="legal-part-title" id="privacidad-titulo">Política de privacidad</h2>
+
+                <p class="legal-intro">
+                    Esta política cumple con la Ley Estatutaria 1581 de 2012 de Colombia y su
+                    Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) sobre protección
+                    de datos personales, y con los principios que recoge la Constitución de la
+                    República Bolivariana de Venezuela (art. 28, <i>habeas data</i>).
+                </p>
+
+                <section class="legal-block" id="p-responsable">
+                    <h3>1. Responsable del tratamiento</h3>
+                    <dl class="legal-facts">
+                        <div><dt>Responsable</dt><dd>Bytes</dd></div>
+                        <div><dt>Correo</dt><dd><a href="mailto:contactosbytes@gmail.com">contactosbytes@gmail.com</a></dd></div>
+                        <div><dt>Ámbito</dt><dd>Colombia y Venezuela</dd></div>
+                    </dl>
+                </section>
+
+                <section class="legal-block" id="p-datos">
+                    <h3>2. Datos que recogemos</h3>
+                    <p>Sólo recogemos lo que nos das tú, y lo mínimo imprescindible:</p>
+                    <ul>
+                        <li><strong>Formulario de contacto:</strong> nombre, correo electrónico, teléfono (opcional), urgencia del proyecto y la descripción que escribas.</li>
+                        <li><strong>Datos técnicos:</strong> la dirección IP desde la que se envía el formulario y la fecha y hora del envío.</li>
+                        <li><strong>Conversaciones con ANA:</strong> el texto de las consultas que le hagas, para poder responderlas.</li>
+                    </ul>
+                    <p>
+                        No te pedimos datos sensibles (salud, religión, orientación sexual,
+                        biométricos…) y te pedimos que no los incluyas en tus mensajes.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-finalidad">
+                    <h3>3. Para qué los usamos</h3>
+                    <ul>
+                        <li>Responder a tu solicitud y preparar una propuesta.</li>
+                        <li>Mantener la comunicación durante el proyecto, si llegamos a trabajar juntos.</li>
+                        <li>Proteger el sitio: la IP se usa para limitar el número de envíos por hora y frenar el spam y los ataques automatizados.</li>
+                        <li>Cumplir obligaciones legales, contables y fiscales.</li>
+                    </ul>
+                    <p>
+                        <strong>No vendemos, alquilamos ni cedemos tus datos</strong> a terceros con
+                        fines comerciales, y no te enviaremos publicidad sin tu consentimiento expreso.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-base">
+                    <h3>4. Base legal</h3>
+                    <p>
+                        Tratamos tus datos porque nos das tu consentimiento al enviar el
+                        formulario, porque son necesarios para las gestiones previas a un contrato
+                        que tú solicitas, y por nuestro interés legítimo en mantener el sitio
+                        seguro. Puedes retirar tu consentimiento en cualquier momento.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-conservacion">
+                    <h3>5. Cuánto tiempo los conservamos</h3>
+                    <ul>
+                        <li><strong>Registro de límite de envíos (IP):</strong> se descarta automáticamente al cabo de una hora.</li>
+                        <li><strong>Solicitudes de contacto:</strong> mientras dure la relación comercial y, si no llegamos a trabajar juntos, un máximo de 12 meses.</li>
+                        <li><strong>Datos de clientes:</strong> el tiempo que exijan las obligaciones legales, contables y fiscales.</li>
+                    </ul>
+                    <p>Pasados esos plazos, los datos se eliminan de forma segura.</p>
+                </section>
+
+                <section class="legal-block" id="p-terceros">
+                    <h3>6. Con quién los compartimos</h3>
+                    <p>
+                        Sólo con los proveedores que necesitamos para funcionar, que actúan por
+                        cuenta nuestra y con las garantías que exige la ley:
+                    </p>
+                    <ul>
+                        <li><strong>Proveedor de alojamiento</strong> del sitio web, donde se procesa el formulario.</li>
+                        <li><strong>Google (Gmail)</strong>, donde recibimos los correos de contacto.</li>
+                    </ul>
+                    <p>
+                        Algunos de estos proveedores pueden almacenar datos fuera de Colombia o
+                        Venezuela. Al enviarnos tus datos autorizas esa transferencia, que sólo
+                        hacemos a proveedores con niveles adecuados de protección. También
+                        entregaremos datos a una autoridad cuando una orden legal nos obligue.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-cookies">
+                    <h3>7. Cookies</h3>
+                    <p>
+                        Este sitio <strong>no usa cookies</strong> de seguimiento, publicidad ni
+                        analítica, y no incluye rastreadores de terceros. Si algún día los
+                        incorporamos, actualizaremos esta política y te pediremos permiso antes
+                        de activarlos.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-seguridad">
+                    <h3>8. Cómo protegemos tus datos</h3>
+                    <p>
+                        La seguridad es parte de nuestro oficio, no un añadido. Entre otras medidas:
+                    </p>
+                    <ul>
+                        <li>Validamos y limpiamos en el servidor todo lo que llega por el formulario, para impedir la inyección de código y de cabeceras de correo.</li>
+                        <li>Las páginas aplican una Política de Seguridad de Contenidos (CSP) que impide ejecutar scripts no autorizados, y cabeceras que bloquean el <i>clickjacking</i> y el rastreo del tipo de archivo.</li>
+                        <li>Los datos guardados en el servidor están en una carpeta inaccesible desde internet.</li>
+                        <li>Las credenciales del servidor de correo se guardan fuera del código fuente.</li>
+                        <li>Limitamos los envíos por IP y usamos un campo trampa contra bots.</li>
+                        <li>La comunicación viaja cifrada mediante HTTPS.</li>
+                    </ul>
+                    <p>
+                        Ningún sistema es invulnerable. Si detectamos una brecha que afecte a tus
+                        datos, te lo comunicaremos a ti y a la autoridad competente en los plazos
+                        que marca la ley. Si encuentras una vulnerabilidad, escríbenos: la
+                        corregiremos y te lo agradeceremos.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-derechos">
+                    <h3>9. Tus derechos</h3>
+                    <p>En cualquier momento, y sin coste, puedes:</p>
+                    <ul>
+                        <li><strong>Conocer</strong> qué datos tuyos tenemos y cómo los usamos.</li>
+                        <li><strong>Actualizar y rectificar</strong> los que sean inexactos o estén incompletos.</li>
+                        <li><strong>Suprimir</strong> tus datos o <strong>revocar</strong> la autorización que nos diste.</li>
+                        <li><strong>Pedir prueba</strong> de la autorización otorgada.</li>
+                        <li><strong>Presentar una queja</strong> ante la Superintendencia de Industria y Comercio (SIC) de Colombia, después de haber acudido a nosotros.</li>
+                    </ul>
+                    <p>
+                        Escríbenos a <a href="mailto:contactosbytes@gmail.com">contactosbytes@gmail.com</a>
+                        indicando tu nombre y lo que necesitas. Atenderemos las consultas en un
+                        máximo de 10 días hábiles y los reclamos en un máximo de 15 días hábiles,
+                        como establece la Ley 1581 de 2012. Para proteger tus datos podemos
+                        pedirte que verifiques tu identidad.
+                    </p>
+                </section>
+
+                <section class="legal-block" id="p-menores">
+                    <h3>10. Menores de edad</h3>
+                    <p>
+                        Nuestros servicios están dirigidos a empresas y a personas mayores de
+                        edad. No recogemos a sabiendas datos de menores; si descubrimos que lo
+                        hemos hecho, los eliminaremos.
+                    </p>
+                </section>
+            </section>
+
+            <section class="legal-contact" id="contacto" aria-labelledby="contacto-titulo">
+                <h2 id="contacto-titulo">¿Alguna duda?</h2>
+                <p>
+                    Si algo de este documento no está claro o quieres ejercer tus derechos,
+                    escríbenos. Te responde una persona, no un formulario automático.
+                </p>
+                <a class="legal-contact-btn" href="mailto:contactosbytes@gmail.com">contactosbytes@gmail.com</a>
+            </section>
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="unique-footer">
+    <div class="footer-curve"></div> <div class="footer-content">
+        <div class="footer-hero">
+            <h2 class="footer-big-text">¿Listo para el <br> <span class="glitch-text">Siguiente Nivel?</span></h2>
+            <a href="mailto:contacto@bytes.com" class="footer-cta-orbital">
+                <span class="cta-inner">Hablemos</span>
+                <div class="cta-ring"></div>
+            </a>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-brand">
+                <img src="../recursos_bytes/Logo Bytes-57.png" alt="Bytes" class="footer-mini-logo" width="30" height="30" loading="lazy" decoding="async">
+                <p>© 2026 Bytes. Hecho con ingeniería de alto impacto.</p>
+            </div>
+
+            <nav class="footer-nav">
+                <div class="nav-group">
+                    <a href="../index.html">Inicio</a>
+                    <a href="../html/ana.html">ANA AI</a>
+                </div>
+                <div class="nav-group">
+                    <a href="fundadores.html">Fundadores</a>
+                    <a href="nuestro-equipo.html">Equipo</a>
+                    <a href="proyectos.html">Proyectos</a>
+                    <a href="legal.html" aria-current="page">Legal</a>
+                </div>
+            </nav>
+            <div class="nav-group social-nodes">
+    <a href="#" class="social-link" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </a>
+    <a href="https://www.instagram.com/bytes_technology/" class="social-link" aria-label="Instagram" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="X (Twitter)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768m2.46-2.46L20 4"></path></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+    </a>
+</div>
+        </div>
+    </div>
+</footer>
+
+    <script src="../JS/nav.js" defer></script>
+</body>
+</html>

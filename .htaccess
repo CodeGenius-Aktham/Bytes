@@ -1,0 +1,91 @@
+# ============================================================
+#  .HTACCESS — Endurecimiento de seguridad de todo el sitio.
+#
+#  Cabeceras que el navegador aplica a cada respuesta, bloqueo de
+#  archivos que no deben verse desde internet y un filtro básico
+#  contra peticiones con intentos de inyección.
+#
+#  La política estricta de contenidos (CSP completa) sólo se aplica,
+#  por ahora, a la página legal: el resto de páginas aún carga
+#  Tailwind y fuentes de terceros y usa estilos inline, y una CSP
+#  global las rompería. Ver el bloque <Files "legal.html">.
+# ============================================================
+
+# Sin listado de carpetas: /CSS/ o /equipo/ no muestran su contenido.
+Options -Indexes
+
+# ------------------------------------------------------------
+# Archivos que nunca se sirven
+# ------------------------------------------------------------
+
+# Archivos ocultos (.git, .htaccess, .env…)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Credenciales del formulario, documentación interna y registros.
+<FilesMatch "^(contacto-config.*\.php|.*\.(md|log|json|bak|old|orig|sql|sh|ini|env|swp)|.*~)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Cualquier ruta dentro de .git u otra carpeta oculta
+    # (menos .well-known, que usan los certificados HTTPS).
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule (^|/)\. - [F,L]
+
+    # Sólo los métodos que usa el sitio (TRACE, PUT, DELETE… fuera).
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|POST|OPTIONS)$
+    RewriteRule .* - [R=405,L]
+
+    # Filtro básico de inyección en la URL: etiquetas <script>, esquemas
+    # javascript:, recorrido de directorios, bytes nulos y SQL típico.
+    # El sitio no usa parámetros en la URL, así que no hay falsos positivos.
+    RewriteCond %{QUERY_STRING} (<|%3C).*(script|iframe|object|embed|svg).*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (javascript|vbscript|data)(:|%3A) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.%2F|%2E%2E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (%00|%0A|%0D) [NC,OR]
+    RewriteCond %{QUERY_STRING} (union.*select|select.*from|insert.*into|drop.*table|information_schema|sleep\(|benchmark\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (base64_(en|de)code|eval\(|GLOBALS|_REQUEST|/etc/passwd) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ------------------------------------------------------------
+# Cabeceras de seguridad (todo el sitio)
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+    # El navegador no adivina tipos: un .txt nunca se ejecuta como script.
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Nadie puede meter el sitio en un <iframe> ajeno (clickjacking).
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Content-Security-Policy "frame-ancestors 'self'; object-src 'none'; base-uri 'self'"
+
+    # Al salir hacia otro sitio sólo se envía el dominio, no la ruta.
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # APIs del navegador: todo cerrado salvo el micrófono, que usa ANA,
+    # y sólo para este mismo dominio.
+    Header always set Permissions-Policy "camera=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), microphone=(self), interest-cohort=()"
+
+    # Aísla la ventana de las que abran otros sitios (ataques tipo Spectre/tabnabbing).
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+
+    # Sólo HTTPS durante un año, cuando el sitio ya se sirve por HTTPS.
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+
+    # No anunciar versiones del servidor ni de PHP.
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+
+    # ---- Página legal: política de contenidos estricta ----
+    # Coincide con el <meta> de la página y añade frame-ancestors,
+    # que sólo funciona como cabecera.
+    <Files "legal.html">
+        Header always set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; manifest-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        Header always set X-Frame-Options "DENY"
+        Header always set Cross-Origin-Resource-Policy "same-origin"
+    </Files>
+</IfModule>

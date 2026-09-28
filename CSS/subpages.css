@@ -781,3 +781,20 @@
     letter-spacing: 0;
     color: #aaa;
 }
+
+/* Aviso legal sobre el botón de envío */
+.form-legal {
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #888;
+    text-align: center;
+}
+
+.form-legal a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.form-legal a:hover { color: var(--brand-green); }
